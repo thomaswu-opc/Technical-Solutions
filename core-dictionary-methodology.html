@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工程对象字典方法论｜BIM-CDE Core Dictionary</title>
+  <meta name="description" content="面向 BIM-CDE、自研 BIM/GIS/CIM 平台与工程自动化的工程对象字典方法论。" />
+  <link rel="stylesheet" href="shared-site.css" />
+  <style>
+    :root {
+      --bg: #f6f3ed;
+      --paper: #fffefa;
+      --ink: #18222d;
+      --muted: #5d6875;
+      --line: #d9e0e6;
+      --navy: #10263d;
+      --blue: #1f6f9f;
+      --teal: #1f8a83;
+      --gold: #b98736;
+      --green: #2d7d5f;
+      --red: #a4483c;
+      --soft-blue: #e8f2f6;
+      --soft-green: #eaf4ef;
+      --soft-gold: #f5ecdc;
+      --shadow: 0 18px 42px rgba(16, 38, 61, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fbfaf7 0%, var(--bg) 48%, #ece7de 100%);
+      line-height: 1.68;
+    }
+    a { color: inherit; }
+    .page-shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .hero {
+      padding: 72px 0 34px;
+      border-bottom: 1px solid rgba(217, 224, 230, .8);
+      background:
+        linear-gradient(135deg, rgba(16, 38, 61, .96), rgba(31, 111, 159, .88)),
+        url("https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=80") center/cover;
+      color: #fff;
+    }
+    .hero .page-shell { display: grid; gap: 28px; }
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      color: #dff6f6;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    h1, h2, h3 { line-height: 1.18; }
+    h1 {
+      max-width: 950px;
+      margin: 0;
+      font-size: clamp(34px, 6vw, 64px);
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 880px;
+      margin: 0;
+      color: rgba(255,255,255,.84);
+      font-size: clamp(17px, 2.1vw, 22px);
+    }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-meta span {
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      padding: 0 12px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.88);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .toc a {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,.09);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    main { padding: 28px 0 64px; }
+    section {
+      margin-top: 18px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 254, 250, .94);
+      box-shadow: var(--shadow);
+    }
+    section h2 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 36px); color: var(--navy); }
+    section h3 { margin: 0 0 8px; font-size: 20px; color: var(--navy); }
+    section p { margin: 0 0 12px; color: var(--muted); }
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 14px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card {
+      padding: 18px;
+      border: 1px solid rgba(217,224,230,.95);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .card.blue { background: var(--soft-blue); }
+    .card.green { background: var(--soft-green); }
+    .card.gold { background: var(--soft-gold); }
+    .kpi strong { display: block; color: var(--blue); font-size: 28px; line-height: 1; margin-bottom: 8px; }
+    .kpi span { color: var(--muted); font-size: 14px; }
+    .flow { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+    .flow .step {
+      min-height: 126px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .step b { display: block; color: var(--blue); margin-bottom: 8px; }
+    .step span { color: var(--muted); font-size: 13px; }
+    .matrix { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 12px 13px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { background: #edf3f6; color: var(--navy); font-weight: 900; }
+    tr:last-child td { border-bottom: 0; }
+    code { padding: 2px 5px; border-radius: 6px; background: #eef3f6; color: #113954; font-family: Consolas, "SFMono-Regular", monospace; font-size: .92em; }
+    .chain {
+      padding: 18px;
+      border-radius: 8px;
+      background: #0d1d2e;
+      color: #dfeff5;
+      overflow-x: auto;
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+    .note { border-left: 4px solid var(--gold); padding: 12px 14px; background: #fff8ec; color: #6b4a18; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .badges span { padding: 7px 10px; border-radius: 999px; background: #eef3f6; color: var(--navy); font-size: 12px; font-weight: 900; }
+    .section-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    .section-title-row p { max-width: 560px; }
+    footer.unified-footer { margin-top: 0; }
+    @media (max-width: 980px) {
+      .toc, .grid-2, .grid-3, .grid-4, .flow { grid-template-columns: 1fr; }
+      .hero { padding: 44px 0 26px; }
+      section { padding: 20px; }
+      .page-shell { width: min(100% - 28px, 1180px); }
+      table { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="unified-header">
+    <div class="header-container">
+      <a class="site-brand" href="./README.md"><span class="brand-line">Bussiness Plan</span><span class="brand-separator">｜</span><span class="brand-line">BIM + AI</span></a>
+      <button class="nav-toggle" type="button" aria-label="切换导航">菜单</button>
+      <nav class="site-nav nav-links" aria-label="站点导航">
+        <a href="./asset-revitalization-ai-bp.html">资产盘活</a>
+        <a href="./cad-ifc-review-executive-brief.html">CAD-IFC审查</a>
+        <a href="./report-site/index.html">幕墙正向设计</a>
+        <a href="./core-dictionary-methodology.html">对象字典</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="page-shell">
+      <span class="eyebrow">BIM-CDE Core Dictionary Methodology</span>
+      <h1>建筑全生命周期工程对象字典与数据联动方法论</h1>
+      <p class="lead">以工程实际业务为基础，建立独立于国标、IFC、Revit Category 的 Core Dictionary，通过映射层连接设计、招标、施工、造价、运维和 AI 自动化，让平台可以精准理解“对象是什么、属于哪里、需要哪些信息、能与什么系统联动”。</p>
+      <div class="hero-meta">
+        <span>面向 BIM-CDE / 自研 BIM + GIS + CIM 平台</span>
+        <span>负责人：吴宗谚 Thomas Wu</span>
+        <span>版本：2026-05-20</span>
+      </div>
+      <nav class="toc" aria-label="目录">
+        <a href="#problem">01 为什么需要对象字典</a>
+        <a href="#method">02 核心方法</a>
+        <a href="#dimensions">03 1D-5D 对象体系</a>
+        <a href="#pset">04 Pset 与信息深度</a>
+        <a href="#mapping">05 标准与软件映射</a>
+        <a href="#automation">06 AI 与自动化</a>
+        <a href="#implementation">07 工程实现路径</a>
+        <a href="#value">08 平台价值</a>
+        <a href="#governance">09 治理机制</a>
+        <a href="#roadmap">10 后续路线</a>
+      </nav>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <section id="problem">
+      <div class="section-title-row">
+        <div>
+          <h2>01｜为什么需要工程对象字典</h2>
+          <p>传统 BIM 分类通常依赖软件类别、企业编码或专业经验。它们可以支持建模和出图，但很难支撑跨软件、跨阶段、跨参建方的数据联动。</p>
+        </div>
+        <div class="badges"><span>设计</span><span>招标</span><span>施工</span><span>造价</span><span>运维</span><span>AI</span></div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>软件类别不等于工程语义</h3><p>Revit Category、IFC Entity、国标编码都各有用途，但不能直接作为平台内部唯一语义。比如“墙”在结构、建筑、防火、围护、装修中含义不同，不能只靠一个 Category 判断。</p></article>
+        <article class="card"><h3>项目阶段需要信息深度</h3><p>方案阶段只需要对象占位和大致尺寸；施工图、招标、施工、结算、运维阶段需要逐步补充材料、做法、工程量、合同责任、设备状态等信息。</p></article>
+        <article class="card"><h3>自动化需要可计算链路</h3><p>平台要自动生成明细表、查漏缺项、判断合同责任、执行 AI 查询，就必须知道对象的 domain、discipline、functionality、type、Pset 和映射关系。</p></article>
+      </div>
+    </section>
+
+    <section id="method">
+      <h2>02｜核心方法：原创语义内核 + 多层映射隔离</h2>
+      <p>Core Dictionary 不复制任何单一标准，而是先定义平台自己的工程语义，再通过映射层对接国标、地标、IFC、Revit、其他 BIM 软件和项目自定义属性。</p>
+      <div class="chain">Core Dictionary
+  -> semanticPath / dictionaryId
+  -> Domain + Discipline + Functionality + ObjectType
+  -> Pset / Property / LOIN
+  -> External Mapping
+      -> GB/T / 地标 / IFC / Revit Category / 软件属性 / 企业编码
+  -> Project Layer
+      -> SubType / Instance / SystemInstance / WorkPackage / ContractBOQItem</div>
+      <div class="grid-4" style="margin-top:14px">
+        <div class="card blue kpi"><strong>Domain</strong><span>对象处于哪一种业务维度：Project、System、Component、Part、Assembly、DrawingObject、ScheduleTask、CostObject 等。</span></div>
+        <div class="card green kpi"><strong>Discipline</strong><span>对象主要由哪个专业负责：Architecture、Structure、Facade、HVAC、Plumbing、Electrical、Interior 等。</span></div>
+        <div class="card gold kpi"><strong>Functionality</strong><span>对象承担什么功能：LoadBearing、FireProtection、Drainage、Conveying、AirConditioning、Acoustic、Thermal 等。</span></div>
+        <div class="card kpi"><strong>ObjectType</strong><span>程序字典定义到 Type；SubType 由项目定义，Instance 由设计师或系统创建。</span></div>
+      </div>
+    </section>
+
+    <section id="dimensions">
+      <h2>03｜1D-5D 对象体系</h2>
+      <p>Component / Part / Assembly 只适用于 3D 建模对象。项目、图纸、进度、造价各自有自己的层级逻辑，不能把 3D 的嵌套规则套到所有对象上。</p>
+      <div class="matrix">
+        <table>
+          <thead><tr><th>维度</th><th>对象域</th><th>典型 ObjectType</th><th>核心作用</th></tr></thead>
+          <tbody>
+            <tr><td>1D 信息对象</td><td>Project / System / Organization / Rule / Standard</td><td>Project、Stakeholder、ResponsibilityAssignment、CurtainWallSystem、AirConditioningSystem</td><td>承载项目、组织、系统、规则和责任信息，是跨模块联动的主索引。</td></tr>
+            <tr><td>2D 图纸对象</td><td>DrawingObject / Deliverable</td><td>DrawingSheet、DrawingView、Dimension、HatchPattern、LegendSymbol</td><td>支撑出图、图纸校审、图模一致性、交付物管理。</td></tr>
+            <tr><td>3D 模型对象</td><td>Space / Component / Part / Assembly</td><td>Wall、Window、Stair、StairBeam、CurtainWallMullion、Rebar、Concrete</td><td>支撑建模、可视化、出量、碰撞、深化、运维定位。</td></tr>
+            <tr><td>4D 进度对象</td><td>ScheduleTask / WorkPackage / Resource</td><td>SchedulePlan、WBS、Activity、ConstructionWorkPackage</td><td>连接模型对象与施工组织、工序、资源、进度计划。</td></tr>
+            <tr><td>5D 造价对象</td><td>CostObject / BOQ / QTO</td><td>BIMQuantity、TenderBOQItem、ContractBOQItem、CompositeUnitPrice、PaymentValuation</td><td>连接 BIM 实物量、清单计价、合同价款、变更和结算。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note" style="margin-top:14px">3D 中 Component 是建筑设计出图的最小业务单元；Part 是 Component 内可独立建模、计算、出量或深化的分部；Assembly 是 Part 或 Component 内部更细的材料、配件、零件或装配组成。</div>
+    </section>
+
+    <section id="pset">
+      <h2>04｜Pset 与 LOIN：让每个对象“刚好够用”</h2>
+      <p>每一种 Domain、Discipline、Functionality 都可以有自己的 Pset。ObjectType 的有效 Pset 是前面三层的合集，再加上 Type 自有 Pset。Pset 只定义字段结构、边界和信息要求，具体值属于项目 SubType 或 Instance。</p>
+      <div class="flow">
+        <div class="step"><b>Domain Pset</b><span>对象所属业务域的通用字段，例如 Component 身份、SystemRef。</span></div>
+        <div class="step"><b>Discipline Pset</b><span>专业字段，例如结构计算、机电系统、幕墙分格。</span></div>
+        <div class="step"><b>Functionality Pset</b><span>功能字段，例如承重、消防、防水、声学、热工。</span></div>
+        <div class="step"><b>Type Pset</b><span>具体类型字段，例如梁几何、窗扇、风管、合同清单项。</span></div>
+        <div class="step"><b>SubType Value</b><span>项目定义的类型值，例如 1000x1000 平开窗、C30 梁。</span></div>
+        <div class="step"><b>Instance Value</b><span>模型或业务系统中每个实例的编号、位置和实测参数。</span></div>
+      </div>
+      <div class="grid-2" style="margin-top:14px">
+        <article class="card"><h3>LOD 是显示与加载策略</h3><p>LOD 用于平台性能优化。城市级视图加载项目外观和道路设施，项目级视图加载 Component，双击进入 Part，再进入 Assembly，实现层级浏览。</p></article>
+        <article class="card"><h3>LOIN 是信息需求深度</h3><p>LOIN 决定不同阶段需要哪些属性。Pset 应覆盖该对象涉及阶段的必要信息，不让设计师填无关空值，也不让关键字段缺失。</p></article>
+      </div>
+    </section>
+
+    <section id="mapping">
+      <h2>05｜标准与软件映射：隔离层而不是依赖层</h2>
+      <p>Core Dictionary 必须具备原创性，同时可与外部标准双向映射。这样既能保持平台语义稳定，也能兼容设计院、施工单位、造价咨询、运维单位各自的软件和标准体系。</p>
+      <div class="matrix">
+        <table>
+          <thead><tr><th>映射对象</th><th>映射方式</th><th>用途</th><th>边界</th></tr></thead>
+          <tbody>
+            <tr><td>国标 / 地标</td><td>通过 ExternalMapping 记录标准编码、名称、适用条件、证据等级。</td><td>满足审查、交付、归档、政府平台或地方标准要求。</td><td>国标不反向决定 Core Type，只作为对照与校验依据。</td></tr>
+            <tr><td>IFC / openBIM</td><td>映射 IFC Entity、PredefinedType、PropertySet、IDS 约束。</td><td>支持跨软件交换、openBIM 交付、IFC 校验和长期归档。</td><td>IFC Entity 粒度不一定等于工程业务粒度，需要条件映射。</td></tr>
+            <tr><td>Revit / 其他 BIM 软件</td><td>映射 Category、Family、Type Name、Shared Parameter、内置参数。</td><td>支持插件自动识别、过滤、批量赋参、明细表生成。</td><td>软件字段只作为输入证据，不能成为平台唯一分类。</td></tr>
+            <tr><td>企业编码 / 项目编码</td><td>通过 displayCode、legacyCode、project subtype、instanceId 管理。</td><td>兼容历史表格、合同清单、项目命名习惯。</td><td>项目命名空间与 Core Dictionary 命名空间分离。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="automation">
+      <h2>06｜AI 与自动化：从“点选过滤”变成“语义查询”</h2>
+      <p>字典链路的最终目标不是把分类做漂亮，而是让用户少点选、少自定义、少研究过滤器。平台应该能预判用户意图，并把正确对象、属性、清单和责任边界自动查出来。</p>
+      <div class="grid-3">
+        <article class="card blue"><h3>语义查询</h3><p>用户说“我要所有消防相关构件”，系统过滤 <code>functionality=FireProtection</code>，跨 Architecture、Plumbing、Electrical、HVAC、Interior 返回结果。</p></article>
+        <article class="card green"><h3>自动明细表</h3><p>系统根据 ObjectType 的有效 Pset 自动生成字段，不需要用户手动研究 Revit 过滤器、共享参数和清单字段。</p></article>
+        <article class="card gold"><h3>查漏缺项</h3><p>招标模型可比对 BIMQuantity、TenderBOQItem、ContractBOQItem、WorkPackage，识别漏项、差值和责任边界。</p></article>
+      </div>
+      <div class="chain" style="margin-top:14px">User Intent: “查所有承重对象”
+  -> functionality = LoadBearing
+  -> ObjectType: Beam / StructuralWall / CurtainWallMullion / StairBeam / StairColumn / StairFlight
+  -> Effective Pset: Identity + SystemRef + LoadBearingCalc + TypeGeometry
+  -> Output: 明细表 / 校验项 / QTO / AI 解释 / Revit 过滤器</div>
+    </section>
+
+    <section id="implementation">
+      <h2>07｜工程实现路径：Excel 审阅主表 + JSON 执行包 + Core API</h2>
+      <p>业务侧用 Excel 审阅，程序侧用 JSON 执行，平台侧通过 Core API 消费。三者之间由导出脚本和 Validator 保证一致。</p>
+      <div class="grid-3">
+        <article class="card"><h3>Excel Review Workbook</h3><p>维护 DomainIndex、DisciplineIndex、FunctionalityIndex、ObjectTypes、PsetDefinitions、Decisions 等业务审阅内容。</p></article>
+        <article class="card"><h3>Generated JSON Package</h3><p>导出 <code>code-registry.json</code>、<code>type-definitions.json</code>、<code>pset-definitions.json</code> 等可执行数据。</p></article>
+        <article class="card"><h3>Core API & Simulator</h3><p>提供正向查询、反向索引、Pset 合集、Validator 和链路模拟，支撑后续插件、CDE 和 AI 应用。</p></article>
+      </div>
+      <div class="matrix" style="margin-top:14px">
+        <table>
+          <thead><tr><th>核心字段</th><th>作用</th><th>示例</th></tr></thead>
+          <tbody>
+            <tr><td><code>dictionaryId</code></td><td>短机器主键，用于程序、数据库、API、关系引用。</td><td><code>ot_jz6v6ocfvyto4cbv</code></td></tr>
+            <tr><td><code>semanticPath</code></td><td>结构化语义路径数组，避免分隔符歧义。</td><td><code>["core","type","component","structure","loadbearing","beam","v1"]</code></td></tr>
+            <tr><td><code>semanticCode</code></td><td>由 semanticPath 派生的可读路径。</td><td><code>core/type/component/structure/loadbearing/beam/v1</code></td></tr>
+            <tr><td><code>displayCode</code></td><td>面向 Excel、报告、文档、人工沟通的显示编码。</td><td><code>CORE-TYPE-CMP-STRUCT-LOADBEARING-BEAM-v1</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="value">
+      <h2>08｜对 BIM-CDE 平台的价值</h2>
+      <div class="grid-4">
+        <div class="card kpi"><strong>精准过滤</strong><span>按功能、专业、对象域、类型组合过滤，减少用户手工筛选。</span></div>
+        <div class="card kpi"><strong>自动赋参</strong><span>通过 Pset 合集知道该对象需要哪些字段，避免多填和漏填。</span></div>
+        <div class="card kpi"><strong>跨阶段联动</strong><span>设计对象可关联招标清单、合同清单、施工包、进度任务和运维资产。</span></div>
+        <div class="card kpi"><strong>AI 可理解</strong><span>AI 可以沿 dictionaryId、semanticPath、Pset、Mapping 进行语义推理。</span></div>
+      </div>
+    </section>
+
+    <section id="governance">
+      <h2>09｜治理机制：高内聚、低耦合、可演进</h2>
+      <p>字典是 BIM-CDE 的语义内核，必须与业务模块解耦。分类、映射、权限、数据敏感度、系统引用、项目实例都应有清晰边界。</p>
+      <div class="grid-2">
+        <article class="card"><h3>权限与敏感属性</h3><p>Pset Property 可声明 dataSensitivity、permissionDomain、defaultReadPolicy，后续由管理员配置模块访问、读取和操作权限。</p></article>
+        <article class="card"><h3>坐标与平台尺度</h3><p>自研 BIM + GIS + CIM 平台应采用局部平面坐标与大地坐标映射方案，支持项目坐标、国家大地 2000、地方坐标和父子对象局部坐标。</p></article>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>10｜后续路线</h2>
+      <div class="flow">
+        <div class="step"><b>V1</b><span>聚焦房建住宅项目，完成核心工程对象骨架。</span></div>
+        <div class="step"><b>V2</b><span>补齐 2D、4D、5D、招标、合同、运维、IoT 对象。</span></div>
+        <div class="step"><b>V3</b><span>完善国标、IFC、Revit、企业编码映射。</span></div>
+        <div class="step"><b>V4</b><span>接入 Revit 插件与模型查量、赋参、明细表自动化。</span></div>
+        <div class="step"><b>V5</b><span>接入 BIM-CDE 权限、流程、合同、进度和成本模块。</span></div>
+        <div class="step"><b>V6</b><span>形成 AI 语义查询、自动校审、自动报告和平台智能代理。</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="unified-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span>BIM-CDE Core Dictionary Methodology</span>
+        <strong>工程对象字典与数据联动方法论</strong>
+      </div>
+      <div class="footer-signature"><span class="signature-icon">◆</span><em>Thomas Wu</em></div>
+      <div class="footer-contact"><a href="mailto:thomaswu16@163.com">thomaswu16@163.com</a><span>13162253301</span></div>
+    </div>
+  </footer>
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', function () {
+      document.body.classList.toggle('nav-open');
+    });
+  </script>
+</body>
+</html>
