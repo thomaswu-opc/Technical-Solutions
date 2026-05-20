@@ -172,20 +172,24 @@
   </style>
 </head>
 <body>
-  <header class="unified-header">
+  <header class="unified-header" aria-label="页面导航">
     <div class="header-container">
-      <a class="site-brand" href="./README.md"><span class="brand-line">Bussiness Plan</span><span class="brand-separator">｜</span><span class="brand-line">BIM + AI</span></a>
+      <a class="site-brand" href="#top" aria-label="返回页面顶部"><span class="brand-line">工程对象字典方法论</span><span class="brand-separator">｜</span><span class="brand-line">BIM x AI</span></a>
       <button class="nav-toggle" type="button" aria-label="切换导航">菜单</button>
-      <nav class="site-nav nav-links" aria-label="站点导航">
-        <a href="./asset-revitalization-ai-bp.html">资产盘活</a>
-        <a href="./cad-ifc-review-executive-brief.html">CAD-IFC审查</a>
-        <a href="./report-site/index.html">幕墙正向设计</a>
-        <a href="./core-dictionary-methodology.html">对象字典</a>
+      <nav class="site-nav nav-links" aria-label="本页章节导航">
+        <a href="#problem">问题</a>
+        <a href="#method">方法</a>
+        <a href="#dimensions">对象体系</a>
+        <a href="#pset">Pset/LOIN</a>
+        <a href="#mapping">映射</a>
+        <a href="#automation">AI自动化</a>
+        <a href="#implementation">实现</a>
+        <a href="#roadmap">路线</a>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="top">
     <div class="page-shell">
       <span class="eyebrow">BIM-CDE Core Dictionary Methodology</span>
       <h1>建筑全生命周期工程对象字典与数据联动方法论</h1>
@@ -364,14 +368,15 @@
     </section>
   </main>
 
-  <footer class="unified-footer">
+  <footer class="site-footer unified-footer">
     <div class="footer-container">
       <div class="footer-brand">
         <span>BIM-CDE Core Dictionary Methodology</span>
-        <strong>工程对象字典与数据联动方法论</strong>
+        <strong>BIM x AI 工程对象字典方法论</strong>
       </div>
-      <div class="footer-signature"><span class="signature-icon">◆</span><em>Thomas Wu</em></div>
-      <div class="footer-contact"><a href="mailto:thomaswu16@163.com">thomaswu16@163.com</a><span>13162253301</span></div>
+      <div class="footer-signature" aria-label="个人签名描述"><span class="signature-icon">◆</span><em>专注于AI应用、定制开发、与建设行业数字化转型</em></div>
+      <div class="footer-contact" aria-label="联系方式"><a href="mailto:thomaswu16@163.com">Email: thomaswu16@163.com</a><a href="tel:13162253301">Tel: 13162253301</a></div>
+      <div class="footer-links"><a href="#top">返回顶部</a></div>
     </div>
   </footer>
   <script>
