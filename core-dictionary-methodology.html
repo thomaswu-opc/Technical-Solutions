@@ -192,6 +192,7 @@
         <a href="#dimensions">对象体系</a>
         <a href="#pset">Pset/LOIN</a>
         <a href="#mapping">映射</a>
+        <a href="#system-demo">系统验证</a>
         <a href="#automation">AI自动化</a>
         <a href="#implementation">实现</a>
         <a href="#roadmap">路线</a>
@@ -215,11 +216,12 @@
         <a href="#dimensions">03 1D-5D 对象体系</a>
         <a href="#pset">04 Pset 与信息深度</a>
         <a href="#mapping">05 标准与软件映射</a>
-        <a href="#automation">06 AI 与自动化</a>
-        <a href="#implementation">07 工程实现路径</a>
-        <a href="#value">08 平台价值</a>
-        <a href="#governance">09 治理机制</a>
-        <a href="#roadmap">10 后续路线</a>
+        <a href="#system-demo">06 系统级链路验证</a>
+        <a href="#automation">07 AI 与自动化</a>
+        <a href="#implementation">08 工程实现路径</a>
+        <a href="#value">09 平台价值</a>
+        <a href="#governance">10 治理机制</a>
+        <a href="#roadmap">11 后续路线</a>
       </nav>
     </div>
   </section>
@@ -310,11 +312,45 @@
       </div>
     </section>
 
+    <section id="system-demo">
+      <h2>06｜系统级链路验证：不是一个对象，而是一整条专业系统链</h2>
+      <p>单个对象只能证明“分类能跑通”，不能证明方法论能支撑真实工程业务。第一版验证样本采用虹吸雨水系统：它横跨系统对象、末端构件、管线、管件、支吊架、套管接口、建筑排水沟、QTO、清单和工作包，专门用来验证 Core Dictionary 的正向索引、反向索引、系统归属和招标/合同/施工链路。</p>
+      <div class="chain">System: SiphonicRainwaterSystem
+  -> Component: SiphonicRainwaterOutlet / 虹吸雨水口
+  -> Component: SiphonicRainwaterPipe / 虹吸雨水管
+  -> Component: SiphonicRainwaterPipeFitting / 虹吸雨水管件
+  -> Component: RainwaterPipeHanger / 雨水管支吊架
+  -> Component: RainwaterPipeSleeve / 雨水管套管/预留洞
+  -> Component: RainwaterOutfall / 雨水排出口
+  -> Component: ArchitecturalDrainageGutter / 建筑排水沟
+  -> CostObject: BIMQuantity
+  -> CostObject: TenderBOQItem / ContractBOQItem
+  -> WorkPackage: TenderPackage / ContractWorkPackage / ConstructionWorkPackage</div>
+      <div class="matrix" style="margin-top:14px">
+        <table>
+          <thead><tr><th>对象</th><th>Core 语义</th><th>为什么不是单字段巧合</th><th>链路作用</th></tr></thead>
+          <tbody>
+            <tr><td>虹吸雨水系统</td><td><code>System / Plumbing / Drainage / SiphonicRainwaterSystem</code></td><td>系统是 1D 对象，表达运行边界、分区、系统实例和完整度。</td><td>作为 <code>systemRef</code> 的目标，项目中可形成雨水系统1、雨水系统2等实例。</td></tr>
+            <tr><td>虹吸雨水口</td><td><code>Component / Plumbing / Drainage / SiphonicRainwaterOutlet</code></td><td>雨水口自身主功能是收集和排放入口，按 Drainage 召回是合理的。</td><td>系统链入口，关联设计流量、屋面汇水范围、QTO 和清单。</td></tr>
+            <tr><td>虹吸雨水管 / 管件</td><td><code>Component / Plumbing / Conveying</code></td><td>管和管件的主功能是输送，不为了凑系统而硬标 Drainage。</td><td>通过 <code>systemRef.systemInstanceId</code> 纳入雨水系统闭环。</td></tr>
+            <tr><td>支吊架 / 套管 / 排出口</td><td><code>Support / Connection / Drainage</code></td><td>同一系统内可以有不同 Functionality，系统完整度不靠 secondary functionality。</td><td>支撑安装包、洞口责任、接口协调、出户边界和现场校核。</td></tr>
+            <tr><td>BIMQuantity / BOQ / WorkPackage</td><td><code>CostObject / WorkPackage</code></td><td>设计对象不直接等于清单或合同责任，必须经过 QTO 和包范围关系。</td><td>支持招标查量、漏项检查、合同增项、施工包范围和结算证据。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid-3" style="margin-top:14px">
+        <article class="card blue"><h3>正向索引</h3><p>从 <code>System / Plumbing / Drainage</code> 定位虹吸雨水系统，再沿 <code>belongsToSystem</code> 找到系统成员。</p></article>
+        <article class="card green"><h3>反向索引</h3><p>从任一管件、支吊架、清单项或工作包反查系统实例、对象类型、Pset、IFC/Revit 映射证据。</p></article>
+        <article class="card gold"><h3>工程闭环</h3><p>同一链路可以同时服务设计审查、招标模型查量、合同清单审核、施工包拆分和结算差值分析。</p></article>
+      </div>
+      <div class="note" style="margin-top:14px">关键反驳点：<code>functionality=Drainage</code> 不是“查完整雨水系统”的唯一条件。完整系统查询应使用 <code>systemRef.systemObjectTypeCode</code> 和 <code>systemRef.systemInstanceId</code>；Functionality 只负责对象自身意图的语义召回。</div>
+    </section>
+
     <section id="automation">
-      <h2>06｜AI 与自动化：从“点选过滤”变成“语义查询”</h2>
+      <h2>07｜AI 与自动化：从“点选过滤”变成“语义查询”</h2>
       <p>字典链路的最终目标不是把分类做漂亮，而是让用户少点选、少自定义、少研究过滤器。平台应该能预判用户意图，并把正确对象、属性、清单和责任边界自动查出来。</p>
       <div class="grid-3">
-        <article class="card blue"><h3>语义查询</h3><p>用户说“我要所有消防相关构件”，系统过滤 <code>functionality=FireProtection</code>，跨 Architecture、Plumbing、Electrical、HVAC、Interior 返回结果。</p></article>
+        <article class="card blue"><h3>语义查询</h3><p>用户说“我要所有消防相关构件”，系统先按 <code>functionality=FireProtection</code> 召回，再结合 ObjectType、Pset、SystemRef、映射证据和项目实例收敛。</p></article>
         <article class="card green"><h3>自动明细表</h3><p>系统根据 ObjectType 的有效 Pset 自动生成字段，不需要用户手动研究 Revit 过滤器、共享参数和清单字段。</p></article>
         <article class="card gold"><h3>查漏缺项</h3><p>招标模型可比对 BIMQuantity、TenderBOQItem、ContractBOQItem、WorkPackage，识别漏项、差值和责任边界。</p></article>
       </div>
@@ -326,7 +362,7 @@
     </section>
 
     <section id="implementation">
-      <h2>07｜工程实现路径：Excel 审阅主表 + JSON 执行包 + Core API</h2>
+      <h2>08｜工程实现路径：Excel 审阅主表 + JSON 执行包 + Core API</h2>
       <p>业务侧用 Excel 审阅，程序侧用 JSON 执行，平台侧通过 Core API 消费。三者之间由导出脚本和 Validator 保证一致。</p>
       <div class="grid-3">
         <article class="card"><h3>Excel Review Workbook</h3><p>维护 DomainIndex、DisciplineIndex、FunctionalityIndex、ObjectTypes、PsetDefinitions、Decisions 等业务审阅内容。</p></article>
@@ -347,7 +383,7 @@
     </section>
 
     <section id="value">
-      <h2>08｜对 BIM-CDE 平台的价值</h2>
+      <h2>09｜对 BIM-CDE 平台的价值</h2>
       <div class="grid-4">
         <div class="card kpi"><strong>精准过滤</strong><span>按功能、专业、对象域、类型组合过滤，减少用户手工筛选。</span></div>
         <div class="card kpi"><strong>自动赋参</strong><span>通过 Pset 合集知道该对象需要哪些字段，避免多填和漏填。</span></div>
@@ -357,7 +393,7 @@
     </section>
 
     <section id="governance">
-      <h2>09｜治理机制：高内聚、低耦合、可演进</h2>
+      <h2>10｜治理机制：高内聚、低耦合、可演进</h2>
       <p>字典是 BIM-CDE 的语义内核，必须与业务模块解耦。分类、映射、权限、数据敏感度、系统引用、项目实例都应有清晰边界。</p>
       <div class="grid-2">
         <article class="card"><h3>权限与敏感属性</h3><p>Pset Property 可声明 dataSensitivity、permissionDomain、defaultReadPolicy，后续由管理员配置模块访问、读取和操作权限。</p></article>
@@ -366,7 +402,7 @@
     </section>
 
     <section id="roadmap">
-      <h2>10｜后续路线</h2>
+      <h2>11｜后续路线</h2>
       <div class="flow">
         <div class="step"><b>V1</b><span>聚焦房建住宅项目，完成核心工程对象骨架。</span></div>
         <div class="step"><b>V2</b><span>补齐 2D、4D、5D、招标、合同、运维、IoT 对象。</span></div>
