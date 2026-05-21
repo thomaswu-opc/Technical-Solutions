@@ -1,5 +1,5 @@
-﻿# 🚀 Bussiness Plan Repository
-> **个人商业企划存档仓库** > 致力于 BIM + AI 驱动的建筑全生命周期数字化转型。
+# BIM x AI Technical Solutions
+> **个人技术方案与工程数字化方案存档仓库** > 致力于 BIM + AI 驱动的建筑全生命周期数字化转型。
 
 ---
 
@@ -7,13 +7,13 @@
 
 | 日期 | 项目名称 | 核心领域 | 状态 | 查看链接 |
 | :--- | :--- | :--- | :--- | :--- |
-| 2026-04-08 | **资产盘活领域五位一体智慧平台** | AI / 资产运营 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/asset-revitalization-ai-bp "达人建设 x 吴宗谚") |
-| 2026-04-21 | **CAD-IFC 图模一致性快速审查方案** | BIM / 自动化 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/cad-ifc-review-executive-brief "开诚咨询 x 吴宗谚") |
-| 2026-04-25 | **数字孪生智慧决策系统 · P0至三阶段软硬一体建设方案** | AI / 智慧系统 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/enterprise-ai-local-deployment-three-stage-hardware-construction-plan.html "达人集团 x 吴宗谚") |
-| 2026-04-27 | **Part 1｜Revit 正向设计 幕墙节点表达与建模提效咨询方案** | BIM / 幕墙正向设计 / 策划 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/report-site/index.html#deliverables "上海院 x 吴宗谚") |
-| 2026-04-30 | **Part 2｜幕墙二维表达资源标准化实操路径** | BIM / CAD-Revit 标准化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/cwp2/index.html "上海院 x 吴宗谚") |
-| 2026-05-01 | **Part 3｜基于 Revit 的幕墙正向设计插件** | BIM / Revit 插件 / 自研工具 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/cwp3/index.html "上海院 x 吴宗谚") |
-| 2026-05-20 | **建筑全生命周期工程对象字典与数据联动方法论** | BIM-CDE / Core Dictionary / AI 自动化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Bussiness-Plan/core-dictionary-methodology.html "BIM-CDE x 吴宗谚") |
+| 2026-04-08 | **资产盘活领域五位一体智慧平台** | AI / 资产运营 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/asset-revitalization-ai-bp "达人建设 x 吴宗谚") |
+| 2026-04-21 | **CAD-IFC 图模一致性快速审查方案** | BIM / 自动化 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/cad-ifc-review-executive-brief "开诚咨询 x 吴宗谚") |
+| 2026-04-25 | **数字孪生智慧决策系统 · P0至三阶段软硬一体建设方案** | AI / 智慧系统 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/enterprise-ai-local-deployment-three-stage-hardware-construction-plan.html "达人集团 x 吴宗谚") |
+| 2026-04-27 | **Part 1｜Revit 正向设计 幕墙节点表达与建模提效咨询方案** | BIM / 幕墙正向设计 / 策划 | `Active` |[🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/report-site/index.html#deliverables "上海院 x 吴宗谚") |
+| 2026-04-30 | **Part 2｜幕墙二维表达资源标准化实操路径** | BIM / CAD-Revit 标准化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/cwp2/index.html "上海院 x 吴宗谚") |
+| 2026-05-01 | **Part 3｜基于 Revit 的幕墙正向设计插件** | BIM / Revit 插件 / 自研工具 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/cwp3/index.html "上海院 x 吴宗谚") |
+| 2026-05-20 | **建筑全生命周期工程对象字典与数据联动方法论** | BIM-CDE / Core Dictionary / AI 自动化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/core-dictionary-methodology.html "BIM-CDE x 吴宗谚") |
 | 2026-05-xx | **外部索引-实时热点信息捕捉方案** | 爬虫 / 自动化 | `Pending` | 请稍后 |
 
 
