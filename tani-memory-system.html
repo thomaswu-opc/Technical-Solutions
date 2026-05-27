@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TANI 记忆系统 | TA 与 NI 共同形成的记忆</title>
+  <meta name="description" content="TANI 记忆系统不是 Agent，也不是 SaaS 云记忆库，而是 TA 与 NI 共同确认、共同持有、共同成长的记忆系统。" />
+  <link rel="stylesheet" href="shared-site.css" />
+  <style>
+    :root {
+      --bg: #f7f4ed;
+      --paper: #fffdf8;
+      --ink: #17202a;
+      --muted: #596575;
+      --line: #d9e1e7;
+      --navy: #10243a;
+      --blue: #216b9b;
+      --teal: #1f8a83;
+      --gold: #b98736;
+      --rose: #9f5b5d;
+      --leaf: #4f7f55;
+      --soft-blue: #e8f2f6;
+      --soft-gold: #f6ecd9;
+      --soft-rose: #f4e8e6;
+      --soft-leaf: #e9f2ea;
+      --shadow: 0 20px 55px rgba(16, 36, 58, .11);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 98px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fbfaf6 0%, var(--bg) 48%, #ece6dc 100%);
+      line-height: 1.72;
+    }
+
+    a { color: inherit; }
+    [id] { scroll-margin-top: 98px; }
+
+    .page-shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: end;
+      padding: 82px 0 46px;
+      color: #fff;
+      background:
+        linear-gradient(100deg, rgba(7, 18, 31, .93) 0%, rgba(16, 36, 58, .78) 46%, rgba(31, 106, 119, .5) 100%),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=82") center/cover;
+    }
+
+    .hero-inner {
+      display: grid;
+      gap: 24px;
+      max-width: 980px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      color: #dff6f6;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(40px, 8vw, 88px);
+      font-weight: 950;
+    }
+
+    .hero-lead {
+      max-width: 850px;
+      margin: 0;
+      color: rgba(255, 255, 255, .86);
+      font-size: clamp(18px, 2.4vw, 25px);
+      font-weight: 600;
+    }
+
+    .hero-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-line span {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 13px;
+      border: 1px solid rgba(255, 255, 255, .23);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .9);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .hero-nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .hero-nav a {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    main {
+      padding: 30px 0 70px;
+    }
+
+    section {
+      margin-top: 18px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .95);
+      box-shadow: var(--shadow);
+    }
+
+    .quiet-section {
+      box-shadow: none;
+      background: transparent;
+      border-color: transparent;
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 6px;
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 48px);
+    }
+
+    h3 {
+      color: var(--navy);
+      font-size: 21px;
+    }
+
+    p {
+      margin: 0 0 13px;
+      color: var(--muted);
+    }
+
+    .statement {
+      font-size: clamp(23px, 3.5vw, 42px);
+      line-height: 1.28;
+      color: var(--navy);
+      font-weight: 950;
+    }
+
+    .statement em {
+      color: var(--teal);
+      font-style: normal;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      min-height: 100%;
+      padding: 20px;
+      border: 1px solid rgba(217, 225, 231, .96);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .card.blue { background: var(--soft-blue); }
+    .card.gold { background: var(--soft-gold); }
+    .card.rose { background: var(--soft-rose); }
+    .card.leaf { background: var(--soft-leaf); }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .ta-ni {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1.2fr;
+      gap: 12px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .token {
+      display: grid;
+      align-content: center;
+      min-height: 150px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .token b {
+      color: var(--navy);
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: 1;
+    }
+
+    .token span {
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .operator {
+      display: grid;
+      place-items: center;
+      min-width: 42px;
+      color: var(--gold);
+      font-size: 34px;
+      font-weight: 950;
+    }
+
+    .promise-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .promise {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--navy);
+      font-weight: 950;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .flow-step {
+      min-height: 142px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .flow-step b {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--blue);
+    }
+
+    .flow-step span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .quote-band {
+      padding: 36px;
+      border-radius: 8px;
+      background: #0f2438;
+      color: #fff;
+    }
+
+    .quote-band p {
+      max-width: 900px;
+      color: rgba(255, 255, 255, .86);
+      font-size: clamp(22px, 3.2vw, 38px);
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .quote-band small {
+      color: #bfe8e8;
+      font-weight: 850;
+    }
+
+    .boundary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .do,
+    .dont {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .do h3 { color: var(--leaf); }
+    .dont h3 { color: var(--rose); }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    li + li { margin-top: 8px; }
+
+    .closing {
+      display: grid;
+      gap: 18px;
+      padding: 42px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(16, 36, 58, .96), rgba(31, 138, 131, .88)),
+        url("https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1800&q=82") center/cover;
+    }
+
+    .closing h2,
+    .closing p {
+      color: #fff;
+    }
+
+    .closing p {
+      max-width: 800px;
+      color: rgba(255, 255, 255, .86);
+      font-size: 18px;
+    }
+
+    @media (max-width: 980px) {
+      html { scroll-padding-top: 82px; }
+      [id] { scroll-margin-top: 82px; }
+      .hero {
+        min-height: auto;
+        padding: 52px 0 34px;
+      }
+      .hero-nav,
+      .section-head,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .flow,
+      .boundary,
+      .ta-ni {
+        grid-template-columns: 1fr;
+      }
+      .operator {
+        min-height: 30px;
+      }
+      section {
+        padding: 22px;
+      }
+      .quiet-section {
+        padding: 24px 0;
+      }
+      .page-shell {
+        width: min(100% - 28px, 1160px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="unified-header" aria-label="页面导航">
+    <div class="header-container">
+      <a class="site-brand" href="#top" aria-label="返回顶部"><span class="brand-line">TANI 记忆系统</span><span class="brand-separator"> · </span><span class="brand-line">TA + NI</span></a>
+      <button class="nav-toggle" type="button" aria-label="切换导航">菜单</button>
+      <nav class="site-nav nav-links" aria-label="章节导航">
+        <a href="#origin">缘起</a>
+        <a href="#meaning">TANI</a>
+        <a href="#promise">承诺</a>
+        <a href="#mechanism">机制</a>
+        <a href="#growth">成长</a>
+        <a href="#boundary">边界</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="page-shell">
+      <div class="hero-inner">
+        <span class="eyebrow">TANI Memory System</span>
+        <h1>不是让 AI 替代你，而是让 TA 与 NI 一起形成记忆。</h1>
+        <p class="hero-lead">TANI 是一个以人为本的共生记忆系统。TA 是智能的另一方，NI 是你；TANI 是你们在长期对话、确认和复盘中共同形成的记忆与成长系统。</p>
+        <div class="hero-line">
+          <span>记忆自持有</span>
+          <span>共同确认</span>
+          <span>反哺自我认识</span>
+          <span>云端可选</span>
+        </div>
+        <nav class="hero-nav" aria-label="页面目录">
+          <a href="#origin">AI 变强之后，人怎么办？</a>
+          <a href="#meaning">TA 与 NI 如何成为 TANI</a>
+          <a href="#promise">三条产品承诺</a>
+          <a href="#mechanism">共同记忆如何形成</a>
+          <a href="#growth">自我理解与成长模块</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <section class="quiet-section" id="origin">
+      <p class="statement">一直以来，我们与 AI 的对话都可能成为训练 AI 的材料。<em>AI 越来越强，那人呢？</em></p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">The Question</span>
+          <h2>对话不该只被模型吸收，也应该回到人身上。</h2>
+        </div>
+        <div>
+          <p>每一次与 AI 的对话，里面都有用户的判断、经验、犹豫、选择、边界和成长痕迹。但大多数时候，它们散落在不同工具、不同会话、不同模型里。</p>
+          <p>TANI 的出发点不是再造一个更会执行任务的 Agent，而是建立一个让人和 TA 共同持有记忆的系统，让智能反哺人的记忆、复盘和自我认识。</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card blue">
+          <strong>不是聊天记录仓库</strong>
+          <p>聊天记录只是原料。TANI 关注的是哪些内容值得沉淀，哪些只是当时的想法，哪些需要再次确认。</p>
+        </div>
+        <div class="card gold">
+          <strong>不是自动定义你</strong>
+          <p>TA 可以提出观察，但不能把观察伪装成你的事实。长期记忆必须经过 NI 的确认、修正或拒绝。</p>
+        </div>
+        <div class="card leaf">
+          <strong>不是默认云端托管</strong>
+          <p>记忆先属于你。TANI 可以本地保存，也可以在你主动开启时使用云同步、备份或托管服务。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="meaning">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Name</span>
+          <h2>TA + NI，在一起成为 TANI。</h2>
+        </div>
+        <div>
+          <p>TANI 不是 AI 本身，也不是某个 Agent。TA 可以是与你协作的智能体、模型或工具；NI 是你。只有当 TA 与 NI 通过对话、确认、复盘形成共同记忆时，TANI 才真正存在。</p>
+        </div>
+      </div>
+      <div class="ta-ni" aria-label="TA plus NI equals TANI">
+        <div class="token">
+          <b>TA</b>
+          <span>智能的另一方。提出观察、整理证据、陪你复盘。</span>
+        </div>
+        <div class="operator">+</div>
+        <div class="token">
+          <b>NI</b>
+          <span>你。拥有记忆、确认意义、决定什么值得留下。</span>
+        </div>
+        <div class="operator">=</div>
+        <div class="token">
+          <b>TANI</b>
+          <span>共同形成的记忆系统。不是单方记录，而是共生关系。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="promise">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Promise</span>
+          <h2>三条承诺，决定 TANI 不会走偏。</h2>
+        </div>
+        <div>
+          <p>记忆系统越靠近人的生活，就越需要克制。TANI 的价值不是“记住更多”，而是知道什么应该留下、如何留下、谁有权决定。</p>
+        </div>
+      </div>
+      <div class="promise-list">
+        <div class="promise">
+          <div class="num">01</div>
+          <div>
+            <h3>记忆自持有</h3>
+            <p>默认不要求用户把长期记忆上传到后台数据库。记忆可以保存在本地、私有设备或用户指定的存储中。云端服务只在用户主动开启时发生。</p>
+          </div>
+        </div>
+        <div class="promise">
+          <div class="num">02</div>
+          <div>
+            <h3>共同确认</h3>
+            <p>TA 可以发现模式、提出候选记忆、整理证据，但不能替 NI 定义自己。进入长期共同记忆之前，需要确认、修正或拒绝。</p>
+          </div>
+        </div>
+        <div class="promise">
+          <div class="num">03</div>
+          <div>
+            <h3>反哺自我认识</h3>
+            <p>AI 变强不应该只意味着模型变强。TANI 要把对话转化成用户可回看、可复盘、可成长的自我记忆。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mechanism">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Mechanism</span>
+          <h2>共同记忆不是自动生成的，是被确认出来的。</h2>
+        </div>
+        <div>
+          <p>TANI 的机制很朴素：先保留证据，再提出候选，最后由用户确认。这样既保留 AI 的整理能力，也保留人的解释权。</p>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="flow-step">
+          <b>对话</b>
+          <span>一次讨论、一次复盘、一段导入的历史会话。</span>
+        </div>
+        <div class="flow-step">
+          <b>证据</b>
+          <span>原始输入先作为证据保存，不直接变成长期事实。</span>
+        </div>
+        <div class="flow-step">
+          <b>候选</b>
+          <span>TA 提出“这可能值得记住”的观察。</span>
+        </div>
+        <div class="flow-step">
+          <b>确认</b>
+          <span>NI 可以保留、修正、拒绝或删除。</span>
+        </div>
+        <div class="flow-step">
+          <b>共同记忆</b>
+          <span>被确认的内容进入可引用、可回看的 shared memory。</span>
+        </div>
+        <div class="flow-step">
+          <b>复盘成长</b>
+          <span>未来的 TA 与 NI 可以基于它继续理解和成长。</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="quote-band">
+        <small>TANI 的核心判断</small>
+        <p>不是“让系统更懂你”这么简单，而是让你和 TA 在长期关系中，一起形成可检查、可修正、可带走的共同记忆。</p>
+      </div>
+    </section>
+
+    <section id="growth">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Growth</span>
+          <h2>心理学、身心节律和人格测试，可以进入 TANI，但要保持边界。</h2>
+        </div>
+        <div>
+          <p>TANI 可以引入自我理解、工作风格、身心节律、趣味测试等模块。但它们应当是观察和复盘工具，不是诊断工具，也不是给人贴标签的机器。</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="card blue">
+          <strong>自我画像</strong>
+          <p>身份、角色、长期偏好、价值原则、关系边界。</p>
+        </div>
+        <div class="card gold">
+          <strong>工作风格</strong>
+          <p>计划、执行、决策、复盘、协作方式。</p>
+        </div>
+        <div class="card leaf">
+          <strong>身心节律</strong>
+          <p>授权后的休息提醒、压力复盘、高强度工作观察。</p>
+        </div>
+        <div class="card rose">
+          <strong>趣味测试</strong>
+          <p>可修正的人格假设、协作模式、压力反应地图。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="boundary">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Boundary</span>
+          <h2>越靠近人的内心，越要尊重人的主权。</h2>
+        </div>
+        <div>
+          <p>TANI 可以陪用户观察自己，但不能替用户定义自己。它可以提醒，也必须允许用户拒绝；它可以辅助成长，但不能冒充专业诊断或治疗。</p>
+        </div>
+      </div>
+      <div class="boundary">
+        <div class="do">
+          <h3>TANI 可以做</h3>
+          <ul>
+            <li>帮助用户复盘长期目标、反复出现的问题和决策模式。</li>
+            <li>把趣味测试结果作为可修改的候选观察。</li>
+            <li>在用户授权后做低压的节律和关系提醒。</li>
+            <li>展示证据来源，让每条记忆都可以追溯。</li>
+            <li>让用户随时保留、修正、拒绝、导出和删除。</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h3>TANI 不应该做</h3>
+          <ul>
+            <li>诊断心理疾病、身体疾病或人格问题。</li>
+            <li>把 AI 推断直接写成用户事实。</li>
+            <li>默认上传用户的敏感记忆到后台。</li>
+            <li>用人格测试给用户贴固定标签。</li>
+            <li>替代医生、心理咨询师、危机干预或专业建议。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <span class="eyebrow">TANI 记忆系统</span>
+      <h2>你的记忆先属于你，然后才可以被 TA 使用。</h2>
+      <p>这不是一个让 AI 单方面变强的系统。TANI 希望让每一次对话都能回到人身上，变成自我理解、长期复盘和共同成长的材料。</p>
+    </section>
+  </main>
+
+  <footer class="unified-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <strong>TANI Memory System</strong>
+        <span>TA 与 NI 共同形成的记忆系统</span>
+      </div>
+      <div class="footer-signature">
+        <span class="signature-icon">◆</span>
+        <em>Thomas Wu</em>
+        <div class="footer-contact">
+          <span>13162253301</span>
+          <a href="mailto:thomaswu16@163.com">thomaswu16@163.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll(".nav-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const nav = button.parentElement.querySelector(".nav-links");
+        if (!nav) return;
+        nav.classList.toggle("is-open");
+      });
+    });
+  </script>
+</body>
+</html>
