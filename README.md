@@ -14,7 +14,7 @@
 | 2026-04-30 | **Part 2｜幕墙二维表达资源标准化实操路径** | BIM / CAD-Revit 标准化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/cwp2/index.html "上海院 x 吴宗谚") |
 | 2026-05-01 | **Part 3｜基于 Revit 的幕墙正向设计插件** | BIM / Revit 插件 / 自研工具 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/cwp3/index.html "上海院 x 吴宗谚") |
 | 2026-05-20 | **建筑全生命周期工程对象字典与数据联动方法论** | BIM-CDE / Core Dictionary / 系统级链路验证 / AI 自动化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/core-dictionary-methodology.html "BIM-CDE x 吴宗谚") |
-| 2026-05-28 | **定向信息检索与日报 Agent（脱敏版）** | AI / 信息检索 / 自动化日报 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/targeted-intelligence-agent.html "Sanitized technical case") |
+| 2026-05-28 | **定向信息检索与日报 Agent** | AI / 信息检索 / 自动化日报 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/targeted-intelligence-agent.html "Vertical intelligence agent") |
 | 2026-05-xx | **外部索引-实时热点信息捕捉方案** | 爬虫 / 自动化 | `Pending` | 请稍后 |
 
 

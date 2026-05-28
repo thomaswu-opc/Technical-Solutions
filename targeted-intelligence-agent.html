@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>定向信息检索与日报 Agent | 技术实现说明</title>
-  <meta name="description" content="一个面向垂直业务的定向信息检索、结构化清洗、日报发布与通知自动化方案。页面内容已对客户、搜索源、关键词和平台配置做脱敏处理。" />
+  <meta name="description" content="一个面向垂直业务的定向信息检索、结构化清洗、日报发布与通知自动化方案。" />
   <link rel="stylesheet" href="shared-site.css" />
   <style>
     :root {
@@ -315,7 +315,7 @@
       color: var(--ink);
     }
 
-    .redaction {
+    .extension {
       background: linear-gradient(180deg, #fff, var(--soft-rose));
     }
 
@@ -380,14 +380,14 @@
         <a href="#architecture">架构</a>
         <a href="#data">数据</a>
         <a href="#automation">自动化</a>
-        <a href="#redaction">脱敏</a>
+        <a href="#extension">复用</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
     <div class="page-shell hero-inner">
-      <span class="eyebrow">Sanitized Case Study · Vertical Intelligence Agent</span>
+      <span class="eyebrow">Vertical Intelligence Agent</span>
       <h1>定向信息检索与日报 Agent</h1>
       <p class="hero-lead">一个面向垂直业务场景的自动化信息雷达：从多路搜索召回、AI 结构化清洗、历史去重，到日报发布与即时通知，形成可长期运行的轻量闭环。</p>
       <div class="hero-line" aria-label="能力标签">
@@ -402,7 +402,7 @@
         <a href="#architecture">技术链路</a>
         <a href="#data">数据沉淀</a>
         <a href="#automation">运行策略</a>
-        <a href="#redaction">脱敏边界</a>
+        <a href="#extension">复用路径</a>
       </nav>
     </div>
   </section>
@@ -414,7 +414,7 @@
           <div class="section-kicker">01 · What It Does</div>
           <h2>从“每天找信息”变成“每天自动筛信息”</h2>
         </div>
-        <p>系统围绕一组固定业务关注点运行，自动检索多个公开信息源，使用大模型抽取结构化字段，并生成面向业务人员阅读的日报。公开版本已隐藏具体客户、行业关键词、搜索引擎品牌、目标站点名称和发布平台名称。</p>
+        <p>系统围绕一组固定业务关注点运行，自动检索多个公开信息源，使用大模型抽取结构化字段，并生成面向业务人员阅读的日报。</p>
       </div>
       <div class="grid">
         <article class="card">
@@ -539,7 +539,7 @@
           <div class="section-kicker">05 · Technical Stack</div>
           <h2>尽量少的依赖，清楚的边界</h2>
         </div>
-        <p>系统用标准脚本和小型服务模块组合，不绑定某个不可替换的云产品。所有敏感凭证通过环境变量注入，不进入代码库和公开页面。</p>
+        <p>系统用标准脚本和小型服务模块组合，不绑定某个不可替换的云产品。所有凭证通过环境变量注入，代码只保留稳定的模块边界和接口契约。</p>
       </div>
       <ul class="tech-list">
         <li><strong>Runtime:</strong> Python command workflow</li>
@@ -553,27 +553,27 @@
       </ul>
     </section>
 
-    <section id="redaction" class="redaction">
+    <section id="extension" class="extension">
       <div class="section-head">
         <div>
-          <div class="section-kicker">06 · Public Redaction</div>
-          <h2>公开材料的脱敏边界</h2>
+          <div class="section-kicker">06 · Extension</div>
+          <h2>可复用的业务配置边界</h2>
         </div>
-        <p>本页用于展示工程思路，不披露真实业务检索目标。实现细节中涉及的客户、关键词、站点、平台和密钥全部抽象为通用组件。</p>
+        <p>这套链路的核心价值在于把“固定关注范围 + 自动召回 + 结构化判断 + 报告发布”拆成可替换模块，便于迁移到其他垂直信息监测任务。</p>
       </div>
       <div class="two-col">
         <div class="panel">
-          <h3>已脱敏内容</h3>
+          <h3>业务侧可替换</h3>
           <ul>
-            <li>具体客户和团队名称。</li>
-            <li>具体搜索引擎品牌与 API 参数。</li>
-            <li>目标网站名单和业务关键词。</li>
-            <li>知识库空间、文档路径、聊天网关配置。</li>
-            <li>运行输出中的真实公告标题和链接。</li>
+            <li>关注主题和关键词组。</li>
+            <li>目标来源和区域规则。</li>
+            <li>结构化字段 schema。</li>
+            <li>日报模板和排序策略。</li>
+            <li>通知渠道和消息摘要格式。</li>
           </ul>
         </div>
         <div class="panel">
-          <h3>保留内容</h3>
+          <h3>工程侧保持稳定</h3>
           <ul>
             <li>端到端链路设计。</li>
             <li>数据落库和去重策略。</li>
@@ -598,7 +598,7 @@
     <div class="footer-container">
       <div class="footer-brand">
         <strong>BIM x AI Technical Solutions</strong>
-        <span>Sanitized technical case archive</span>
+        <span>Vertical intelligence automation archive</span>
       </div>
       <div class="footer-signature">
         <span class="signature-icon">◆</span>
