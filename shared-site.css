@@ -207,10 +207,12 @@ body {
 
   .unified-header .site-nav.nav-links {
     position: absolute;
-    inset: calc(100% + 8px) 0 auto;
+    top: calc(100% + 8px);
+    right: 0;
+    left: auto;
     order: initial;
     display: none;
-    width: 100%;
+    width: min(260px, calc(100vw - 40px));
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
