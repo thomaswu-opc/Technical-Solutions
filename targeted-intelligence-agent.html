@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>定向信息检索与日报 Agent | 技术实现说明</title>
+  <meta name="description" content="一个面向垂直业务的定向信息检索、结构化清洗、日报发布与通知自动化方案。页面内容已对客户、搜索源、关键词和平台配置做脱敏处理。" />
+  <link rel="stylesheet" href="shared-site.css" />
+  <style>
+    :root {
+      --bg: #f6f4ee;
+      --paper: #fffdf8;
+      --ink: #17202a;
+      --muted: #5d6875;
+      --line: #dce4ea;
+      --navy: #10243a;
+      --blue: #1f6f9f;
+      --teal: #1f8a83;
+      --gold: #b98736;
+      --rose: #9d5f63;
+      --soft-blue: #e7f1f6;
+      --soft-teal: #e5f3f1;
+      --soft-gold: #f6ecd8;
+      --soft-rose: #f5e8e7;
+      --shadow: 0 22px 58px rgba(16, 36, 58, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fbfaf6 0%, var(--bg) 52%, #ece7df 100%);
+      line-height: 1.72;
+    }
+
+    a { color: inherit; }
+
+    .page-shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: end;
+      padding: 82px 0 46px;
+      color: #fff;
+      background:
+        linear-gradient(100deg, rgba(7, 18, 31, .94) 0%, rgba(16, 36, 58, .82) 46%, rgba(31, 106, 119, .54) 100%),
+        url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=82") center/cover;
+    }
+
+    .hero-inner {
+      display: grid;
+      gap: 24px;
+      max-width: 980px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      color: #dff6f6;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 940px;
+      font-size: clamp(38px, 7.5vw, 82px);
+      font-weight: 950;
+    }
+
+    .hero-lead {
+      max-width: 850px;
+      margin: 0;
+      color: rgba(255, 255, 255, .86);
+      font-size: clamp(17px, 2.3vw, 24px);
+      font-weight: 620;
+    }
+
+    .hero-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-line span {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 13px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .9);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .hero-nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .hero-nav a {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    main {
+      padding: 30px 0 70px;
+    }
+
+    section {
+      margin-top: 18px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .95);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      min-height: 160px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card p { margin: 0; }
+
+    .card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-step {
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fff, #f8fbfc);
+    }
+
+    .flow-step strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--blue);
+      font-size: 14px;
+    }
+
+    .flow-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .panel ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .panel li + li { margin-top: 7px; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fff, var(--soft-blue));
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--navy);
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .note {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      background: var(--soft-gold);
+      color: #5f4a25;
+      font-weight: 700;
+    }
+
+    .tech-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tech-list li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--muted);
+    }
+
+    .tech-list strong {
+      color: var(--ink);
+    }
+
+    .redaction {
+      background: linear-gradient(180deg, #fff, var(--soft-rose));
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .cta p {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .cta a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        min-height: auto;
+        padding: 54px 0 34px;
+      }
+
+      .hero-nav,
+      .grid,
+      .flow,
+      .two-col,
+      .metrics,
+      .tech-list,
+      .section-head,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="unified-header">
+    <div class="header-container">
+      <a class="site-brand" href="./README.md">BIM x AI Technical Solutions</a>
+      <button class="nav-toggle" type="button" aria-label="打开导航">菜单</button>
+      <nav class="site-nav nav-links" aria-label="站点导航">
+        <a href="#scope">功能</a>
+        <a href="#architecture">架构</a>
+        <a href="#data">数据</a>
+        <a href="#automation">自动化</a>
+        <a href="#redaction">脱敏</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="page-shell hero-inner">
+      <span class="eyebrow">Sanitized Case Study · Vertical Intelligence Agent</span>
+      <h1>定向信息检索与日报 Agent</h1>
+      <p class="hero-lead">一个面向垂直业务场景的自动化信息雷达：从多路搜索召回、AI 结构化清洗、历史去重，到日报发布与即时通知，形成可长期运行的轻量闭环。</p>
+      <div class="hero-line" aria-label="能力标签">
+        <span>定向召回</span>
+        <span>LLM 清洗</span>
+        <span>SQLite 记忆库</span>
+        <span>Markdown 日报</span>
+        <span>定时运行</span>
+      </div>
+      <nav class="hero-nav" aria-label="页内导航">
+        <a href="#scope">功能范围</a>
+        <a href="#architecture">技术链路</a>
+        <a href="#data">数据沉淀</a>
+        <a href="#automation">运行策略</a>
+        <a href="#redaction">脱敏边界</a>
+      </nav>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <section id="scope">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 · What It Does</div>
+          <h2>从“每天找信息”变成“每天自动筛信息”</h2>
+        </div>
+        <p>系统围绕一组固定业务关注点运行，自动检索多个公开信息源，使用大模型抽取结构化字段，并生成面向业务人员阅读的日报。公开版本已隐藏具体客户、行业关键词、搜索引擎品牌、目标站点名称和发布平台名称。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>多路召回</h3>
+          <p>同时使用目标来源路线与区域路线召回候选结果，减少单一路径带来的遗漏风险。</p>
+        </article>
+        <article class="card">
+          <h3>AI 结构化清洗</h3>
+          <p>把非结构化网页摘要转为统一 JSON，包含发布时间、采购主体、代理机构、预算、截止时间、相关度、理由与摘要。</p>
+        </article>
+        <article class="card">
+          <h3>日报发布</h3>
+          <p>自动渲染 Markdown 日报，写入团队知识库；正文避免重复标题，信息字段保持紧凑、可读。</p>
+        </article>
+        <article class="card">
+          <h3>历史记忆库</h3>
+          <p>用本地 SQLite 保存原始召回和清洗结果，支撑去重、模式切换、追溯和后续 Excel 镜像。</p>
+        </article>
+        <article class="card">
+          <h3>即时通知</h3>
+          <p>每日任务完成后通过既有消息网关发送运行结果；若发现新信息，会在通知中突出标注。</p>
+        </article>
+        <article class="card">
+          <h3>可演进策略</h3>
+          <p>初期宽召回，稳定后根据重复率自动收窄范围，把 token 和搜索成本留给真正的新信息。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 · Architecture</div>
+          <h2>轻量后端优先，而不是先做配置大平台</h2>
+        </div>
+        <p>这个 MVP 的工程判断是先打通真实业务闭环。搜索、抽取、存储、发布、通知都用清晰的小模块组织，避免在验证价值前过早建设复杂前端。</p>
+      </div>
+      <div class="flow" aria-label="系统链路">
+        <div class="flow-step"><strong>01 计划任务</strong><span>Windows 定时任务或手动命令触发每日流程。</span></div>
+        <div class="flow-step"><strong>02 搜索召回</strong><span>调用通用搜索 API，按多条检索路线获取候选。</span></div>
+        <div class="flow-step"><strong>03 去重合并</strong><span>按标准化 URL 和标题归并重复候选。</span></div>
+        <div class="flow-step"><strong>04 LLM 抽取</strong><span>通过兼容式大模型接口输出严格 JSON。</span></div>
+        <div class="flow-step"><strong>05 持久化</strong><span>原始结果、清洗结果、运行状态写入本地库。</span></div>
+        <div class="flow-step"><strong>06 发布通知</strong><span>生成日报，发布到知识库，并发送消息通知。</span></div>
+      </div>
+      <div class="note">技术取舍：把“召回来源”和“实际链接来源”分开保存。日报只展示短来源，审计字段保留在 JSON 和 SQLite 中。</div>
+    </section>
+
+    <section id="data">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">03 · Data Model</div>
+          <h2>数据沉淀比单次日报更重要</h2>
+        </div>
+        <p>日报解决当天阅读，数据库解决长期判断。系统把每次召回与清洗结果都落地，后续可以扩展为本地 Excel 镜像、检索面板或稳定运行分析。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>原始召回表</h3>
+          <ul>
+            <li>记录查询路线、目标来源、候选标题和 URL。</li>
+            <li>保存搜索返回的原始摘要和发布时间。</li>
+            <li>通过标准化 URL 维护首次出现和最近出现日期。</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>清洗结果表</h3>
+          <ul>
+            <li>保存统一字段 JSON，支持日报重渲染。</li>
+            <li>保留相关度等级和评分，便于筛选。</li>
+            <li>支撑历史 3 天、7 天或更长窗口的回看。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><strong>Raw</strong><span>搜索候选与召回证据</span></div>
+        <div class="metric"><strong>Clean</strong><span>结构化业务记录</span></div>
+        <div class="metric"><strong>Run</strong><span>每日运行状态与统计</span></div>
+        <div class="metric"><strong>Report</strong><span>人类可读日报输出</span></div>
+      </div>
+    </section>
+
+    <section id="automation">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">04 · Automation Strategy</div>
+          <h2>从宽召回到稳定模式的自动切换</h2>
+        </div>
+        <p>刚启动时，系统倾向于多路宽召回，优先避免漏掉关键信息。运行一段时间后，如果数据库显示每日召回高度重叠，系统会自动切换到更省 token 的稳定模式。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>启动阶段</h3>
+          <ul>
+            <li>使用更宽的时间窗口。</li>
+            <li>双路线召回候选。</li>
+            <li>用 AI 清洗过滤非目标区域和非相关信息。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>稳定阶段</h3>
+          <ul>
+            <li>先与本地库比对，剔除高度重复内容。</li>
+            <li>只把新增或不确定候选喂给模型。</li>
+            <li>日报包含近期历史记录和当日新增。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>故障闭环</h3>
+          <ul>
+            <li>运行日志写入本地文件。</li>
+            <li>成功和失败都可通过消息网关通知。</li>
+            <li>输出 JSON 支持重渲染与重新发布。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="tech">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">05 · Technical Stack</div>
+          <h2>尽量少的依赖，清楚的边界</h2>
+        </div>
+        <p>系统用标准脚本和小型服务模块组合，不绑定某个不可替换的云产品。所有敏感凭证通过环境变量注入，不进入代码库和公开页面。</p>
+      </div>
+      <ul class="tech-list">
+        <li><strong>Runtime:</strong> Python command workflow</li>
+        <li><strong>Search:</strong> Generic web search API adapter</li>
+        <li><strong>LLM:</strong> OpenAI-compatible chat completion endpoint</li>
+        <li><strong>Storage:</strong> Local JSON artifacts + SQLite database</li>
+        <li><strong>Publishing:</strong> Knowledge-base document API</li>
+        <li><strong>Notification:</strong> Existing chat gateway integration</li>
+        <li><strong>Scheduling:</strong> Native Windows scheduled task</li>
+        <li><strong>Testing:</strong> Unit tests for render, workflow, storage and publishing</li>
+      </ul>
+    </section>
+
+    <section id="redaction" class="redaction">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">06 · Public Redaction</div>
+          <h2>公开材料的脱敏边界</h2>
+        </div>
+        <p>本页用于展示工程思路，不披露真实业务检索目标。实现细节中涉及的客户、关键词、站点、平台和密钥全部抽象为通用组件。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>已脱敏内容</h3>
+          <ul>
+            <li>具体客户和团队名称。</li>
+            <li>具体搜索引擎品牌与 API 参数。</li>
+            <li>目标网站名单和业务关键词。</li>
+            <li>知识库空间、文档路径、聊天网关配置。</li>
+            <li>运行输出中的真实公告标题和链接。</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>保留内容</h3>
+          <ul>
+            <li>端到端链路设计。</li>
+            <li>数据落库和去重策略。</li>
+            <li>日报格式演进思路。</li>
+            <li>自动化运行和通知闭环。</li>
+            <li>公开 API 边界下的工程取舍。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h2>适合复用到更多垂直信息雷达场景</h2>
+        <p>替换目标来源、关键词、抽取 schema 和发布出口后，可以扩展到政策跟踪、行业招采、竞品动态、标准规范更新等场景。</p>
+      </div>
+      <a href="README.md">返回项目索引</a>
+    </section>
+  </main>
+
+  <footer class="unified-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <strong>BIM x AI Technical Solutions</strong>
+        <span>Sanitized technical case archive</span>
+      </div>
+      <div class="footer-signature">
+        <span class="signature-icon">◆</span>
+        <em>Engineering notes for practical AI automation</em>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector(".nav-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("nav-open");
+      });
+    }
+  </script>
+</body>
+</html>
