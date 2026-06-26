@@ -16,6 +16,8 @@
 | 2026-05-20 | **建筑全生命周期工程对象字典与数据联动方法论** | BIM-CDE / Core Dictionary / 系统级链路验证 / AI 自动化 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/core-dictionary-methodology.html "BIM-CDE x 吴宗谚") |
 | 2026-05-28 | **定向信息检索与日报 Agent** | AI / 信息检索 / 自动化日报 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/targeted-intelligence-agent.html "Vertical intelligence agent") |
 | 2026-05-xx | **与AI共生哲学 · TANI记忆系统** | AI / Harness/ 记忆系统  | `Pending` | 请稍后 |
+| 2026-06-26 | **通用内容农场引擎** | AI / 搜索编排 / 结构化内容生产 / 自动推流 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/content-farm-engine.html "Content Farm Engine") |
+| 2026-05-xx | **外部索引-实时热点信息捕捉方案** | 爬虫 / 自动化 | `Pending` | 请稍后 |
 
 
 

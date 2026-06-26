@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>通用内容农场引擎 | Content Farm Engine</title>
+  <meta name="description" content="由 Daily BIM News 自动化原型扩展出的通用内容农场引擎：搜索、查重、结构化抽取、渲染、发布与通知的本地优先 pipeline。" />
+  <link rel="stylesheet" href="shared-site.css" />
+  <style>
+    :root {
+      --bg: #eef2ec;
+      --paper: #fffdf6;
+      --ink: #16211e;
+      --muted: #65736d;
+      --line: #d8e0d8;
+      --green: #1f6b57;
+      --deep: #0d2b30;
+      --blue: #21677f;
+      --gold: #bd8b3a;
+      --clay: #c95f41;
+      --mint: #dff0e8;
+      --sky: #dcecf2;
+      --sand: #f5ead3;
+      --shadow: 0 26px 76px rgba(13, 43, 48, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(31, 107, 87, .14), transparent 28%),
+        radial-gradient(circle at 88% 4%, rgba(189, 139, 58, .18), transparent 24%),
+        linear-gradient(180deg, #fbfaf3 0%, var(--bg) 56%, #e7ece5 100%);
+      line-height: 1.72;
+    }
+
+    a { color: inherit; }
+
+    .page-shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      padding: 86px 0 58px;
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(9, 28, 33, .96) 0%, rgba(16, 58, 61, .88) 44%, rgba(33, 103, 127, .62) 100%),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=82") center/cover;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      color: #dcf7ef;
+      font-weight: 900;
+    }
+
+    h1, h2, h3 { margin: 0; }
+
+    .hero h1 {
+      max-width: 880px;
+      margin-top: 20px;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: .98;
+      letter-spacing: -.07em;
+    }
+
+    .hero-lead {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, .82);
+      font-size: 19px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-actions a,
+    .cta a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #10221f;
+      background: #f6d58d;
+      font-weight: 950;
+      text-decoration: none;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .18);
+    }
+
+    .hero-actions a.secondary {
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .26);
+      background: rgba(255, 255, 255, .12);
+      box-shadow: none;
+    }
+
+    .engine-card {
+      position: relative;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .13);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .22);
+      backdrop-filter: blur(16px);
+    }
+
+    .engine-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px dashed rgba(255, 255, 255, .26);
+      border-radius: 24px;
+      pointer-events: none;
+    }
+
+    .flow-stack {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      z-index: 1;
+    }
+
+    .flow-node {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      color: #eaf8f4;
+      background: rgba(4, 22, 27, .42);
+    }
+
+    .flow-node strong { display: block; }
+
+    .flow-node span {
+      color: rgba(255, 255, 255, .62);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(280px, .52fr);
+      gap: 34px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      color: var(--deep);
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -.055em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card,
+    .panel,
+    .metric {
+      border: 1px solid rgba(216, 224, 216, .9);
+      border-radius: 28px;
+      background: rgba(255, 253, 246, .88);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      color: #fff;
+      background: var(--green);
+      font-weight: 950;
+    }
+
+    .card h3 {
+      color: var(--deep);
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+    }
+
+    .architecture {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 246, .7), rgba(232, 238, 230, .7)),
+        repeating-linear-gradient(90deg, rgba(22, 33, 30, .045) 0 1px, transparent 1px 44px);
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pipe-step {
+      min-height: 156px;
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 42px rgba(13, 43, 48, .08);
+    }
+
+    .pipe-step span {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .08em;
+    }
+
+    .pipe-step strong {
+      display: block;
+      margin-top: 10px;
+      color: var(--deep);
+      font-size: 18px;
+      line-height: 1.22;
+    }
+
+    .pipe-step p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      padding: 28px;
+    }
+
+    .panel h3 {
+      color: var(--deep);
+      font-size: 24px;
+    }
+
+    .panel ul {
+      margin: 18px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .metric {
+      padding: 22px;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--deep);
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 34px;
+      margin-bottom: 92px;
+      border-radius: 34px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--deep), var(--green));
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: -.04em;
+    }
+
+    .cta p {
+      max-width: 720px;
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, .76);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pipeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        width: min(100% - 24px, 1160px);
+      }
+
+      .hero {
+        padding: 62px 0 34px;
+      }
+
+      .cards,
+      .metrics,
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="unified-header">
+    <div class="header-container">
+      <a class="site-brand" href="./">BIM x AI Technical Solutions</a>
+      <button class="nav-toggle" type="button" aria-label="打开导航">菜单</button>
+      <nav class="site-nav nav-links" aria-label="站点导航">
+        <a href="#position">定位</a>
+        <a href="#architecture">架构</a>
+        <a href="#boundary">边界</a>
+        <a href="#delivery">交付</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="page-shell hero-grid">
+      <div>
+        <div class="eyebrow">Content Farm Engine · Local-first Pipeline</div>
+        <h1>从单一日报脚本，抽象为通用内容农场引擎。</h1>
+        <p class="hero-lead">以 Daily BIM News 为原型，但系统能力已经上升为通用引擎：可选择搜索源、可配置范围、可生成 prompt、可内部查重、可渲染 Markdown/JSON，并通过发布与通知 adapter 推送到末端。</p>
+        <div class="hero-actions">
+          <a href="#architecture">查看流水线</a>
+          <a class="secondary" href="https://github.com/thomaswu-opc/Technical-Solutions">GitHub Pages 仓库</a>
+        </div>
+      </div>
+      <aside class="engine-card" aria-label="Pipeline stages">
+        <div class="flow-stack">
+          <div class="flow-node"><strong>Intent Parse</strong><span>目标清洗</span></div>
+          <div class="flow-node"><strong>Search Adapters</strong><span>搜索可选</span></div>
+          <div class="flow-node"><strong>Internal Dedupe</strong><span>系统内查重</span></div>
+          <div class="flow-node"><strong>LLM Extract</strong><span>结构化抽取</span></div>
+          <div class="flow-node"><strong>Render Artifacts</strong><span>Markdown / JSON</span></div>
+          <div class="flow-node"><strong>Publish & Notify</strong><span>末端分发</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section id="position" class="page-shell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 · Positioning</div>
+          <h2>不是 BIM 日报，而是可复用的内容生产底座。</h2>
+        </div>
+        <p>Daily BIM News 只是第一个业务样本。真正沉淀的是一套面向垂直主题的信息检索、结构化整理、去重、排版、发布和通知自动化框架。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="num">A</span>
+          <h3>目标自然语言化</h3>
+          <p>用户可以输入自然语言目标，也可以配置结构化选项。系统会清洗目标、合并参数，并生成可控 prompt。</p>
+        </article>
+        <article class="card">
+          <span class="num">B</span>
+          <h3>搜索与抽取解耦</h3>
+          <p>搜索引擎、LLM、爬虫和定向检索都通过 adapter 接入，避免业务流程被某个外部服务锁死。</p>
+        </article>
+        <article class="card">
+          <span class="num">C</span>
+          <h3>末端只负责发送</h3>
+          <p>Notion、语雀、Telegram、Webhook 等只是发布或通知末端，不参与业务查重，也不回流系统状态。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="architecture" class="architecture">
+      <div class="page-shell">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">02 · Pipeline</div>
+            <h2>从搜索到推流的可编排链路。</h2>
+          </div>
+          <p>MVP 采用本地优先实现，保留微服务边界：gateway、pipeline、delivery、state store。后续可拆成独立服务。</p>
+        </div>
+        <div class="pipeline">
+          <div class="pipe-step"><span>01</span><strong>Intent</strong><p>清洗自然语言目标，合并用户选项。</p></div>
+          <div class="pipe-step"><span>02</span><strong>Search</strong><p>按 provider、范围、时间窗执行检索。</p></div>
+          <div class="pipe-step"><span>03</span><strong>Normalize</strong><p>统一结果结构，形成标准 document。</p></div>
+          <div class="pipe-step"><span>04</span><strong>Dedupe</strong><p>在内部 SQLite 与可观测列表中查重。</p></div>
+          <div class="pipe-step"><span>05</span><strong>Extract</strong><p>调用 LLM adapter 生成结构化 item。</p></div>
+          <div class="pipe-step"><span>06</span><strong>Render</strong><p>输出 Markdown 与结构化 JSON artifact。</p></div>
+          <div class="pipe-step"><span>07</span><strong>Deliver</strong><p>发布到笔记软件，并发送通信通知。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="boundary" class="page-shell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">03 · Boundary</div>
+          <h2>把系统边界收敛，后续才好扩张。</h2>
+        </div>
+        <p>查重、状态、可观测性留在系统内部；外部工具全部做 adapter；发布与通知不回流业务判断。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>系统内部负责</h3>
+          <ul>
+            <li>目标清洗与 prompt 生成。</li>
+            <li>搜索结果标准化与 URL 级查重。</li>
+            <li>结构化 JSON 与 Markdown artifact。</li>
+            <li>Pipeline run 状态、delivery record、duplicates 可观测列表。</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>外部 adapter 负责</h3>
+          <ul>
+            <li>Bing、Tavily、未来爬虫与定向检索。</li>
+            <li>OpenAI-compatible LLM 或本地模型。</li>
+            <li>Notion、语雀等笔记软件发布。</li>
+            <li>Telegram、Webhook 等通知渠道。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="delivery" class="page-shell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">04 · Current Delivery</div>
+          <h2>当前已经形成可测试的本地 MVP。</h2>
+        </div>
+        <p>本地仓库已初始化 Git，包含 CLI/API、测试、配置 profile 和 adapter placeholder。真实外部能力可以逐个替换，而不改主流程。</p>
+      </div>
+      <div class="metrics">
+        <div class="metric"><strong>10</strong><span>开发任务包完成</span></div>
+        <div class="metric"><strong>42</strong><span>Python 测试通过</span></div>
+        <div class="metric"><strong>2</strong><span>PowerShell 旧链路测试通过</span></div>
+        <div class="metric"><strong>0</strong><span>默认外部网络调用</span></div>
+      </div>
+    </section>
+
+    <section class="page-shell">
+      <div class="cta">
+        <div>
+          <h2>下一步：从 MVP 进入真实 adapter 与多模态服务。</h2>
+          <p>搜索、爬虫、LLM、图像生成、自动排版、风格库、发布矩阵都可以作为独立微服务接入，让引擎从内容整理走向完整自动化内容工厂。</p>
+        </div>
+        <a href="./">返回项目索引</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="unified-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <strong>吴宗谚 Thomas Wu</strong>
+        <span>BIM x AI · 工程数字化与自动化方案实践</span>
+      </div>
+      <div class="footer-signature">
+        <span class="signature-icon">◆</span>
+        <em>把信息流、判断流和发布流，收束成可复用的工程系统。</em>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector(".nav-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("nav-open");
+      });
+    }
+  </script>
+</body>
+</html>
