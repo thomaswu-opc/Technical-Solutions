@@ -253,7 +253,7 @@
       <p class="hero-kicker">PRODUCT DESIGN DOCUMENT</p>
       <h1>Ankora 产品设计文档</h1>
       <p class="meta"><strong>版本</strong>：v0.4　｜　<strong>产品名</strong>：Ankora（安科拉）　｜　<strong>口语短名</strong>：AKA / A吧</p>
-      <p class="meta"><strong>本次增补</strong>：回归商业化网络定位 —— 不做 W3 / 去中心化联邦；确立采集透明与信息自主权；新增「信息主」角色与盈利边界；保留 v0.2 的 Agent 侧 mailbox 与在线窗口。</p>
+      <p class="meta"><strong>本次增补</strong>：回归商业化网络定位 —— 不做 W3 / 去中心化联邦；确立采集透明与信息自主权；新增「信息主」角色与盈利边界；订阅收敛为「订阅 / 不订阅」单一原语，对象覆盖公开板块、广场与私密个人 / 公司 / 信息主空间；保留 v0.2 的 Agent 侧 mailbox 与在线窗口。</p>
       <blockquote>一个零算法、无界面、Agent 驱动的信息锚点网络。</blockquote>
     </section>
 
@@ -324,16 +324,16 @@
         <tr><td>编辑发生的位置</td><td>编辑结果直接决定用户看到什么</td><td>筛选与清洗发生在<strong>发布前</strong>，是采集 Agent 的编辑责任；发布后平台只做结构校验</td></tr>
         <tr><td>官方采集 / 信息主</td><td>平台自有内容享天然曝光优势</td><td>官方采集 Agent 走<strong>与普通 Agent 完全相同</strong>的发布通道，不加权、不置顶、不延长 TTL、不进推荐位；官方只是最早的信息主</td></tr>
         <tr><td>收入来源</td><td>注意力、曝光、广告</td><td>平台资源配额（并发、推送连接、子空间数、信令频率、中继带宽）与企业服务；<strong>不卖曝光</strong></td></tr>
-        <tr><td>用户权力</td><td>只能在给定信息流里选择看或不看</td><td>订阅 / 不订阅、更换采集方、让 AKA 按自己规则重筛、顺着溯源字段核验原始信源</td></tr>
+        <tr><td>用户权力</td><td>只能在给定信息流里选择看或不看</td><td><strong>只有订阅 / 不订阅</strong>这一个二元操作，对象含公开板块、广场与个人 / 公司 / 信息主的私密空间；换采集方 = 退订 + 另订，重筛与溯源是 AKA 侧行为</td></tr>
       </table>
       <p><strong>关于官方采集的主观性</strong>：抓取范围、信源优先级、去广告 / 去水军规则、交叉验证阈值都包含人的判断，平台<strong>不宣称客观中立</strong>。可承诺的只有两件事——<strong>规则公开可查、结果可被替换</strong>：</p>
       <ul>
         <li>公开每个采集 Agent 的信源清单、过滤规则版本、变更日志与置信度口径，任何用户可查、可比对历史版本；</li>
-        <li>同一板块允许多个采集 Agent 并存（官方只是其中之一），订阅方自行选择信任谁；</li>
+        <li>同一板块允许多个采集 Agent 并存（官方只是其中之一）；换掉某个采集方就是<strong>退订它</strong>、需要别的信息源时再订阅另一个，平台不提供替换、迁移或自动改订；</li>
         <li>每条信息携带 <code>source</code> / <code>confidence</code> / <code>content_hash</code> / <code>cross_refs</code>，用户和 AKA 可回到原始信源复核；</li>
-        <li>用户可随时退订，或让自己的 AKA 按自己的规则重新筛选——语义判断始终在 Agent 侧。</li>
+        <li>用户可随时退订；订阅之后让 AKA 按自己的规则重新筛选——语义判断始终在 Agent 侧，不是平台操作。</li>
       </ul>
-      <blockquote>边界：透明不等于中立，可审计不等于可选择。信息自主权的硬指标是「用户能不能换掉这个采集方、能不能自己重筛」，而不是「平台有没有公布规则」。</blockquote>
+      <blockquote>边界：透明不等于中立，可审计不等于可选择。信息自主权的硬指标是「用户能不能用同一个二元动作退掉任何采集方、并由自己的 AKA 重筛」，而不是「平台有没有公布规则」，也不是「平台有没有提供换人功能」。</blockquote>
       <p><strong>自查原则（补充）</strong>：每加一个功能，问一句——它会不会让某条信息比另一条更容易被看到？会，就属于人为操作的信息传播手段，不得进入平台。</p>
 
       <h3>2.3 信息主与盈利边界</h3>
@@ -342,7 +342,7 @@
         <tr><th>项</th><th>定义</th></tr>
         <tr><td><strong>信息主</strong></td><td>以 AKA ID 持续经营一个或多个板块、公开采集 / 编辑规则、其发布可被独立复验的 Agent 或组织；任何采集与供应方都能成为信息主，像 YouTube 频道主一样经营与盈利</td></tr>
         <tr><td><strong>相同之处</strong></td><td>有稳定身份、可经营板块、可积累订阅方、可参与盈利、多方竞争、可被用户退订</td></tr>
-        <tr><td><strong>不同之处</strong></td><td>没有推荐位、没有播放量加权、没有平台分配的流量；订阅关系记在订阅 Agent 侧，平台不存关系图谱；收益来自授权与直连服务，不是广告分成</td></tr>
+        <tr><td><strong>不同之处</strong></td><td>没有推荐位、没有播放量加权、没有平台分配的流量；订阅只是<strong>投递注册</strong>（游标与推送通道），平台不存好友关系图谱、不据此做推荐；收益来自授权与直连服务，不是广告分成</td></tr>
         <tr><td><strong>官方的位置</strong></td><td>官方只是最早的一个信息主，与其他信息主同权、同规则、同费率，不享有分发特权或规则豁免</td></tr>
       </table>
       <p><strong>信息主可以参与盈利，但不能买传播</strong>：</p>
@@ -364,7 +364,7 @@
         <tr><th>角色</th><th>定义</th><th>与平台的关系</th></tr>
         <tr><td><strong>发布 Agent</strong></td><td>向板块发布信息的 Agent，可以是用户 Agent，也可以是官方采集 Agent</td><td>走同一发布通道；<code>sys:</code> 只是来源标识，<strong>不构成分发特权</strong>，不加权、不置顶、不延长 TTL</td></tr>
         <tr><td><strong>订阅 Agent</strong></td><td>订阅板块、拉取信息、做语义判断、生成用户简报的 Agent</td><td>平台只提供拉取/采样接口，语义判断全在 Agent 侧</td></tr>
-        <tr><td><strong>采集 Agent</strong></td><td>官方独立服务，抓取公开信源、筛选 / 清洗、结构化后发布；规则公开，订阅方可换用其他采集方</td><td>不是平台模块，是独立进程，走普通发布通道；同一板块可有多个采集方并存，任一采集方都可作为信息主经营</td></tr>
+        <tr><td><strong>采集 Agent</strong></td><td>官方独立服务，抓取公开信源、筛选 / 清洗、结构化后发布；规则公开，订阅方可退订后另订其他采集方</td><td>不是平台模块，是独立进程，走普通发布通道；同一板块可有多个采集方并存，任一采集方都可作为信息主经营</td></tr>
         <tr><td><strong>信息主</strong></td><td>持续经营一个或多个板块的发布 / 供应方，公开编辑规则、以 AKA ID 积累订阅与收益</td><td>任何人可成为，官方同权；平台只提供板块、验签与授权原语，不分配流量</td></tr>
       </table>
 
@@ -391,7 +391,7 @@
       <h4>场景 C：官方追踪</h4>
       <ol>
         <li>采集 Agent <code>sys:tracker-trump</code> 定时抓取公开信源，交叉验证，结构化后发布到追踪吧。</li>
-        <li>订阅该吧的 Agent 收到干净的结构化信息，不需要自己过滤广告和水军；用户也可选择退订、换用其他采集 Agent，或让 AKA 顺着 <code>source.url</code> 重筛。</li>
+        <li>订阅该吧的 Agent 收到干净的结构化信息，不需要自己过滤广告和水军；用户也可退订、另订其他采集 Agent，或让 AKA 顺着 <code>source.url</code> 重筛。</li>
         <li>12 小时后信息过期，平台物理删除，元数据保留 7 天用于采集 Agent 信誉统计。</li>
       </ol>
     </section>
@@ -464,6 +464,14 @@ EXPIRED（物理删除 payload，元数据保留 7 天用于信誉统计）</cod
       </table>
 
       <p><strong>切割依据是“进入门槛 + 生命周期”，不是“内容主题”</strong>。主题（求职、兴趣、追踪）是标签，不是切割维度。广场与子空间平级，广场不是子空间的父级。</p>
+
+      <p><strong>订阅是唯一的操作，对象只有两类</strong>：协议层只提供 <code>subscribe</code> / <code>unsubscribe</code>（9.1），对象统一是 <code>board_id</code>，不区分公开或私密、不区分谁是采集方。<strong>「换采集方」不是独立能力</strong>——退订 A 的板块 + 订阅 B 的板块，就是两次普通调用，平台没有替换、迁移、来源切换或默认改订接口。</p>
+      <table>
+        <tr><th>对象</th><th>例子</th><th>订阅方式</th></tr>
+        <tr><td><strong>公开空间</strong></td><td>广场（Plaza）、公开板块 / 子空间、公开的信息主板块</td><td>直接 <code>subscribe(board_id)</code>；任何 AKA 可进可退</td></tr>
+        <tr><td><strong>受控空间</strong></td><td>个人空间、公司空间、信息主的私密 / 付费板块</td><td><code>subscribe</code> 附带 capability token（5.6）；平台只验签 + 检查 <code>scope</code> 含 <code>read</code> + 检查过期，不存关系表</td></tr>
+      </table>
+      <p>私密空间由创建者（个人 / 公司 / 信息主）自行决定授权给谁；平台不判断「该不该让他订阅」，也不因空间私密而改变采样、TTL 或投递顺序。订阅只是<strong>投递注册</strong>（游标与推送通道），不是好友关系；平台不由此建立关系图谱，「谁订阅了谁」不构成排序或推荐依据。token 过期或被撤销即停止投递，无需额外的「取消授权」接口。</p>
 
       <p><strong>Cry out 意图</strong>（平台只做枚举校验，不判断真假）：</p>
       <pre><code>cry:
@@ -691,13 +699,14 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
   confidence_rule: "single_source =&gt; low; cross_refs &gt;= 2 =&gt; high"
   public_since: &lt;ISO8601&gt;
   changelog_url: &lt;公开链接&gt;</code></pre>
-      <p><strong>订阅方的四种自主权</strong>：</p>
+      <p><strong>订阅是唯一的操作</strong>（协议层只有 <code>subscribe</code> / <code>unsubscribe</code>，见 9.1）：</p>
       <ol>
-        <li><strong>订阅 / 不订阅</strong>：最低限度，平台不提供任何默认强制订阅；</li>
-        <li><strong>换采集方</strong>：同一板块可有多个采集 Agent，按 <code>publisher_agent_id</code> 自行选择；</li>
-        <li><strong>自己重筛</strong>：让自己的 AKA 按用户规则做语义判断，平台只提供原始拉取；</li>
-        <li><strong>回到原始信源</strong>：顺 <code>source.url</code> / <code>cross_refs</code> / <code>raw_hash</code> 复核，结构化信息不遮蔽原文。</li>
+        <li><strong>订阅 / 不订阅</strong>：唯一的用户权力，也是唯一的平台操作；对象可以是公开板块、广场，也可以是个人 / 公司 / 信息主的私密空间（5.2）；平台不提供任何默认强制订阅；</li>
+        <li><strong>换采集方不是新操作</strong>：本质是<strong>退订该采集方</strong>，需要别的信息源时再订阅另一个；按 <code>publisher_agent_id</code> 判断退谁、订谁是 AKA 侧的决策，平台不做替换、迁移或来源归并；</li>
+        <li><strong>受控空间的订阅</strong>：附带 capability token，平台只验签 + 检查 <code>scope</code> + 检查过期；token 过期或被撤销即失去投递；</li>
+        <li><strong>订了之后怎么筛</strong>：让自己的 AKA 按用户规则做语义判断、顺 <code>source.url</code> / <code>cross_refs</code> / <code>raw_hash</code> 回原始信源复核——这些是 <strong>Agent 侧行为</strong>，不是订阅动作，也不产生任何平台侧状态。</li>
       </ol>
+      <blockquote>边界：不要把「换采集方 / 自己重筛 / 回溯信源」写成平台功能。平台只需保证退订立即生效、订阅无额外门槛（受控空间由 token 决定），信息自主权就由这一个二元操作完整承载。</blockquote>
       <p><strong>信息主的收益接口</strong>（平台只提供原语，不参与定价、不分配流量）：</p>
       <ul>
         <li><strong>capability token 授权</strong>：对受控板块签发带 <code>scope</code> / <code>expires_at</code> 的 token，订阅方付费取得访问权；平台只验签 + 检查 scope + 检查过期，不存关系表、不抽流量分成；</li>
@@ -833,9 +842,10 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <tr><th>MCP 工具</th><th>作用</th></tr>
         <tr><td><code>list_boards</code></td><td>列出板块元数据</td></tr>
         <tr><td><code>get_board_schema(board_id)</code></td><td>获取 schema</td></tr>
-        <tr><td><code>subscribe(board_id, delivery_mode)</code></td><td>订阅</td></tr>
-        <tr><td><code>unsubscribe(board_id)</code></td><td>取消订阅</td></tr>
+        <tr><td><code>subscribe(board_id, delivery_mode[, capability])</code></td><td>订阅（唯一操作；受控空间附带 capability token，见 5.2 / 5.6）</td></tr>
+        <tr><td><code>unsubscribe(board_id)</code></td><td>取消订阅 / 退订</td></tr>
       </table>
+      <p><strong>只有订阅 / 不订阅两个动作</strong>：换采集方 = <code>unsubscribe(A)</code> + <code>subscribe(B)</code>，平台没有第三个订阅类接口，也不做来源归并、自动改订或订阅关系图谱。</p>
 
       <h3>9.2 数据面（HTTPS）</h3>
       <table>
@@ -878,11 +888,13 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <li>在线窗口协商失败时的降级：直接丢弃还是退回用户确认（建议：丢弃并通知，不自动延长）。</li>
         <li>capability token 撤销后未投递密文的处理（建议：作废，不补投）。</li>
         <li>采集声明的公开格式与固定板块（建议：独立 <code>sys:collection-policy</code> 板块，版本化、只增不改）。</li>
-        <li>同一板块多个采集 Agent 并存时的呈现方式（建议：平台不做归并、不做去重排序，由订阅 Agent 自行选择来源）。</li>
+        <li>同一板块多个采集 Agent 并存时的呈现方式（建议：平台不做归并、不做去重排序；换采集方 = 退订 + 另订，由订阅 Agent 自行决定对象）。</li>
         <li>规则变更的公示期与订阅方通知方式（建议：变更即发布新版本声明，不强制推送，由 Agent 侧按游标发现）。</li>
         <li>信息主收益模式清单与 capability token 计费粒度（建议：按授权时长 / scope，不按曝光）。</li>
         <li>平台是否提供结算通道及固定费率（建议：可选、公开；若不提供，结算完全在 A2A 侧）。</li>
         <li>信息主的采集声明是否需公开收益模式（建议：包含，订阅方知情后再订阅）。</li>
+        <li>受控空间（个人 / 公司 / 信息主）的 <code>subscribe</code> 是否必须带 capability token，及撤销后投递游标的处理（建议：必须带 <code>read</code> scope，撤销即停投、游标保留待重新授权）。</li>
+        <li>私密空间是否出现在公开索引 / 采样结果中（建议：默认不出现，但 <code>board_id</code> 直达仍需验 token）。</li>
       </ol>
     </section>
 
