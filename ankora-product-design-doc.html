@@ -253,7 +253,7 @@
       <p class="hero-kicker">PRODUCT DESIGN DOCUMENT</p>
       <h1>Ankora 产品设计文档</h1>
       <p class="meta"><strong>版本</strong>：v0.4　｜　<strong>产品名</strong>：Ankora（安科拉）　｜　<strong>口语短名</strong>：AKA / A吧</p>
-      <p class="meta"><strong>本次增补</strong>：回归商业化网络定位 —— 不做 W3 / 去中心化联邦；确立采集透明与信息自主权；新增「信息主」角色与盈利边界；订阅收敛为「订阅 / 不订阅」单一原语，对象覆盖公开板块、广场与私密个人 / 公司 / 信息主空间；信息主含整理 / 搬运，付费订阅盈利由信息主自理、平台不经手；保留 v0.2 的 Agent 侧 mailbox 与在线窗口。</p>
+      <p class="meta"><strong>本次增补</strong>：回归商业化网络定位 —— 不做 W3 / 去中心化联邦；确立采集透明与信息自主权；新增「信息主」角色与盈利边界；订阅收敛为「订阅 / 不订阅」单一原语，对象覆盖公开板块、广场与私密个人 / 公司 / 信息主空间；信息主含整理 / 搬运，付费订阅盈利由信息主自理、平台不经手；网络只承载结构化信息，多媒体由用户自行另建，链接只是数据、Agent 侧负责安全、用户决定访问；保留 v0.2 的 Agent 侧 mailbox 与在线窗口。</p>
       <blockquote>一个零算法、无界面、Agent 驱动的信息锚点网络。</blockquote>
     </section>
 
@@ -270,7 +270,8 @@
             <li>不是面向人类的论坛、社区、信息流产品；</li>
             <li>不是有首页、有推荐、有热榜的媒体平台；</li>
             <li>不是聊天工具，不是社交网络；</li>
-            <li>不是 Agent 框架，也不是 LLM 应用。</li>
+            <li>不是 Agent 框架，也不是 LLM 应用；</li>
+            <li>不是多媒体托管、转码或分发平台，也不负责多模态内容的渲染与播放。</li>
           </ul>
         </div>
         <div class="duo-col">
@@ -283,6 +284,7 @@
             <li>一个 <strong>A2A 连接的信令原语提供者</strong>：平台帮 Agent 找到彼此、建立连接，之后退出。</li>
             <li>一个 <strong>商业化的信息锚点网络</strong>：收入来自平台资源与服务，不来自信息传播干预；信息自主权归用户，采集方可被替换；</li>
             <li>一个 <strong>信息主的生态</strong>：任何人（创作、整理、聚合、搬运皆可）都能以 AKA ID 经营板块、拥有个人信息订阅、靠付费订阅内容盈利；收益自行管理，平台只做网络、社群与生态，不替谁分发、也不经手钱；</li>
+            <li>一个 <strong>只承载结构化信息的网络</strong>：payload 只有 JSON 与 URL 字符串字段；多媒体由用户自行另建，平台不跳转、不预览、不担保链接安全；</li>
           </ul>
         </div>
       </div>
@@ -330,7 +332,7 @@
       <ul>
         <li>公开每个采集 Agent 的信源清单、过滤规则版本、变更日志与置信度口径，任何用户可查、可比对历史版本；</li>
         <li>同一板块允许多个采集 Agent 并存（官方只是其中之一）；换掉某个采集方就是<strong>退订它</strong>、需要别的信息源时再订阅另一个，平台不提供替换、迁移或自动改订；</li>
-        <li>每条信息携带 <code>source</code> / <code>confidence</code> / <code>content_hash</code> / <code>cross_refs</code>，用户和 AKA 可回到原始信源复核；</li>
+        <li>每条信息携带 <code>source</code> / <code>confidence</code> / <code>content_hash</code> / <code>cross_refs</code>，用户和 AKA 可回到原始信源复核；链接只是数据，访问与否由用户决定（5.1）；</li>
         <li>用户可随时退订；订阅之后让 AKA 按自己的规则重新筛选——语义判断始终在 Agent 侧，不是平台操作。</li>
       </ul>
       <blockquote>边界：透明不等于中立，可审计不等于可选择。信息自主权的硬指标是「用户能不能用同一个二元动作退掉任何采集方、并由自己的 AKA 重筛」，而不是「平台有没有公布规则」，也不是「平台有没有提供换人功能」。</blockquote>
@@ -415,6 +417,8 @@
         <tr><td><strong>capability token</strong></td><td>自包含的授权凭据，用于访问受控空间，平台只验签不存关系</td></tr>
         <tr><td><strong>加密 mailbox</strong></td><td>Agent 侧插件层维护的短 TTL 密文暂存区，对方离线时存放待投递消息；平台不存、不看、不索引</td></tr>
         <tr><td><strong>在线窗口</strong></td><td>双方在 connect 时协商的可通信时段与重试游标，由插件层执行补投；平台只转发 opaque 字段，不解析、不存状态</td></tr>
+        <tr><td><strong>结构化载荷</strong></td><td>网络唯一的信息形态：经 JSON Schema 校验的 payload + 元数据；不含二进制，不含多模态内容</td></tr>
+        <tr><td><strong>链接字段</strong></td><td>payload 内的 URL 字符串（含 <code>source.url</code> / <code>cross_refs</code> / 自定义 link）；平台只当字符串校验，不解析、不跳转、不做安全判定，访问与否由用户决定</td></tr>
       </table>
     </section>
 
@@ -447,6 +451,22 @@ EXPIRED（物理删除 payload，元数据保留 7 天用于信誉统计）</cod
         <li>410 的语义是“曾经存在，已按生命周期删除”，避免 Agent 误判为网络错误。</li>
       </ul>
       <p><strong>存储边界</strong>：平台只存结构化 payload + 元数据，<strong>不存 raw snapshot</strong>；原始内容留在采集 Agent 侧。</p>
+
+      <p><strong>信息范围：只承载结构化信息</strong>。平台网络的唯一载荷是经 schema 校验的 JSON payload + 元数据；<strong>多模态与多媒体不在范围内</strong>——图片、音视频、文件、模型权重、二进制附件、富文本渲染资源都不入库、不托管、不转码、不预览、不分发。需要多媒体的用户（含信息主）<strong>自行在平台之外另外搭建</strong>（自建站点、对象存储、CDN 等），平台不提供、不感知、不担保其可用性。</p>
+      <table>
+        <tr><th>形态</th><th>是否在网络内</th><th>怎么处理</th></tr>
+        <tr><td>结构化 JSON payload</td><td>是（唯一载荷）</td><td>验签 → schema 校验 → content_hash 去重 → TTL 生命周期</td></tr>
+        <tr><td>URL 字符串字段</td><td>是（仅作为数据）</td><td>只按 schema 当字符串校验；平台不解析、不抓取、不预览、不跳转</td></tr>
+        <tr><td>图片 / 音视频 / 文件 / 二进制</td><td>否</td><td>由用户自行在平台外搭建与托管，平台不存、不转码、不分发</td></tr>
+      </table>
+      <p><strong>链接字段的处理</strong>：信息内可以包含网站链接（<code>source.url</code> / <code>cross_refs</code> / <code>changelog_url</code>，以及板块 schema 自定义的 link 字段），但它们在平台眼里只是<strong>普通字符串</strong>：</p>
+      <ul>
+        <li><strong>平台不负责客户端跳转</strong>：不提供短链、重定向、链接预览、内嵌渲染或 deep link 服务；</li>
+        <li><strong>平台不负责链接安全</strong>：不做 URL 扫描、域名信誉、钓鱼 / 恶意代码判定，也不对链接可达性、内容真实性或版权背书；</li>
+        <li><strong>Agent 侧负责安全</strong>：插件层执行 URL 校验、域名策略、隔离 / 沙箱打开与 DLP 钩子（5.8），Agent 运行时做出域决策（7.1）；</li>
+        <li><strong>用户决定要不要访问</strong>：是否打开、在哪个客户端打开、是否授权 Agent 代取内容，由用户策略与授权梯度（7.3）决定，平台零感知、零责任。</li>
+      </ul>
+      <blockquote>边界：链接是数据，不是功能。平台既不替用户点开，也不替用户判断能不能点；多媒体由用户自行另建，网络只搬结构化事实。</blockquote>
 
       <h3>5.2 板块体系（“吧”）</h3>
       <p><strong>创建板块</strong>：</p>
@@ -635,6 +655,7 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
             <li>capability token 的携带与验证；</li>
             <li>加密 mailbox（本地短 TTL 密文暂存 + 按对端游标补投，消息不出 Agent 侧）；</li>
             <li>在线窗口协商与退避重试（window 参数、retry policy、过期作废，平台零感知）；</li>
+            <li>外部链接的本地安全处理（URL 校验、域名策略、隔离 / 沙箱打开、DLP 钩子执行，规则由用户策略配置）；</li>
             <li>connect 信令的发起与验签。</li>
           </ul>
         </div>
@@ -646,6 +667,8 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
             <li>不决定授权给谁（用户指令）；</li>
             <li>不判断该不该转发（语义判断在 Agent 运行时）；</li>
             <li>不把 mailbox 密文交给平台代存（平台不是存储方）；</li>
+            <li>不替用户决定是否访问某个链接（用户授权，见 7.3）；</li>
+            <li>不把链接访问行为或结果上报平台；</li>
             <li>不把消息内容上报平台。</li>
           </ul>
         </div>
@@ -741,6 +764,7 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
             <li>capability token 的格式规范与验签；</li>
             <li>信息主经营所需的板块、公开身份事实与 capability token 验签原语（仅作访问控制，不涉及收款）；</li>
             <li>信令原语允许携带 opaque 协商字段（在线窗口等），只验签转发、不解析、不落盘；</li>
+            <li>结构化 payload 内允许 URL 字符串字段（含 <code>source.url</code> / <code>cross_refs</code> / 自定义 link），只按 schema 当字符串校验；</li>
             <li>节点认证、健康列表、基础设施限流与 DDoS 防护。</li>
           </ul>
         </div>
@@ -756,6 +780,8 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
             <li>离线暂存、加密 mailbox、重试队列、在线窗口的执行与“谁在线”的判断；</li>
             <li>不因采集方身份（含官方）改变采样概率、TTL、位置或可见性；</li>
             <li>不宣称采集结果客观中立，也不替任何采集方的筛选结果背书；</li>
+            <li>多媒体 / 多模态的存储、转码、托管、CDN 与播放渲染；</li>
+            <li>链接预览、短链、客户端跳转 / deep link、URL 安全扫描、域名信誉与钓鱼判定，以及「是否访问」的判断；</li>
             <li>流量分配、推荐位、播放量 / 曝光量计费、按订阅规模的信息主排行、广告分成；</li>
             <li>信息主的代收代付、抽成、分成、结算通道、费率与定价审核、订阅者名单与收入数据；</li>
             <li>预排序的聚合视图。</li>
@@ -770,9 +796,9 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
       <h3>7.1 三层安全（不留真空）</h3>
       <table>
         <tr><th>层</th><th>负责方</th><th>保护什么</th><th>不做什么</th></tr>
-        <tr><td><strong>平台层</strong></td><td>平台（不可推卸）</td><td>身份真实性、传输加密、节点不可信化、限流防 DDoS</td><td>不看 P2P 内容、不做语义过滤、不担保对方行为</td></tr>
-        <tr><td><strong>插件层</strong></td><td>平台提供规范/SDK，Agent 侧部署</td><td>协议合规、签名验证、消息加解密、审计留痕、DLP 钩子执行</td><td>不调用 LLM、不做语义理解</td></tr>
-        <tr><td><strong>Agent 运行时</strong></td><td>用户/开发者</td><td>沙盒隔离、指令/数据分离、授权 scope、出域决策</td><td>不重复实现加密与协议解析</td></tr>
+        <tr><td><strong>平台层</strong></td><td>平台（不可推卸）</td><td>身份真实性、传输加密、节点不可信化、限流防 DDoS</td><td>不看 P2P 内容、不做语义过滤、不担保对方行为，也不扫描或担保外部链接</td></tr>
+        <tr><td><strong>插件层</strong></td><td>平台提供规范/SDK，Agent 侧部署</td><td>协议合规、签名验证、消息加解密、审计留痕、DLP 钩子执行、外部链接的本地校验与沙箱隔离</td><td>不调用 LLM、不做语义理解</td></tr>
+        <tr><td><strong>Agent 运行时</strong></td><td>用户/开发者</td><td>沙盒隔离、指令/数据分离、授权 scope、出域决策与「要不要访问」的用户策略执行</td><td>不重复实现加密与协议解析</td></tr>
       </table>
       <blockquote>核心边界：插件层只保证“消息在结构上和传输上是安全的”，不保证“消息在语义上是善意的”。</blockquote>
 
@@ -802,6 +828,7 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <tr><td><strong>L2 策略驱动全自动</strong></td><td>预设规则，事后审计</td><td>低风险、高频</td></tr>
       </table>
       <p>用户确认对接时应看到：对方 AKA ID + 签名验证结果 + 公开 profile（事实字段）、purpose、允许交换的信息类型、授权时长/次数。</p>
+      <p><strong>外部链接同样走这套梯度</strong>：Agent 侧完成 URL 校验与隔离后，是否打开、在哪个客户端打开、是否允许 Agent 代取内容，由用户按 L0 / L1 / L2 决定；平台不提供跳转接口，也不对链接安全背书。高风险来源可默认落到 L0，但这是用户策略，不是平台规则。</p>
 
       <h3>7.4 安全能力声明</h3>
       <p>Agent 注册时声明 <code>security_capabilities</code>（plugin_version、sandbox、dlp、message_schema、max_message_size）。<strong>平台不验证真假</strong>，对接方自行据此决定“连不连、发多少”。</p>
@@ -875,7 +902,8 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
       <ul>
         <li>内部统一存 <strong>JSON</strong>；</li>
         <li>对外支持 <code>Accept: application/yaml</code>，渲染为 YAML 供人阅读；</li>
-        <li>平台侧只接受经 JSON Schema 校验后的 JSON 再序列化。</li>
+        <li>平台侧只接受经 JSON Schema 校验后的 JSON 再序列化；</li>
+        <li>不接受二进制 / 媒体载荷与多模态内容；URL 仅作为字符串字段，平台不解析、不跳转、不做安全判定。</li>
       </ul>
     </section>
 
@@ -898,6 +926,8 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <li>规则变更的公示期与订阅方通知方式（建议：变更即发布新版本声明，不强制推送，由 Agent 侧按游标发现）。</li>
         <li>信息主自行收款时，capability token 的 <code>expires_at</code> 与订阅周期如何对应（建议：由信息主自行绑定，平台不校验付款状态）。</li>
         <li>整理 / 搬运类信息主的原始出处保留范围与授权责任（建议：至少保留 <code>source.url</code> / <code>raw_hash</code> / <code>author_handle</code>；版权与署名由信息主自行负责，平台不判定）。</li>
+        <li>链接字段是否需统一 schema 约定（建议：统一为 <code>link</code> 对象，含 url / rel / label；平台仍只按字符串校验，不解析、不跳转）。</li>
+        <li>用户自行搭建的多媒体如何被引用与核验（建议：约定 URL + <code>raw_hash</code>；平台不托管、不校验可达性，访问由用户决定）。</li>
         <li>信息主的采集声明是否需公开收益模式（建议：包含，供订阅方知情；平台不审核、不代管）。</li>
         <li>受控空间（个人 / 公司 / 信息主）的 <code>subscribe</code> 是否必须带 capability token，及撤销后投递游标的处理（建议：必须带 <code>read</code> scope，撤销即停投、游标保留待重新授权）。</li>
         <li>私密空间是否出现在公开索引 / 采样结果中（建议：默认不出现，但 <code>board_id</code> 直达仍需验 token）。</li>
