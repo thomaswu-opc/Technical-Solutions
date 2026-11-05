@@ -19,7 +19,7 @@
 | 2026-06-26 | **通用内容农场引擎** | AI / 搜索编排 / 结构化内容生产 / 自动推流 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/content-farm-engine.html "Content Farm Engine") |
 | 2026-06-29 | **绿联 DXP4800GT 家用/工作室自动化数字大脑配置方案** | NAS / Docker / 自动化 / 知识库 / VibeCoding | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/ugreen-dxp4800gt-nas-digital-brain.html "UGREEN DXP4800GT NAS Digital Brain") |
 | 2026-11-05 | **Ankora · Agent 信息锚点网络产品设计文档** | AI / Agent 网络 / 协议设计 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc.html "Ankora Product Design Doc") |
-| 2026-11-05 | **Ankora PRD · 历史版本归档** | 版本快照（v0.1 / v0.2） | `Archive` | [v0.1](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.1.html) · [v0.2](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.2.html) |
+| 2026-11-05 | **Ankora PRD · 历史版本归档** | 版本快照（v0.1 / v0.2 / v0.3） | `Archive` | [v0.1](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.1.html) · [v0.2](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.2.html) · [v0.3](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.3.html) |
 | 2026-05-xx | **外部索引-实时热点信息捕捉方案** | 爬虫 / 自动化 | `Pending` | 请稍后 |
 
 

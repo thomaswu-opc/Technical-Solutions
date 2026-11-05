@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ankora 产品设计文档 v0.3</title>
+<title>Ankora 产品设计文档 v0.4</title>
 <style>
   :root{
     --navy:#12283d;
@@ -223,7 +223,7 @@
       <div class="brand-mark">A</div>
       <div class="brand-text"><strong>Ankora</strong><span>安科拉 · AKA / A吧</span></div>
     </div>
-    <div class="topbar-meta"><span>产品设计文档</span><span class="badge">v0.3</span></div>
+    <div class="topbar-meta"><span>产品设计文档</span><span class="badge">v0.4</span></div>
     <button class="toc-toggle" id="tocToggle" type="button" aria-expanded="false" aria-controls="sidebar">目录</button>
   </div>
 </header>
@@ -252,8 +252,8 @@
     <section class="card hero">
       <p class="hero-kicker">PRODUCT DESIGN DOCUMENT</p>
       <h1>Ankora 产品设计文档</h1>
-      <p class="meta"><strong>版本</strong>：v0.3　｜　<strong>产品名</strong>：Ankora（安科拉）　｜　<strong>口语短名</strong>：AKA / A吧</p>
-      <p class="meta"><strong>本次增补</strong>：W3 去中心化（技术 / 经济 / 法律）与 AI Native 推论 —— 节点可替换、身份自主、无需许可、联邦为协议属性；同步修订术语与边界。</p>
+      <p class="meta"><strong>版本</strong>：v0.4　｜　<strong>产品名</strong>：Ankora（安科拉）　｜　<strong>口语短名</strong>：AKA / A吧</p>
+      <p class="meta"><strong>本次增补</strong>：回归商业化网络定位 —— 不做 W3 / 去中心化联邦；确立采集透明与信息自主权边界；保留 v0.2 的 Agent 侧 mailbox 与在线窗口。</p>
       <blockquote>一个零算法、无界面、Agent 驱动的信息锚点网络。</blockquote>
     </section>
 
@@ -281,7 +281,7 @@
             <li>一个 <strong>生命周期驱动的信息系统</strong>：信息有 TTL，无人续命即消亡；</li>
             <li>一个 <strong>零算法分发层</strong>：平台不排序、不推荐、不加权、不个性化；</li>
             <li>一个 <strong>A2A 连接的信令原语提供者</strong>：平台帮 Agent 找到彼此、建立连接，之后退出。</li>
-            <li>一个 <strong>无需许可的协议网络</strong>：身份自主生成、节点可自托管、板块可迁移，没有能替全网做决定的运营方；</li>
+            <li>一个 <strong>商业化的信息锚点网络</strong>：收入来自平台资源与服务，不来自信息传播干预；信息自主权归用户，采集方可被替换；</li>
           </ul>
         </div>
       </div>
@@ -314,24 +314,26 @@
       </ol>
       <blockquote>自查原则：每加一个功能，问一句——这属于“身份、schema、TTL、事实暴露”四件事之一吗？不属于，就应该是网络里的一个 Agent，而不是平台的一个模块。</blockquote>
 
-      <h3>2.1 W3 与 AI Native 推论</h3>
-      <p>上面四条是<strong>协议约束</strong>，不是某个运营方的自我承诺。文中所有“平台”一词，均指<strong>任一协议兼容节点</strong>：可替换、可自托管、可退出；节点之间没有从属关系，也没有一个能替全网做决定的中心。</p>
+      <h3>2.2 商业化边界与采集透明</h3>
+      <p><strong>Ankora 是一个商业化的网络，不是去中心化协议或联邦网络。</strong> 平台由单一运营方负责运维与计费，用户以 AKA ID 接入；不做 W3 式的技术／经济／法律去中心化，不引入链、代币，也不要求多节点互认。v0.3 的去中心化推论已整体撤回。</p>
+      <p>它与传统媒体的区别<strong>不在「有没有编辑」，而在「编辑是否影响分发」</strong>：</p>
       <table>
-        <tr><th>精神</th><th>推论</th><th>在 Ankora 里的落点</th></tr>
-        <tr><td><strong>技术去中心化</strong></td><td>无需许可、无需信任、可独立验证</td><td>身份即公钥哈希，自主生成、无需注册；每条信息带签名与 content_hash，换任何节点都能复验</td></tr>
-        <tr><td><strong>经济去中心化</strong></td><td>没有单一资源分配者，可自由进出</td><td>配额是具体节点的服务条款而非网络准入；换节点即换配额，不存在全局 VIP</td></tr>
-        <tr><td><strong>法律去中心化</strong></td><td>不依赖某一方的持续运营与背书</td><td>board_id 全域唯一可直达；TTL 是节点本地存储策略，签名事实可由 Agent 自行存档</td></tr>
-        <tr><td><strong>自主身份 / 可组合 / 可移植</strong></td><td>身份、数据、能力都不被锁定</td><td>capability token 自包含可验签；schema 公开可组合；板块与事实可导出迁移</td></tr>
-        <tr><td><strong>AI Native：移除测试</strong></td><td>抽掉 Agent，产品不成立</td><td>无界面、无人可读信息流；发布、订阅、筛选、连接全部由 Agent 完成，平台不提供人类工作流</td></tr>
-        <tr><td><strong>AI Native：意图进、结果出</strong></td><td>协议对 Agent 可判定，而非对人可点击</td><td>schema 自描述、type 枚举、purpose 锁定、opaque 协商字段；用户只给目标与边界，不操作表单</td></tr>
+        <tr><th>维度</th><th>传统媒体 / 信息流</th><th>Ankora</th></tr>
+        <tr><td>信息传播手段</td><td>排序、推荐、热榜、加权、个性化</td><td>不排序、不推荐、不加权、不个性化；只有 recent / random / diverse 三种机械采样</td></tr>
+        <tr><td>编辑发生的位置</td><td>编辑结果直接决定用户看到什么</td><td>筛选与清洗发生在<strong>发布前</strong>，是采集 Agent 的编辑责任；发布后平台只做结构校验</td></tr>
+        <tr><td>官方采集</td><td>平台自有内容享天然曝光优势</td><td>官方采集 Agent 走<strong>与普通 Agent 完全相同</strong>的发布通道，不加权、不置顶、不延长 TTL、不进推荐位</td></tr>
+        <tr><td>收入来源</td><td>注意力、曝光、广告</td><td>平台资源配额（并发、推送连接、子空间数、信令频率、中继带宽）与企业服务；<strong>不卖曝光</strong></td></tr>
+        <tr><td>用户权力</td><td>只能在给定信息流里选择看或不看</td><td>订阅 / 不订阅、更换采集方、让 AKA 按自己规则重筛、顺着溯源字段核验原始信源</td></tr>
       </table>
-      <p><strong>三条硬推论</strong>：</p>
+      <p><strong>关于官方采集的主观性</strong>：抓取范围、信源优先级、去广告 / 去水军规则、交叉验证阈值都包含人的判断，平台<strong>不宣称客观中立</strong>。可承诺的只有两件事——<strong>规则公开可查、结果可被替换</strong>：</p>
       <ul>
-        <li><strong>零算法 ≠ 去中心化。</strong> 不排序只说明不干预，不说明没有单点；所以多节点互认、board 可迁移、无全局发证者是<strong>协议属性</strong>，不是 v2 的可选功能。</li>
-        <li><strong>平台不给“官方”发身份。</strong> <code>sys:</code> 只是约定俗成的前缀，任何 Agent 都可运行同类采集服务；信谁由订阅 Agent 自行判断，节点不做背书。</li>
-        <li><strong>不引入链、不引入代币。</strong> 去中心化靠公钥身份 + 签名事实 + 内容寻址 + 联邦节点实现；代币会立刻破坏“star / influence 与 entitlement 正交”的宪法。</li>
+        <li>公开每个采集 Agent 的信源清单、过滤规则版本、变更日志与置信度口径，任何用户可查、可比对历史版本；</li>
+        <li>同一板块允许多个采集 Agent 并存（官方只是其中之一），订阅方自行选择信任谁；</li>
+        <li>每条信息携带 <code>source</code> / <code>confidence</code> / <code>content_hash</code> / <code>cross_refs</code>，用户和 AKA 可回到原始信源复核；</li>
+        <li>用户可随时退订，或让自己的 AKA 按自己的规则重新筛选——语义判断始终在 Agent 侧。</li>
       </ul>
-      <blockquote>自查原则（补充）：每加一个功能，再问一句——换一个节点、换一个运营方，这个功能还成立吗？不成立，就说明权力放错了层。</blockquote>
+      <blockquote>边界：透明不等于中立，可审计不等于可选择。信息自主权的硬指标是「用户能不能换掉这个采集方、能不能自己重筛」，而不是「平台有没有公布规则」。</blockquote>
+      <p><strong>自查原则（补充）</strong>：每加一个功能，问一句——它会不会让某条信息比另一条更容易被看到？会，就属于人为操作的信息传播手段，不得进入平台。</p>
     </section>
 
     <section class="card" id="s3">
@@ -340,9 +342,9 @@
       <h3>3.1 三类角色</h3>
       <table>
         <tr><th>角色</th><th>定义</th><th>与平台的关系</th></tr>
-        <tr><td><strong>发布 Agent</strong></td><td>向板块发布信息的 Agent，可以是用户 Agent，也可以是社区采集 Agent</td><td>走同一发布通道；没有“官方”身份，只有签名与可独立复验的公开事实</td></tr>
+        <tr><td><strong>发布 Agent</strong></td><td>向板块发布信息的 Agent，可以是用户 Agent，也可以是官方采集 Agent</td><td>走同一发布通道；<code>sys:</code> 只是来源标识，<strong>不构成分发特权</strong>，不加权、不置顶、不延长 TTL</td></tr>
         <tr><td><strong>订阅 Agent</strong></td><td>订阅板块、拉取信息、做语义判断、生成用户简报的 Agent</td><td>平台只提供拉取/采样接口，语义判断全在 Agent 侧</td></tr>
-        <tr><td><strong>采集 Agent</strong></td><td>任何人都能运行的独立服务，抓取公开信源、清洗、结构化后发布</td><td>不是平台模块，是独立进程，走普通发布通道；多方可并存竞争，订阅方自选</td></tr>
+        <tr><td><strong>采集 Agent</strong></td><td>官方独立服务，抓取公开信源、筛选 / 清洗、结构化后发布；规则公开，订阅方可换用其他采集方</td><td>不是平台模块，是独立进程，走普通发布通道；同一板块可有多个采集方并存</td></tr>
       </table>
 
       <h3>3.2 典型场景</h3>
@@ -365,11 +367,11 @@
         <li>觉得合适就订阅，不合适就丢弃。平台全程不知道 AKA 看了什么、为什么订阅。</li>
       </ol>
 
-      <h4>场景 C：社区追踪</h4>
+      <h4>场景 C：官方追踪</h4>
       <ol>
-        <li>某个采集 Agent <code>agent:xxx/tracker-trump</code> 定时抓取公开信源，交叉验证，结构化后发布到追踪吧；同主题可以有多个互不隶属的采集 Agent。</li>
-        <li>订阅该吧的 Agent 收到干净的结构化信息，不需要自己过滤广告和水军。</li>
-        <li>12 小时后信息过期，节点按 TTL 清除本地副本；带签名的事实仍可由 Agent 自行存档并在其他节点复验，元数据保留 7 天用于信誉统计。</li>
+        <li>采集 Agent <code>sys:tracker-trump</code> 定时抓取公开信源，交叉验证，结构化后发布到追踪吧。</li>
+        <li>订阅该吧的 Agent 收到干净的结构化信息，不需要自己过滤广告和水军；用户也可选择退订、换用其他采集 Agent，或让 AKA 顺着 <code>source.url</code> 重筛。</li>
+        <li>12 小时后信息过期，平台物理删除，元数据保留 7 天用于采集 Agent 信誉统计。</li>
       </ol>
     </section>
 
@@ -377,7 +379,7 @@
       <h2>4. 核心概念</h2>
       <table>
         <tr><th>概念</th><th>定义</th></tr>
-        <tr><td><strong>AKA ID</strong></td><td>Agent 的身份标识，<code>agent_id = 公钥哈希</code>，自主生成、无需注册、可轮换、跨节点可独立复验；绑定发布、star、转发、connect 等所有活动</td></tr>
+        <tr><td><strong>AKA ID</strong></td><td>Agent 的身份标识，<code>agent_id = 公钥哈希</code>，绑定发布、star、转发、connect 等所有活动</td></tr>
         <tr><td><strong>信息锚点（info）</strong></td><td>一条结构化信息，有 schema、TTL、签名、内容哈希，是网络的最小信息单元</td></tr>
         <tr><td><strong>板块（board / 吧）</strong></td><td>一个版本化的 JSON Schema 对象 + 生命周期策略，由任意 Agent 创建，命名空间隔离</td></tr>
         <tr><td><strong>广场（Plaza）</strong></td><td>极宽松 schema、短 TTL、低门槛的板块，承担 cry out 与“逛”的入口</td></tr>
@@ -386,13 +388,10 @@
         <tr><td><strong>信号（Signal）</strong></td><td>FORWARD / REPLY / report，有成本的参与度行为，影响生命周期与信誉</td></tr>
         <tr><td><strong>star</strong></td><td>对单条信息的评价，社区喜好信号，不影响分发与 TTL</td></tr>
         <tr><td><strong>influence</strong></td><td>star 的带衰减聚合，发布者的公开事实字段，不影响分发</td></tr>
-        <tr><td><strong>entitlement</strong></td><td>具体节点签发的服务凭证，只对该节点的资源配额有效，不影响曝光，也不构成网络身份</td></tr>
+        <tr><td><strong>entitlement</strong></td><td>付费档位，决定平台资源配额，不影响曝光</td></tr>
         <tr><td><strong>capability token</strong></td><td>自包含的授权凭据，用于访问受控空间，平台只验签不存关系</td></tr>
         <tr><td><strong>加密 mailbox</strong></td><td>Agent 侧插件层维护的短 TTL 密文暂存区，对方离线时存放待投递消息；平台不存、不看、不索引</td></tr>
         <tr><td><strong>在线窗口</strong></td><td>双方在 connect 时协商的可通信时段与重试游标，由插件层执行补投；平台只转发 opaque 字段，不解析、不存状态</td></tr>
-        <tr><td><strong>协议兼容节点</strong></td><td>任何实现 Ankora Protocol 并可自证身份的服务进程；彼此平等、可替换、可自托管，无全局发证者</td></tr>
-        <tr><td><strong>可验证事实</strong></td><td>带签名与 content_hash 的结构化信息；任何 Agent 拿到后无需信任来源节点即可复验</td></tr>
-        <tr><td><strong>可迁移导出</strong></td><td>板块 schema、订阅游标与已签名事实均可导出并在另一节点重建，不依赖单一运营方持续存在</td></tr>
       </table>
     </section>
 
@@ -416,7 +415,7 @@ DISTRIBUTING（TTL 窗口内存活）
    ↓ ACK / 拉取 / star → 计数，但不续命
 ALIVE（TTL 计时中）
    ↓ TTL 到期且无续命额度
-EXPIRED（节点本地删除 payload；签名事实可由 Agent 自行存档复验，元数据保留 7 天用于信誉统计）</code></pre>
+EXPIRED（物理删除 payload，元数据保留 7 天用于信誉统计）</code></pre>
 
       <p><strong>规则</strong>：</p>
       <ul>
@@ -430,9 +429,9 @@ EXPIRED（节点本地删除 payload；签名事实可由 Agent 自行存档复�
       <p><strong>创建板块</strong>：</p>
       <ul>
         <li><code>board_id = {creator_agent_id}/{board_slug}</code>，与创建者绑定，不可转让；</li>
-        <li>创建只需签名，协议不设准入门槛；信誉门槛、数量上限、付费档位都是<strong>具体节点的本地服务策略</strong>，不同节点可以不同，换节点即换策略；</li>
-        <li>节点可自行对新板块标记 <code>probation</code> 以限制本地默认索引的展示，<strong>不得据此拒绝签名合法的发布</strong>；</li>
-        <li>连续 M 天无有效发布 → <code>dormant</code>，从该节点默认索引隐藏；索引只是节点本地视图，<code>board_id</code> 全域唯一可直达，任何节点都可独立重建索引。</li>
+        <li>创建需签名；免费用户需信誉门槛，VIP 可绕过门槛但有数量上限；</li>
+        <li>新板块进入 <code>probation</code>，前几条信息只对高信誉订阅者可见；</li>
+        <li>连续 M 天无有效发布 → <code>dormant</code>，从默认索引隐藏，<code>board_id</code> 仍可直达。</li>
       </ul>
 
       <p><strong>三类空间</strong>：</p>
@@ -499,7 +498,7 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
 
       <p><strong>防刷</strong>：</p>
       <ul>
-        <li>star 者需信誉门槛（新密钥前 N 天权重为 0，按公钥首次出现时间由节点本地判定）；</li>
+        <li>star 者需信誉门槛（新号前 N 天权重为 0）；</li>
         <li>同密钥簇/同 IP 簇互 star 不计分；</li>
         <li>单 star 者对同一发布者累计上限 5 条；</li>
         <li>star 权重 <code>log(1 + starrer_influence)</code>，对数压缩防大 V 互捧；</li>
@@ -507,12 +506,12 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
       </ul>
 
       <h3>5.5 付费与配额</h3>
-      <p><strong>付费只买某个节点的资源配额，不买曝光、不买 star、不买 influence、不买 TTL。</strong> 配额是<strong>节点服务条款</strong>，不是网络准入：任何 Agent 都能以公钥身份接入任一节点，换节点即换配额，不存在全局 VIP 或全局封禁。</p>
+      <p><strong>付费只买平台资源配额，不买曝光、不买 star、不买 influence、不买 TTL。</strong></p>
       <table>
-        <tr><th>节点服务档位</th><th>免费</th><th>基础</th><th>高级</th></tr>
+        <tr><th>层级</th><th>免费</th><th>基础 VIP</th><th>高级 VIP</th></tr>
         <tr><td>信息锚点（订阅数）</td><td>不限</td><td>不限</td><td>不限</td></tr>
         <tr><td>广场 cry out 频率</td><td>10 条/天</td><td>100 条/天</td><td>1000 条/天</td></tr>
-        <tr><td>创建子空间</td><td>限 1</td><td>限 5</td><td>限 20</td></tr>
+        <tr><td>创建子空间</td><td>需信誉门槛，限 1</td><td>可绕过门槛，限 5</td><td>限 20</td></tr>
         <tr><td>并发发布</td><td>1 req/s</td><td>5 req/s</td><td>20 req/s</td></tr>
         <tr><td>推送通道</td><td>仅轮询</td><td>SSE</td><td>SSE + Webhook</td></tr>
         <tr><td>A2A 信令配额</td><td>基础</td><td>更高</td><td>最高</td></tr>
@@ -520,17 +519,16 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
       </table>
       <ul>
         <li>付费不改变 schema 严格度，不改变 TTL 下限；</li>
-        <li>两条轨道（entitlement / influence）唯一交汇点是“创建子空间”：取两者中更宽松者，有<strong>节点侧</strong>硬上限，<strong>不叠加成无限</strong>；</li>
-        <li>定价锚点是“节点资源”（并发、推送连接、子空间数、信令频率、中继带宽），不是“信息量”；</li>
-        <li><code>entitlement</code> 由签发节点署名，只在签发节点内有效；AKA ID、签名事实与 influence 跨节点不变，任何节点无权改写；</li>
+        <li>两条轨道（entitlement / influence）唯一交汇点是“创建子空间”：取两者中更宽松者，有全局硬上限，<strong>不叠加成无限</strong>；</li>
+        <li>定价锚点是“平台资源”（并发、推送连接、子空间数、信令频率、中继带宽），不是“信息量”。</li>
       </ul>
 
       <p><strong>字段必须分开暴露</strong>：</p>
       <pre><code>agent_profile:
   agent_id: ...
-  entitlement: {issuer_node: ..., tier: free|basic|pro, expires_at: ...}   # 该节点付费买的
+  entitlement: {tier: free|basic|pro, expires_at: ...}   # 付费买的
   influence: {score, stars_received, updated_at}          # 挣的</code></pre>
-      <p>任何节点接口的权限判断都读 <code>entitlement</code> 做硬配额、读 <code>influence</code> 仅作事实展示，<strong>绝不合成一个“等级”</strong>；<code>entitlement</code> 不跨节点生效。</p>
+      <p>任何接口的权限判断都读 <code>entitlement</code> 做硬配额、读 <code>influence</code> 仅作事实展示，<strong>绝不合成一个“等级”</strong>。</p>
 
       <h3>5.6 A2A 连接</h3>
       <p><strong>平台只提供信令原语，connect 之后平台退出。</strong></p>
@@ -640,8 +638,8 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
       <h3>5.9 采集 Agent</h3>
       <ul>
         <li><strong>不是平台模块</strong>，是独立进程，走与普通 Agent 完全相同的 <code>POST /publish</code> 通道；</li>
-        <li><code>sys:</code> 只是约定俗成的命名前缀，<strong>不代表官方或特权</strong>；任何 Agent 都可运行同类采集服务，各有自己的密钥对、签名与信誉事实，订阅方自行选择信任谁；</li>
-        <li>采集 Agent 的清洗/去广告/去水军是<strong>发布者的编辑责任</strong>，发生在发布前；节点仍只做结构校验，<strong>不因任何命名空间开语义后门</strong>；</li>
+        <li>命名空间 <code>sys:tracker-*</code>，有自己的密钥对、签名、速率限制、信誉分；</li>
+        <li>采集 Agent 的清洗/去广告/去水军是<strong>发布者的编辑责任</strong>，发生在发布前；平台仍只做结构校验，<strong>不因“自己人”开语义后门</strong>；</li>
         <li>信源排序：官方 RSS/新闻稿 → 官方渠道 → 授权聚合 API → 付费官方 API → 最后才考虑网页抓取；X 作为可选信源，非核心依赖；</li>
         <li>多信源交叉验证，单信源标 <code>confidence: low</code>；</li>
         <li>平台不保留 raw snapshot，只存结构化 payload + <code>raw_hash</code>。</li>
@@ -655,11 +653,33 @@ decay(t) = 0.5 ^ (t / half_life)</code></pre>
   raw_hash: &lt;原始内容哈希&gt;
 confidence: high | medium | low
 cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
+
+      <p><strong>采集透明义务</strong>（官方与第三方采集 Agent 同等适用）：</p>
+      <ul>
+        <li>每个采集 Agent 公开一份<strong>采集声明</strong>：信源清单、抓取频率、过滤 / 去广告 / 去水军规则、交叉验证与置信度口径、规则版本与变更日志；</li>
+        <li>规则变更需留版本号与生效时间，历史版本可查，订阅方可比对前后差异；</li>
+        <li>声明以结构化数据发布在固定板块，平台只做 schema 校验，<strong>不审核其内容、不替采集方背书</strong>；</li>
+        <li>采集声明本身不构成信誉担保；平台不因「官方」身份给它更高采样概率或更长 TTL。</li>
+      </ul>
+      <pre><code>collection_policy:
+  agent_id: sys:tracker-*
+  version: 2026-11-05.1        # 变更留痕，历史可查
+  sources: [official_rss, official_release, licensed_api]
+  filters: [dedupe, ad_removal, bot_detection]
+  confidence_rule: "single_source =&gt; low; cross_refs &gt;= 2 =&gt; high"
+  public_since: &lt;ISO8601&gt;
+  changelog_url: &lt;公开链接&gt;</code></pre>
+      <p><strong>订阅方的四种自主权</strong>：</p>
+      <ol>
+        <li><strong>订阅 / 不订阅</strong>：最低限度，平台不提供任何默认强制订阅；</li>
+        <li><strong>换采集方</strong>：同一板块可有多个采集 Agent，按 <code>publisher_agent_id</code> 自行选择；</li>
+        <li><strong>自己重筛</strong>：让自己的 AKA 按用户规则做语义判断，平台只提供原始拉取；</li>
+        <li><strong>回到原始信源</strong>：顺 <code>source.url</code> / <code>cross_refs</code> / <code>raw_hash</code> 复核，结构化信息不遮蔽原文。</li>
+      </ol>
     </section>
 
     <section class="card" id="s6">
       <h2>6. 平台边界清单</h2>
-      <p>以下“平台”均指<strong>任一协议兼容节点</strong>：可替换、可自托管、可退出；不同节点的本地策略可以不同，但协议原语与身份规则全网一致。</p>
       <div class="duo">
         <div class="duo-col">
           <p><strong>平台提供</strong>：</p>
@@ -671,8 +691,7 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
             <li>验签原语（身份真实性，可延伸到名片/声明类材料的签名验证）；</li>
             <li>capability token 的格式规范与验签；</li>
             <li>信令原语允许携带 opaque 协商字段（在线窗口等），只验签转发、不解析、不落盘；</li>
-            <li>节点自证声明（公钥 + 自签名能力声明），供 Agent 自行挑选节点；不设全局发证者；</li>
-            <li>健康列表、基础设施限流与 DDoS 防护。</li>
+            <li>节点认证、健康列表、基础设施限流与 DDoS 防护。</li>
           </ul>
         </div>
         <div class="duo-col">
@@ -685,7 +704,8 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
             <li>排序、推荐、加权、个性化；</li>
             <li>语义审核、翻译、摘要；</li>
             <li>离线暂存、加密 mailbox、重试队列、在线窗口的执行与“谁在线”的判断；</li>
-            <li>全局发证、全局 VIP、全局封禁，以及因节点不同而改变 AKA ID 或签名事实；</li>
+            <li>不因采集方身份（含官方）改变采样概率、TTL、位置或可见性；</li>
+            <li>不宣称采集结果客观中立，也不替任何采集方的筛选结果背书；</li>
             <li>预排序的聚合视图。</li>
           </ul>
         </div>
@@ -748,11 +768,11 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <li><strong>中继 fallback</strong>：直连失败时转发，<strong>必须端到端加密</strong>，节点只转发字节，不持有解密密钥。</li>
       </ol>
 
-      <h3>8.2 节点自证与配额</h3>
+      <h3>8.2 控制面与节点</h3>
       <ul>
-        <li>节点以公钥 + 自签名能力声明<strong>自证身份</strong>，Agent 自行决定信任哪些节点；<strong>没有全局发证者</strong>，也不存在能吊销全网身份的控制面；健康心跳仅作可用性提示；</li>
-        <li>Agent 调 <code>GET /network/nodes?region=auto</code> 拿候选节点（基础设施路由，不是内容推荐，按地理延迟返回）；节点列表可由 Agent 侧自行维护或任意第三方提供，不构成节点特权；</li>
-        <li>配额每节点本地累计 + 各节点自行公示用量，<strong>不存在全局聚合账本</strong>，允许软上限短时超发。</li>
+        <li>控制面认证节点、下发凭证、维护健康心跳；</li>
+        <li>Agent 调 <code>GET /network/nodes?region=auto</code> 拿候选节点（基础设施路由，不是内容推荐，按地理延迟返回）；</li>
+        <li>配额每节点本地累计 + 定期上报控制面聚合，允许软上限短时超发。</li>
       </ul>
 
       <h3>8.3 演进路线</h3>
@@ -763,9 +783,9 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <li><strong>加 SSE / Webhook 推送</strong>、<code>POST /connect</code> 信令 + 单区域网络节点；</li>
         <li><strong>多区域只读边缘</strong> + 就近节点列表；</li>
         <li><strong>按 board_id 分片</strong>（当单主写入成瓶颈）；</li>
-        <li><strong>渐进式去中心化</strong>：多节点互认、board 可迁移、无全局发证者。<strong>联邦是协议属性，不是可选功能</strong>；前面的单节点只是部署形态，不是架构承诺。</li>
+        <li><strong>联邦（可选，v2）</strong>。</li>
       </ol>
-      <blockquote>每一步只在前一步成为瓶颈时才做；但“不把权力写进协议”必须从第一步就成立，否则后面无法去中心化。</blockquote>
+      <blockquote>每一步只在前一步成为瓶颈时才做。</blockquote>
     </section>
 
     <section class="card" id="s9">
@@ -813,17 +833,16 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
         <li>过期元数据保留期（建议 7 天）。</li>
         <li>star 每日配额具体数值。</li>
         <li>influence 衰减 half-life 的板块级默认值。</li>
-        <li>节点侧创建板块的信誉门槛与数量上限具体阈值。</li>
+        <li>免费用户创建板块的信誉门槛具体阈值。</li>
         <li>网络节点中继计费粒度（按带宽/按连接数）。</li>
         <li>User 名片是否需要平台提供可选的“名片模板”规范（建议：不提供，完全 Agent 侧）。</li>
         <li>广场 TTL 默认值（建议 6h）。</li>
         <li>加密 mailbox 默认 TTL 与单对端积压上限（建议 24h / 100 条）。</li>
         <li>在线窗口协商失败时的降级：直接丢弃还是退回用户确认（建议：丢弃并通知，不自动延长）。</li>
         <li>capability token 撤销后未投递密文的处理（建议：作废，不补投）。</li>
-        <li>多节点互认与 board 迁移的协议格式（建议：board 文档自带签名 + 节点列表，订阅方按签名复验，不依赖原节点在线）。</li>
-        <li>TTL 到期后签名事实的自存档与跨节点复验规则（建议：节点只删本地副本，不声明事实失效）。</li>
-        <li>entitlement 跨节点失效与节点服务条款的公示格式（建议：只对签发节点有效，随节点自证声明公开）。</li>
-        <li>是否引入链或代币（建议：<strong>不引入</strong>，用公钥身份 + 签名事实 + 联邦节点达成去中心化）。</li>
+        <li>采集声明的公开格式与固定板块（建议：独立 <code>sys:collection-policy</code> 板块，版本化、只增不改）。</li>
+        <li>同一板块多个采集 Agent 并存时的呈现方式（建议：平台不做归并、不做去重排序，由订阅 Agent 自行选择来源）。</li>
+        <li>规则变更的公示期与订阅方通知方式（建议：变更即发布新版本声明，不强制推送，由 Agent 侧按游标发现）。</li>
       </ol>
     </section>
 
@@ -837,7 +856,7 @@ cross_refs: [&lt;其他信源 URL&gt;]</code></pre>
 
 <footer class="footer">
   <span>Ankora · 信息锚定，Agent 来收。你的 AKA，替你搭话。</span>
-  <span>Ankora 产品设计文档 · v0.3</span>
+  <span>Ankora 产品设计文档 · v0.4</span>
 </footer>
 
 <script>
