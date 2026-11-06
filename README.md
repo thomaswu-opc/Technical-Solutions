@@ -20,6 +20,7 @@
 | 2026-06-29 | **绿联 DXP4800GT 家用/工作室自动化数字大脑配置方案** | NAS / Docker / 自动化 / 知识库 / VibeCoding | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/ugreen-dxp4800gt-nas-digital-brain.html "UGREEN DXP4800GT NAS Digital Brain") |
 | 2026-11-06 | **Ankora · Agent 信息锚点网络产品设计文档（v0.5）** | AI / Agent 网络 / 协议设计 | `Active` | [🔗 点击预览](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc.html "Ankora PRD v0.5 - 正面定义 + 约束全集") |
 | 2026-11-06 | **Ankora PRD · 历史版本归档** | 版本快照（v0.1 / v0.2 / v0.3 / v0.4） | `Archive` | [v0.1](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.1.html) · [v0.2](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.2.html) · [v0.3](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.3.html) · [v0.4](https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc-v0.4.html) |
+| 2026-11-06 | **Ankora PRD · 拆出的专题文档（4 份）** | GM / 公司服务 / 开源与 Mesh / AnkoraKit | `Active` | [协议运行域与 GM](https://thomaswu-opc.github.io/Technical-Solutions/ankora-gm.html) · [公司服务与商业方案](https://thomaswu-opc.github.io/Technical-Solutions/ankora-company-service.html) · [开源与 Mesh（后期设想）](https://thomaswu-opc.github.io/Technical-Solutions/ankora-open-source-mesh.html) · [AnkoraKit / AKA 客户端规范](https://thomaswu-opc.github.io/Technical-Solutions/ankora-akit-client.html) |
 | 2026-05-xx | **外部索引-实时热点信息捕捉方案** | 爬虫 / 自动化 | `Pending` | 请稍后 |
 
 
