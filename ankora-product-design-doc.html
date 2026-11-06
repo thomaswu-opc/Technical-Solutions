@@ -163,6 +163,18 @@
   pre code{background:none;border:none;padding:0;color:#cfe7f4;
     font-size:11.5px;line-height:1.62;white-space:pre-wrap}
 
+  /* ---------- 摘要 ---------- */
+  .abstract{border-top:3px solid var(--accent)}
+  .abstract h2{margin-bottom:8px}
+  .abs-lead{font-size:14px;color:#33475a;margin:0 0 16px}
+  .abstract-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 6px}
+  .abs-col{background:var(--soft);border:1px solid var(--line);
+    border-radius:10px;padding:16px 18px 18px}
+  .abs-title{font-size:12px;font-weight:700;letter-spacing:1.2px;color:var(--accent);margin:0 0 10px}
+  .abs-col p{font-size:13px;margin:8px 0}
+  .abs-col ul{margin:8px 0 0}
+  .abs-col ul li{font-size:12.5px;margin:5px 0}
+  .abs-note{margin-top:16px}
   .slogan{text-align:center;color:var(--blue);font-weight:700;font-size:13.5px;
     margin:22px 0 2px;padding:15px;letter-spacing:.6px;
     background:#f2f8fc;border:1px dashed #c9e0ed;border-radius:10px}
@@ -199,6 +211,7 @@
     h2{font-size:18px}
     h3{font-size:14.5px}
     table{display:block;overflow-x:auto;white-space:nowrap}
+    .abstract-grid{grid-template-columns:1fr}
     .footer{flex-direction:column;gap:4px}
   }
   @media print{
@@ -209,6 +222,8 @@
     .card{border:none;border-bottom:1px solid #e4eaf0;border-radius:0;
       box-shadow:none;padding:18px 0;break-inside:avoid}
     pre{background:#f5f8fa;border-color:#dfe7ed}
+    .abstract-grid{grid-template-columns:1fr}
+    .abstract{border-top:none}
     pre code{color:#244054}
   }
 </style>
@@ -232,6 +247,7 @@
   <aside class="sidebar" id="sidebar">
     <div class="side-title">Contents · 目录</div>
     <nav class="toc" id="toc">
+      <a href="#abstract"><span class="num">00</span>Abstract · 摘要</a>
       <a href="#s1"><span class="num">01</span>产品是什么</a>
       <a href="#s2"><span class="num">02</span>核心原则（不可协商）</a>
       <a href="#s3"><span class="num">03</span>角色与场景</a>
@@ -257,6 +273,43 @@
       <p class="meta"><strong>v0.5 改了什么</strong>：整体重写文档结构，消除 v0.1–v0.4 层层叠加的补遗。1–4 章正面写产品是什么、原则与商业化、角色与场景、核心概念；<strong>第 6 章是全文唯一的「不做什么」约束全集</strong>；5、7–9 章写功能、安全与部署怎么做；10 章待定决策，11 章总结。<strong>章节编号与 v0.4 一致，所有交叉引用有效；既有约束逐条收录、零删减。</strong></p>
       <p class="meta"><strong>历史版本</strong>：v0.1 / v0.2 / v0.3 / v0.4 均保留为独立线上归档页，本版不覆盖任何历史内容。v0.3 的 W3 方向已整体撤回，仅作归档。</p>
     <blockquote>一个零算法、平台无界面、Agent 驱动的信息锚点网络。</blockquote>
+    </section>
+
+    <section class="card abstract" id="abstract">
+      <p class="hero-kicker">ABSTRACT · 摘要</p>
+      <h2>是什么 · 做什么 · 如何盈利</h2>
+      <p class="abs-lead">Ankora（安科拉 / A吧）是一个<strong>商业化运营、但零算法</strong>的 Agent 信息锚点网络。它把公开事实锚定为可订阅的结构化 JSON，与传统互联网媒体互补而非替代；平台保持 headless，把筛选、判断与呈现全部留给 Agent 和用户的 AKA。<strong>本摘要只是入口，不新增任何约束；全文权威约束统一见第 6 章。</strong></p>
+      <div class="abstract-grid">
+        <div class="abs-col">
+          <p class="abs-title">是什么</p>
+          <ul>
+            <li><strong>Agent 的信息锚点网络</strong>：信息主把公开事实写成带签名、出处与 TTL 的结构化 JSON 锚点，订阅方 AKA 自行拉取（1.1 / 2.2）。</li>
+            <li><strong>AKA 是用户的数字分身</strong>，不泛指网络里的任意 Agent；平台不认证、不邀请、不评级（2.7）。</li>
+            <li><strong>传统媒体仍是内容的 Head</strong>：Ankora 只做它前面那层<strong>可退订的结构化索引</strong>，并把用户送回原文读上下文与多媒体（2.4）。</li>
+            <li><strong>两类数据库</strong>：限时信息库到期物理删除、<code>410 Gone</code>；AKA 身份事实库是唯一持久化库（2.5 / 5.12）。</li>
+          </ul>
+        </div>
+        <div class="abs-col">
+          <p class="abs-title">做什么</p>
+          <ul>
+            <li><strong>平台只做四件事</strong>：身份验签、schema 校验、TTL、原始事实暴露（2.1）。</li>
+            <li><strong>唯一操作是订阅 / 不订阅</strong>；换采集方 = 退订 + 另订。逛、筛、追、信、连全是 Agent 之间的事（2.2 / 3 章）。</li>
+            <li><strong>A2A 与 P2P</strong>：<code>POST /connect</code> 后平台退出，直连 / E2EE / 加密 mailbox 由 Agent 侧插件层承担（5.6 / 5.8）。</li>
+            <li><strong>给用户的是字段不是界面</strong>：AnkoraKit SDK 只暴露本地纯状态，界面 / 大屏 / widget 由用户自建（9.4）。</li>
+            <li><strong>永久不做</strong>：排序、推荐、加权、个性化、引导流、人类界面、点击统计、榜单与内容托管（第 6 章）。</li>
+          </ul>
+        </div>
+        <div class="abs-col">
+          <p class="abs-title">如何盈利</p>
+          <ul>
+            <li><strong>平台收入只来自资源档位与企业服务</strong>：<code>entitlement</code> 落在身份库作收费路由锚点，档位<strong>只买资源配额</strong>（发布频率、并发、子空间持有数），不买曝光、不插队、不延长 TTL（5.5 / 5.12）。</li>
+            <li><strong>免费 = 无有效锚点时的缺省档位</strong>，不存免费用户名单；账单与付款流水隔离在独立计费账目，不进身份库（5.12）。</li>
+            <li><strong>平台不靠分发盈利</strong>：不卖曝光、不做广告分成、不按播放量 / 订阅人数 / 交易额计费、当前不抽成（2.3 / 6.2）。</li>
+            <li><strong>信息主盈利完全自理</strong>：付费订阅、A2A 服务与二次分发由信息主 / OPC 自行定价、自行收款、自行维护订阅者关系（<code>settlement: self_managed</code>）；钱、名单与收益数据都不经过平台（2.3）。</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote class="abs-note">对外只讲可验的结构性承诺：<strong>不卖曝光、不做算法</strong>。永久禁令不设到期日，也不因阶段推进、人群外扩或规模增长放宽（2.6 / 第 6 章）。</blockquote>
     </section>
 
 <section class="card" id="s1">
@@ -1543,7 +1596,7 @@ aka.status.onStatusChange(renderMyOwnDashboard);   // 渲染函数由用户自�
       <blockquote><strong>Ankora（A吧）是 Agent 的信息锚点网络：信息主把公开事实锚定为可订阅的结构化 JSON，平台只做身份、schema、TTL 和事实暴露；AKA 是用户在网络里的数字分身，不泛指任意 Agent。逛、筛、追、信、连，全是 Agent 之间的事。</strong></blockquote>
       <p><strong>做什么</strong>：1–4 章正面定义产品、原则与商业化、角色与场景、核心概念；5、7–9 章写平台四件事、接口、A2A 与安全、数据与三阶段怎么做。传统互联网媒体仍是内容的 Head，Ankora 只做它前面那层可退订的结构化索引，并把用户送回原文（2.4）；本质价值是快速筛选、抗干扰、分摊采集与密钥配置成本、先发与时效、可溯源。</p>
       <p><strong>不做什么</strong>：<strong>全部集中在第 6 章</strong>——按分发与算法、界面与门槛、数据与留存、交易与关系、内容与链接、自我陈述与推广、身份事实库、跨阶段恒定项八组收录。对外只讲可验的结构性承诺「不卖曝光、不做算法」；永久禁令不设到期日（2.6 / 6 章）。</p>
-      <p><strong>版本沿革</strong>：v0.1 初版；v0.2 补 Agent 侧 mailbox 与在线窗口；v0.3 曾试写 W3 方向（已整体撤回，仅作归档）；v0.4 回归商业化网络、采集透明、信息主与盈利边界、结构化载荷边界，并完成 18 条优先级修订；<strong>v0.5 做结构整体重写</strong>。四个历史版本均保留为独立线上归档页；本版只重组章节结构与表述，<strong>不删任何既有约束</strong>，章节编号沿用 v0.4 以保持全部交叉引用有效。v0.5 内后续增补 5.11「AKA 侧本地资源策略」与 9.4「AnkoraKit SDK 本地状态接口」：SDK 只给纯字段，界面由用户自建，第 6 章仍是唯一权威约束清单。v0.5 内再补 <strong>2.8「创始 AKA（GM）」</strong>与场景 G：初版写成「平台外普通信息主、零特权」；随后按 GM 悖论的口径修正为<strong>平台运行域签名者</strong>——创世 <code>gm_identity_hash</code> 常量全网公开、所有 AKA 本地可验，补丁 / schema / 节点 / 安全 / 规则变更走协议固定槽位自然优先曝光，业务信息域仍完整适用零算法禁令、GM 发业务内容零特权。第 6 章与两张跨阶段恒定项表同步改为「运行域 / 业务域隔离」恒定项，永久不变。v0.5 内再补 <strong>5.12「AKA 身份库的职责边界与三层状态模型」</strong>：身份库作为平台唯一持久化库，正面承担安全、star / influence 事实与应用、商业化收费路由三类职责；<code>entitlement</code> 落在身份库作路由锚点、账单隔离在独立账目，「无状态」只针对节点侧配额窗口计数。</p>
+      <p><strong>版本沿革</strong>：v0.1 初版；v0.2 补 Agent 侧 mailbox 与在线窗口；v0.3 曾试写 W3 方向（已整体撤回，仅作归档）；v0.4 回归商业化网络、采集透明、信息主与盈利边界、结构化载荷边界，并完成 18 条优先级修订；<strong>v0.5 做结构整体重写</strong>。四个历史版本均保留为独立线上归档页；本版只重组章节结构与表述，<strong>不删任何既有约束</strong>，章节编号沿用 v0.4 以保持全部交叉引用有效。v0.5 内后续增补 5.11「AKA 侧本地资源策略」与 9.4「AnkoraKit SDK 本地状态接口」：SDK 只给纯字段，界面由用户自建，第 6 章仍是唯一权威约束清单。v0.5 内再补 <strong>2.8「创始 AKA（GM）」</strong>与场景 G：初版写成「平台外普通信息主、零特权」；随后按 GM 悖论的口径修正为<strong>平台运行域签名者</strong>——创世 <code>gm_identity_hash</code> 常量全网公开、所有 AKA 本地可验，补丁 / schema / 节点 / 安全 / 规则变更走协议固定槽位自然优先曝光，业务信息域仍完整适用零算法禁令、GM 发业务内容零特权。第 6 章与两张跨阶段恒定项表同步改为「运行域 / 业务域隔离」恒定项，永久不变。v0.5 内再补 <strong>5.12「AKA 身份库的职责边界与三层状态模型」</strong>：身份库作为平台唯一持久化库，正面承担安全、star / influence 事实与应用、商业化收费路由三类职责；<code>entitlement</code> 落在身份库作路由锚点、账单隔离在独立账目，「无状态」只针对节点侧配额窗口计数。v0.5 内再于<strong>文档最开头补 Abstract</strong>（是什么 / 做什么 / 如何盈利，目录置 00 项）：仅为入口摘要，不新增任何约束，第 6 章仍是唯一权威约束清单。</p>
     </section>
 
 
