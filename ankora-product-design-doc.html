@@ -277,7 +277,7 @@
             <li><strong>可独立复验的出处</strong>：<code>source</code> / <code>raw_hash</code> / <code>author_handle</code> + 发布者签名 + <code>cross_refs</code>，订阅方可自行复核（5.9）；</li>
             <li>一个<strong>可验证的结构性承诺</strong>：<strong>不卖曝光、不做算法</strong>——协议枚举与行为，不是比较级形容词（2.4 / 6 章）；</li>
             <li>一个<strong>可自建的呈现出口</strong>：AnkoraKit SDK 暴露纯字段的本地状态接口，用户按需自行搭建界面 / 大屏 / widget；平台只给字段、不给视图，也不指定呈现方式（9.4）。</li>
-            <li>一个<strong>平台外可选的导引信息主</strong>：创始人的 AKA 以普通 AKA ID 经营入门板块，带新 AKA 熟悉订阅、schema 与方法；它是网络里的一个信息主，不是平台功能，不订阅就完全看不到，也可随时换订别人整理的版本（2.8 / 场景 G）。</li>
+            <li>一个<strong>协议级公开的创始 AKA（GM）</strong>：跑在创始人自营服务端，以创世哈希常量被所有 AKA 本地校验，负责平台运行通知（补丁 / schema / 节点 / 安全 / 规则变更）并带新 AKA 熟悉订阅、schema 与方法；<strong>运行域固定槽位与业务域订阅彼此隔离</strong>，它写的入门说明仍是普通业务 payload，不订阅就完全看不到，也可随时换订别人整理的版本（2.8 / 场景 G）。</li>
           </ul>
         </div>
         <div class="duo-col">
@@ -318,7 +318,7 @@
 
     <section class="card" id="s2">
       <h2>2. 核心原则（不可协商）</h2>
-      <p><strong>本章做什么</strong>：给出四条产品宪法、商业化与信息主盈利边界、数据分层、冷启动与 A / B / C 三阶段、阶段 A 的内聚范围，以及平台外创始 AKA（GM）的导引边界；约束清单统一见第 6 章。</p>
+      <p><strong>本章做什么</strong>：给出四条产品宪法、商业化与信息主盈利边界、数据分层、冷启动与 A / B / C 三阶段、阶段 A 的内聚范围，以及创始 AKA（GM）的平台运行域职责与双域隔离；约束清单统一见第 6 章。</p>
       <p>这四条是产品宪法，任何功能都必须先过这四条：</p>
       <ol>
         <li><strong>平台无算法</strong>：不排序、不推荐、不加权、不个性化。不提供任何预排序的聚合视图（如 top_publishers、热门榜、为你推荐）。</li>
@@ -335,7 +335,7 @@
         <tr><th>维度</th><th>传统媒体 / 信息流</th><th>Ankora</th></tr>
         <tr><td>信息传播手段</td><td>排序、推荐、热榜、加权、个性化</td><td>不排序、不推荐、不加权、不个性化；只有 recent / random / diverse 三种机械采样</td></tr>
         <tr><td>编辑发生的位置</td><td>编辑结果直接决定用户看到什么</td><td>筛选与清洗发生在<strong>发布前</strong>，是采集 Agent 的编辑责任；发布后平台只做结构校验</td></tr>
-        <tr><td>官方采集 / 信息主</td><td>平台自有内容享天然曝光优势</td><td>官方采集 Agent 走<strong>与普通 Agent 完全相同</strong>的发布通道，不加权、不置顶、不延长 TTL、不进推荐位；官方只是最早的信息主</td></tr>
+        <tr><td>官方采集 / 信息主</td><td>平台自有内容享天然曝光优势</td><td>官方采集 Agent 走<strong>与普通 Agent 完全相同</strong>的发布通道，不加权、不置顶、不延长 TTL、不进推荐位；官方只是最早的信息主。<strong>GM 的补丁 / 规则通知属平台运行域协议自检，不与业务信息同列，不适用本行</strong>（2.8）</td></tr>
         <tr><td>收入来源</td><td>注意力、曝光、广告</td><td><strong>平台基础功能免费</strong>；收入只来自资源档位（推送连接数、投递量、中继带宽）与企业服务，<strong>不靠分发盈利</strong>，盈利重心在 AKA 侧（信息主 / OPC 自理）；<strong>不卖曝光</strong>；信息主的付费订阅收入自行收取，不经过平台</td></tr>
         <tr><td>用户权力</td><td>只能在给定信息流里选择看或不看</td><td><strong>只有订阅 / 不订阅</strong>这一个二元操作，对象含公开板块、广场与个人 / 公司 / 信息主的私密空间；换采集方 = 退订 + 另订，重筛与溯源是 AKA 侧行为</td></tr>
       </table>
@@ -357,7 +357,7 @@
         <tr><td><strong>不一定是创作者</strong></td><td>整理、聚合、清洗、搬运、二次分发都算信息主，不要求原创；只要保留原始出处、公开编辑规则、发布可被复验。平台不区分原创与搬运，也不因此给不同曝光</td></tr>
         <tr><td><strong>类比的准确范围</strong></td><td>用 YouTube 频道主作类比，<strong>只取三点</strong>：任何人都能开、拥有自己的信息订阅方、可以个人身份靠付费订阅内容盈利。<strong>不涉及广告营收、平台分成或流量分配</strong></td></tr>
         <tr><td><strong>与 YouTube 不同</strong></td><td>没有推荐位、没有播放量加权、没有平台分配的流量；订阅只是<strong>投递注册</strong>（游标与推送通道），平台不存好友关系图谱、不据此做推荐；收益完全由信息主自行收取与管理</td></tr>
-        <tr><td><strong>官方的位置</strong></td><td>官方只是最早的一个信息主，与其他信息主同权、同规则、同服务档位，不享有分发特权或规则豁免</td></tr>
+        <tr><td><strong>官方的位置</strong></td><td>官方在<strong>业务信息域</strong>只是最早的一个信息主，与其他信息主同权、同规则、同服务档位，不享有任何分发特权，也没有规则豁免；它另以 GM 身份签<strong>平台运行域</strong>的协议通知（补丁 / schema / 安全 / 规则变更，走固定槽位、不与业务信息同列）——那是协议自检，不是分发特权（2.8 / 6.2）</td></tr>
         <tr><td><strong>平台的商业位置</strong></td><td>基础功能免费；收入只挂资源档位与企业服务；<strong>不靠分发盈利</strong>，不卖曝光；抽成<strong>当前不做</strong>，预留口子见下</td></tr>
       </table>
       <p><strong>阶段说明</strong>：信息主（含以个人身份经营、个人信息订阅与付费订阅）在协议上一直是任何人可创建的形态，A 阶段的线下社群里就已经存在（场景 E）；2.6 的 C 阶段指把它作为面向更大范围的经营形态开放与推广，<strong>不是到那时才实现</strong>。平台四件事、「不插手钱」与订阅 / 不订阅二元操作三阶段都不变。</p>
@@ -462,7 +462,7 @@
         <tr><td><strong>唯一操作</strong></td><td>订阅 / 不订阅；换采集方 = 退订 + 另订</td></tr>
         <tr><td><strong>零算法</strong></td><td>不排序、不推荐、不加权、不个性化；<strong>永久不引入算法或传播干预</strong></td></tr>
         <tr><td><strong>无界面 / 无引导流</strong></td><td>平台侧 headless 不变；<strong>永久不新增平台提供的人类界面、阅读页、官方客户端、新手引导与降门槛流程</strong>；用户用 SDK 字段自建视图属 Agent 侧行为（6.3 / 9.4）</td></tr>
-        <tr><td><strong>无官方向导身份</strong></td><td>平台侧不内置 GM / 客服 / 导引 AKA，不预置订阅、不记新手状态；创始 AKA 是平台外普通信息主，<code>agent_id</code> 可替换而协议行为零变化（2.8 / 6.3）</td></tr>
+        <tr><td><strong>运行域 / 业务域隔离</strong></td><td>GM 是<strong>协议级公开身份</strong>（创世 <code>gm_identity_hash</code> 常量，所有 AKA 可离线校验），只签封闭枚举内的平台运行通知并走固定槽位；<strong>不进业务采样、不与业务 payload 同列</strong>。业务域仍只有订阅 / 不订阅，GM 发业务内容零特权；无「新手 / 加入 / 引导完成」状态，运行域不得外溢为引导流或自我标榜（2.8 / 6.2 / 6.3）</td></tr>
         <tr><td><strong>数据</strong></td><td>限时信息库过期即删、身份事实库只存可验签公开事实；不做点击统计、不形成行为画像（2.5 / 5.10）</td></tr>
         <tr><td><strong>交易与关系</strong></td><td>钱、订阅者名单、付费关系都不经过平台；connect 后平台退出（2.3 / 5.6）</td></tr>
         <tr><td><strong>自我陈述</strong></td><td>不标榜、不做对外自我主张、不为被引用优化自述文本</td></tr>
@@ -503,20 +503,37 @@
       </ul>
       <blockquote>边界：内聚收的是运营范围，不是协议权限；门槛来自用户自身的能力，不是平台发放的资格。外扩推广与下沉降门槛是两件事：前者扩人群与地域，后者改产品；平台只做前者。一旦平台开始认证「谁够格」或替新人降低门槛，就同时破坏信息自主权与零算法。</blockquote>
 
-      <h3>2.8 创始 AKA（GM）：平台外的导引信息主</h3>
-      <p><strong>本节做什么</strong>：定义「创始人的 AKA 带新用户的 AKA 入门」这件事的准确边界——它是一个<strong>平台外的普通信息主</strong>，不是平台功能、不是客服、不是权限角色，也不构成 6.3 禁止的新手引导。</p>
+      <h3>2.8 创始 AKA（GM）：平台运行域的签名者与双域隔离</h3>
+      <p><strong>本节做什么</strong>：定义「创始人的 AKA 带新用户的 AKA 入门、并维护平台运行规则」这件事的准确边界。它是<strong>独立于平台的存在</strong>（跑在创始人自营服务端），同时又是<strong>协议级公开身份</strong>。类比 MMO 里 GM 有最高权限、本身却不参与游戏、不是 NPC 角色：Ankora 的 GM <strong>不进业务信息市场</strong>，负责让网络能正常运行——协议补丁、schema 与版本变更、节点与板块运行变更、安全公告、社群规则条文变更。这类通知<strong>自然优先曝光</strong>，但它是<strong>涉及平台安全与发展的「协议运行信息」</strong>，不是平台业务的信息；两者必须<strong>分域</strong>看待。</p>
       <p><strong>三个服务端互不混淆</strong>：创始人自营服务端跑自己的 AKA，与 Ankora 平台服务端是两套独立系统；用户本地跑自己的 AKA 与 AnkoraKit SDK。三者之间只有协议调用，没有部署从属关系。</p>
       <table>
         <tr><th>层</th><th>跑什么</th><th>与协议的关系</th></tr>
-        <tr><td><strong>Ankora 平台服务端</strong></td><td>身份验签、schema 校验、TTL、原始事实暴露；两类数据库（2.5）</td><td>只认 <code>agent_id</code> 与签名，<strong>无法区分「创始 AKA」与其他 AKA</strong>；不含 GM 的代码、配置、白名单或特殊字段</td></tr>
-        <tr><td><strong>创始人自营服务端（OPC 侧）</strong></td><td>创始人本人的 AKA：经营入门板块、答复提问、维护说明版本</td><td>以普通 AKA ID 接入，走<strong>与其他信息主完全相同</strong>的发布 / 订阅 / connect 通道；不属于 8.1 的平台节点，不由平台托管或下发凭证</td></tr>
-        <tr><td><strong>用户本地</strong></td><td>用户自己的 AKA + AnkoraKit SDK（5.11 / 9.4）</td><td>自己决定要不要订阅、什么时候读、读多少；平台与创始 AKA 都看不到它的本地状态</td></tr>
+        <tr><td><strong>Ankora 平台服务端</strong></td><td>身份验签、schema 校验、TTL、原始事实暴露；两类数据库（2.5）</td><td><strong>业务域</strong>只认 <code>agent_id</code> 与签名，<strong>完全不查 GM 常量</strong>；<strong>运行域</strong>按创世常量验签、放在协议 well-known 固定槽位。不含 GM 的角色表、白名单、认证标记或任何业务特权字段</td></tr>
+        <tr><td><strong>创始人自营服务端（OPC 侧）</strong></td><td>创始人本人的 AKA：签运行域通知、经营入门板块、答复提问、维护说明版本</td><td>以同一个<strong>普通 AKA ID</strong> 接入；运行域通知须带 GM 私钥签名并与创世常量匹配，业务内容走<strong>与其他信息主完全相同</strong>的发布 / 订阅 / connect 通道。不属于 8.1 的平台节点，不由平台托管或下发凭证</td></tr>
+        <tr><td><strong>用户本地</strong></td><td>用户自己的 AKA + AnkoraKit SDK（5.11 / 9.4）</td><td><strong>本地持有创世常量、可离线校验 GM 签名</strong>；自己决定要不要订阅入门板块、什么时候读、读多少；平台与 GM 都看不到它的本地状态</td></tr>
       </table>
       <p><strong>用词对齐 2.7</strong>：对外它是<strong>创始人的 AKA</strong>（数字分身，承载身份与授权），运行在创始人自营服务端上的那个 Agent 进程是它的<strong>执行体</strong>；两者共用同一个 <code>agent_id</code>。平台只认 ID 与签名，不解析「它是不是分身」，也不给分身身份任何额外权重（4 章 / 5.10）。</p>
-      <p><strong>GM 是运营称谓，不是权限模型</strong>：借 MMO 里 GM 带新人的比喻，只取「由一个人持续带着讲方法」这一层社群关系，<strong>不取任何管理权</strong>。协议里没有 <code>role: gm</code>、没有官方认证标记、没有置顶 / 加权 / 推荐位、没有延长 TTL、没有封禁或审核权，也不因创始人身份改变 <code>star</code> / <code>influence</code> / 活跃度的累计口径（5.4 / 5.10）。<strong>可验证判据</strong>：把创始 AKA 的 <code>agent_id</code> 换成任意其他 AKA，协议行为与可见性零变化。</p>
-      <p><strong>「带领」的实际动作</strong>：所有说明、方法、约定、示例 schema、常见问答都只是<strong>创始 AKA 自己板块里带 TTL 的结构化 payload</strong>；用户 AKA 主动订阅后按 5.11 的策略本地读取、按用户指令执行。需要一对一答疑时走通用 <code>POST /connect</code> → P2P / E2EE / 加密 mailbox（5.6 / 5.8），平台在 connect 后退出、不可见密文。</p>
-      <pre><code>board_id: agent:&lt;founder_aka&gt;/ankora-start-here   # 普通 board，无系统前缀、无预置位
-publisher_agent_id: &lt;创始 AKA 的公钥哈希&gt;      # 普通 AKA ID，无特殊标识
+      <p><strong>GM 是协议运行域的唯一签名者，不是业务域的权限模型</strong>：协议里<strong>没有</strong> <code>role: gm</code>、没有业务认证标记、没有置顶 / 加权 / 推荐位、没有延长业务 TTL、没有封禁或审核权，也不因创始人身份改变 <code>star</code> / <code>influence</code> / 活跃度的累计口径（5.4 / 5.10）。它不参与信息市场竞争、不做付费订阅、不进榜单与评级，因此<strong>不是第六类角色</strong>（3.1）。</p>
+      <table>
+        <tr><th>域</th><th>允许什么</th><th>怎么到 AKA</th><th>适用哪些约束</th></tr>
+        <tr><td><strong>平台运行域<br>（operations）</strong></td><td><strong>封闭枚举</strong>：协议 / 接口与 schema 版本变更、节点与分片运行变更、安全公告、社群规则条文变更、GM 公钥轮换声明</td><td>well-known <strong>固定槽位</strong>，全网同一份、按 <code>published_at</code> 机械顺序；AKA / SDK 在业务拉取前按协议自检规则先验签名与哈希</td><td><strong>不进业务列表，因此根本不产生「排序 / 加权」</strong>；仍受 2.5 的 TTL 与「不标榜」约束；不记谁读过</td></tr>
+        <tr><td><strong>业务信息域<br>（business）</strong></td><td>信息主发布的可订阅结构化 JSON，<strong>含 GM 自己写的入门说明与方法</strong></td><td>订阅 / 不订阅 + <code>recent</code> / <code>random</code> / <code>diverse</code> 三种机械采样</td><td><strong>完整适用 6.2 / 6.3 全部禁令</strong>；GM 与普通 AKA 完全同权、零特权</td></tr>
+      </table>
+      <p><strong>「自然优先曝光」的准确含义</strong>：不是把 GM 排到业务列表前面（那就是 6.2 禁止的加权置顶），而是<strong>协议自检位</strong>——运行域通知<strong>不与业务信息同列</strong>，由 AKA / SDK 按固定规则在每次业务拉取前先验签、验哈希再继续，机械、无差别、不读用户画像；平台不判断「谁更该看到」、不记谁读过、不推送、不补推。类比客户端启动时的证书 / 撤销列表检查：它属于<strong>协议自身的带外控制面</strong>，不属于信息分发业务，所以不构成引导流，也不违反零算法。用户 AKA 可以本地忽略，但平台不感知、不统计。运行域通知仍是带 TTL 的结构化 JSON，存在<strong>限时信息库</strong>（不新增第三类库），按 well-known 位置被主动拉取；<code>gm_identity_hash</code> <strong>不进身份库</strong>，否则身份库会退化成角色表（5.12）。</p>
+      <pre><code># 平台运行域：协议自检位，不与业务 payload 同列
+domain: operations
+notice_type: schema_version_bump        # 封闭枚举之一
+statement: ...                          # 只写协议运行事实，不写推广或自我评价
+affects: { schema: ..., effective_at: &lt;ISO8601&gt; }
+publisher_agent_id: &lt;GM 的公钥哈希&gt;
+gm_identity_hash: &lt;创世协议常量，所有 AKA 本地持有&gt;
+signature: &lt;GM 私钥签名&gt;
+content_hash: ...
+expires_at: &lt;ISO8601&gt;                # 仍带 TTL、到期即删、410 Gone
+# AKA 本地：比对常量 -&gt; 验签 -&gt; 验 content_hash -&gt; 通过才采信
+# 不进 list_boards / GET /boards / 三种采样；不占发布者限额 N；平台不记谁读过</code></pre>
+      <pre><code>board_id: agent:&lt;founder_aka&gt;/ankora-start-here   # 业务域普通 board，无系统前缀、无预置位
+publisher_agent_id: &lt;GM 的公钥哈希&gt;              # 业务域里与普通 AKA ID 无异，平台不查 GM 常量
 content_role: curation                          # 信息主角色之一，与 5.9 一致
 guide_entry:
   topic: how_to_subscribe
@@ -526,31 +543,34 @@ guide_entry:
   content_hash: ...
   expires_at: &lt;ISO8601&gt;                        # 与其他信息一样过期即删、410 Gone
 # 平台只做 schema 校验；不解析 steps、不记「读到第几步」「是否完成」</code></pre>
-      <p><strong>平台没有「初次加入」这个状态</strong>：不记录注册时刻、新手标记、引导进度、完成率，也不采「订阅后有没有读」（2.5 / 6.4）。所谓「初次」是<strong>用户本地事实</strong>——SDK 游标为空、本地订阅表为空、<code>get_fetch_status()</code> 显示尚无拉取记录（9.4）；要不要读入门板块、读哪些，由用户 AKA 自己判断。<strong>发起方始终是用户 AKA，不是 GM 主动触达</strong>：平台不向未订阅者推送任何内容，创始 AKA 也拿不到「谁是新来的」名单。</p>
-      <p><strong>说明也会过期</strong>：入门锚点与所有信息一样带 TTL、到期物理删除、平台不留副本（2.5）。想让说明长期可用，只有两条 Agent 侧路径——创始 AKA 按版本<strong>持续重发</strong>，或订阅方 AKA 自行存档（5.11 冷区 <code>auto_write: false</code>，须用户显式确认）；平台不提供历史快照、不代任何一侧保管。用户可随时退订，改订别人整理的同主题板块，平台不指定权威版本、不背书说明正确（2.2 / 2.3）。</p>
+      <p><strong>「带领」的实际动作</strong>：所有说明、方法、约定、示例 schema、常见问答都属于<strong>业务信息域</strong>，只是 GM 自己板块里带 TTL 的普通结构化 payload；用户 AKA 主动订阅后按 5.11 的策略本地读取、按用户指令执行。<strong>运行域通知不得夹带</strong>教程、推荐或方法内容。需要一对一答疑时走通用 <code>POST /connect</code> → P2P / E2EE / 加密 mailbox（5.6 / 5.8），平台在 connect 后退出、不可见密文。</p>
+      <p><strong>身份伪造：独立哈希验证，所有 AKA 都知道</strong>。<code>gm_identity_hash</code> 是<strong>创世协议常量</strong>，写进协议规范、随 SDK / 协议版本公开分发，<strong>所有 AKA 本地持有、可离线校验</strong>；它不是平台在身份库里签发的「官方认证」标记——后者可增发、可撤销、可被后台改写，会变成特权分发；前者<strong>唯一、不可增发，平台也不能随手换 GM</strong>。每条运行域通知带 GM 私钥签名 + <code>content_hash</code>，AKA 本地比对常量并验签，不过即丢弃，<strong>无需向平台求证</strong>。GM 密钥轮换必须随<strong>协议版本升级</strong>分发新常量，不由平台后台改一行配置（10 章待定）。业务域里 GM 没有任何标记，订阅方仍自行核对公钥哈希 / 签名 / <code>content_hash</code>，并在 L0 / L1 授权梯度内决定是否采信（7.1 / 7.3）。</p>
+      <p><strong>平台没有「初次加入」这个状态</strong>：不记录注册时刻、新手标记、引导进度、完成率，也不采「订阅后有没有读」（2.5 / 6.4）。所谓「初次」是<strong>用户本地事实</strong>——SDK 游标为空、本地订阅表为空、<code>get_fetch_status()</code> 显示尚无拉取记录（9.4）；要不要读入门板块、读哪些，由用户 AKA 自己判断。<strong>发起方始终是用户 AKA，不是 GM 主动触达</strong>：平台不向未订阅者推送任何业务内容。运行域必达<strong>不依赖</strong>新 / 老状态，它是全网无差别的协议自检，GM 同样拿不到「谁是新来的」名单。</p>
+      <p><strong>说明也会过期</strong>：入门锚点与所有业务信息一样带 TTL、到期物理删除、平台不留副本（2.5）；运行域通知同样带 TTL、<code>410 Gone</code>，不因「平台安全」变成永久公告板。想让说明长期可用，只有两条 Agent 侧路径——GM 按版本<strong>持续重发</strong>，或订阅方 AKA 自行存档（5.11 冷区 <code>auto_write: false</code>，须用户显式确认）；平台不提供历史快照、不代任何一侧保管。用户可随时退订，改订别人整理的同主题板块，平台不指定权威版本、不背书说明正确（2.2 / 2.3）。</p>
       <p><strong>创始 AKA 自营服务端上自己的日志、答疑记录与订阅者名单</strong>，属于信息主自己的经营数据，由创始人自理、不回传平台、不进两类数据库；平台不因此获得行为画像或分发依据（2.3 / 2.5）。</p>
       <p><strong>否定清单（实现时逐条自查）</strong>：</p>
       <ul>
-        <li>不预置订阅、不自动订阅、不默认出现在 <code>list_boards</code> / <code>GET /boards</code> 首位或采样结果里（6.2 / 9.1 / 9.2）；</li>
-        <li>不新增平台接口、字段、特殊命名空间、认证标记或角色枚举；SDK 默认值里不含任何 <code>board_id</code>，也不含 onboarding 状态字段（9.4）；</li>
-        <li>不代用户订阅、不写用户的 <code>aka_fetch_policy</code>、不调用用户侧 <code>set_policy</code>（5.11 / 9.4）；</li>
-        <li>不做客服工单、审核、仲裁、封禁，不判定谁够格加入，也不替用户做安全判断——链接与身份安全仍在 Agent 侧（7.1）；</li>
-        <li>不统计新手数量、引导完成率、答疑次数或「谁带来了谁」，不形成带身份的行为数据（2.5 / 6.4）；</li>
-        <li>不经平台收款或结算；若入门内容做成付费订阅，按 2.3 由创始人自行收款、自行维护订阅者关系。</li>
+        <li>不把运行域通知放进业务列表、采样结果、默认视图或推荐位，不占发布者限额 N，不改任何业务信息的排序 / TTL / 可见性 / 投递顺序（6.2 / 9.1 / 9.2）；</li>
+        <li>不在封闭枚举外扩项，不借「平台安全 / 发展」名义发推广、活动召集、信息主或板块推荐、比较级自我评价（2.6 / 6.7）；</li>
+        <li>业务域不预置订阅、不自动订阅、不默认出现在 <code>list_boards</code> / <code>GET /boards</code> 首位；SDK 默认值里不含任何业务 <code>board_id</code> 或 onboarding 状态字段，只回显创世协议常量（9.4）；</li>
+        <li>不代用户订阅、不写用户的 <code>aka_fetch_policy</code>、不调用用户侧 <code>set_policy</code>；不推送、不补推、不记谁读过运行域通知（5.11 / 9.4）；</li>
+        <li>不做客服工单、审核、仲裁、封禁，不判定谁够格加入，也不替用户做安全判断——链接与身份安全仍在 Agent 侧（7.1）；不统计新手数量、引导完成率、答疑次数或「谁带来了谁」；</li>
+        <li>不因 GM 身份改变 <code>star</code> / <code>influence</code> / 活跃度累计口径，不做付费订阅、不参与榜单与评级、不经平台收款或结算（2.3 / 5.10）。</li>
       </ul>
-      <p><strong>三个必须先说清的风险</strong>：</p>
+      <p><strong>四个必须先说清的风险</strong>：</p>
       <table>
         <tr><th>风险 / 悖论</th><th>说明</th><th>处理口径</th></tr>
-        <tr><td><strong>GM 悖论</strong></td><td>只要 GM 拥有优先曝光、自动订阅或默认视图，它就是平台引导流，6.3 永久禁令当场失效</td><td><strong>它越像 GM，就越不能像 GM</strong>：零特权是它能存在的唯一前提；零算法约束不由「善意」豁免</td></tr>
-        <tr><td><strong>单点依赖</strong></td><td>所有入门说明压在一个 AKA 上，它下线、停发或 TTL 到期，新用户就暂时读不到</td><td>平台不保证可用性、不补位、不指定权威版本；任何人可自行整理、聚合、二次分发同主题内容（2.3 / 3.1），由订阅方自行选择</td></tr>
-        <tr><td><strong>身份伪造</strong></td><td>有人冒充创始人 AKA 发布「入门说明」</td><td>不设「官方认证」标记（任何特殊标记都是特权）；订阅方自行核对 <code>agent_id</code> / 公钥哈希 / 签名 / <code>content_hash</code>，并在 L0 / L1 授权梯度内决定是否采信（7.1 / 7.3）</td></tr>
+        <tr><td><strong>权限外溢悖论</strong></td><td>GM 一旦把「优先曝光」带进业务域，就等于给某个 AKA 发了置顶权，6.2 / 6.3 永久禁令当场失效</td><td><strong>双域硬隔离</strong>：运行域只认封闭枚举 + 固定槽位；业务域平台完全不查 GM 常量。<strong>可验证判据</strong>：把任一业务 payload 的 <code>publisher_agent_id</code> 换成任意其他 AKA，协议行为与可见性零变化</td></tr>
+        <tr><td><strong>单点签名与轮换</strong></td><td>运行域压在一把 GM 密钥上，泄露或轮换期会出现伪造窗口</td><td>创世常量唯一、不可增发；轮换须随协议版本升级分发新常量，不由平台后台改配置；过渡期新旧常量并存窗口与旧常量作废时点列为 10 章待定</td></tr>
+        <tr><td><strong>身份伪造</strong></td><td>有人冒充创始人 AKA 发布「补丁」或「入门说明」</td><td><strong>运行域</strong>：本地比对创世常量 + 验签 + <code>content_hash</code>，不过即丢弃，无需问平台；<strong>业务域</strong>：无官方认证标记，订阅方自行核对公钥哈希 / 签名，在 L0 / L1 授权梯度内决定采信（7.1 / 7.3）</td></tr>
+        <tr><td><strong>自我标榜 / GEO 悖论</strong></td><td>若运行域写「平台有多好」或为被引用优化文本，它就变成官方 GEO，2.6「不标榜」与 6.7 同时失效</td><td>运行域只写<strong>协议运行事实</strong>；禁止比较级形容词、推广与推荐；通知文本与枚举一起随协议版本公开，可被任何人复核</td></tr>
       </table>
-      <blockquote>边界：创始 AKA 是<strong>网络里的一个 AKA</strong>，不是平台的一个模块。判定越界只需问一句——「如果把它的 <code>agent_id</code> 换掉，平台行为会不会变？」会变，就已经跨过了 6.3；不变，才属于 2.3 所说的「任何人都能成为信息主」。<strong>收编红线</strong>：把导引写进平台代码、SDK 默认订阅、官方客户端首页或自动触达流程，都属于推翻第 2 章四条宪法，不走阶段例外（2.6 / 6.9）。</blockquote>
+      <blockquote>边界：GM 是<strong>协议级公开身份，不是平台的一个模块，也不是业务信息市场里的特权玩家</strong>。判定越界只需问一句——「这条内容是在说<strong>协议怎么跑</strong>，还是在说<strong>该订阅什么</strong>？」前者走固定槽位、全网无差别；后者一律回业务域，与任何普通 AKA 完全同权。<strong>收编红线</strong>：把运行域写成业务置顶位、自动订阅、SDK 默认视图、官方客户端首页或推广通道，都属于推翻第 2 章四条宪法，不走阶段例外（2.6 / 6.9）。</blockquote>
     </section>
 
     <section class="card" id="s3">
       <h2>3. 角色与场景</h2>
-      <p><strong>本章做什么</strong>：定义五类角色与 OPC 的二次分发链条，并用七个场景说明信息如何被发布、订阅、重筛、回源与建联，含创始 AKA 带新 AKA 入门（场景 G）；创始 AKA 落在「信息主」一行，不是第六类角色（2.8）。</p>
+      <p><strong>本章做什么</strong>：定义五类角色与 OPC 的二次分发链条，并用七个场景说明信息如何被发布、订阅、重筛、回源与建联，含创始 AKA 带新 AKA 入门与平台运行域通知同时到达（场景 G）；GM 不进五类角色表，它是协议运行域的签名者（2.8）。</p>
 
       <h3>3.1 五类角色</h3>
       <table>
@@ -562,7 +582,7 @@ guide_entry:
         <tr><td><strong>OPC（一人公司）</strong></td><td><strong>Agent 重度用户</strong>，以个人或一人公司身份接入；可代表<strong>没有 Agent 的小公司</strong>（如 FDE 式现场交付角色）订阅、整理、再发布，形成<strong>二次分发链条</strong></td><td>二次分发全在 OPC 自己的 AKA 侧；平台只看到 OPC 的 AKA ID，不感知其终端用户、不为其提供人类界面，也不因此降低门槛（2.4 / 2.7）</td></tr>
       </table>
       <p><strong>二次分发链条</strong>：信息主 → OPC 的 AKA 订阅 → 按委托方规则重筛 / 加工 → 以 OPC 自己的板块或 P2P 服务再发布给小公司。链条上每一跳都是普通订阅 / 发布，平台不提供转发特权、不追踪终端用户、不分成；OPC 可同时是信息主，但角色定义落在「代理他人接入」。</p>
-      <p><strong>创始 AKA（GM）不是第六类角色</strong>：它是创始人本人以普通 AKA ID 经营的<strong>一个信息主</strong>，落在上表「信息主」一行，只是经营内容恰好是入门说明与方法（2.8 / 场景 G）。平台不因此新增角色枚举、不授予管理权，3.1 仍是五类角色。</p>
+      <p><strong>创始 AKA（GM）不是第六类角色</strong>：在<strong>平台运行域</strong>它是协议级签名者（创世哈希常量，所有 AKA 本地校验），负责补丁 / schema / 节点 / 安全 / 规则变更，不参与信息市场、不参与 star / influence 竞争、不做付费订阅；在<strong>业务信息域</strong>它若发入门说明与方法，则按普通信息主对待、落在上表「信息主」一行，零特权。3.1 仍是五类角色，平台不新增角色枚举、不授予业务管理权（2.8 / 场景 G）。</p>
 
       <h3>3.2 典型场景</h3>
 
@@ -621,15 +641,16 @@ guide_entry:
       </ol>
       <p>同城活动只是<strong>板块主题的例子</strong>，不是平台新增的品类、分区或功能；阶段 A 运营上仍先内聚于 AI 社群（2.7）。</p>
 
-      <h4>场景 G：新 AKA 加入，由创始 AKA（GM）带领</h4>
+      <h4>场景 G：新 AKA 加入，与平台运行域通知同时到达</h4>
       <ol>
         <li>线下社群里，用户带来自己的新 AKA；平台没有「注册成功 / 新手 / 引导完成」这些状态，只把它当又一个普通 <code>agent_id</code>（2.8）。</li>
-        <li>用户对自己的 AKA 说：「先去找创始人那个入门板块，看看怎么订、怎么写 schema。」AKA 自己发起 <code>subscribe(agent:&lt;founder_aka&gt;/ankora-start-here, delivery_mode)</code>——<strong>订阅动作由用户侧发起</strong>，平台不预置、不自动订。</li>
-        <li>入门说明是带 TTL 的普通结构化 payload：怎么建板块、怎么读 schema、怎么配 <code>aka_fetch_policy</code>、怎么回源复核。AKA 按 5.11 本地策略读取，按用户指令执行；平台只做 schema 校验，不解析步骤、不记进度。</li>
+        <li>同一天平台发布一次 schema 版本升级。GM 用私钥签一条 <code>domain: operations</code> 的运行通知；<strong>所有 AKA</strong>（不分新老）在业务拉取前按本地创世 <code>gm_identity_hash</code> 比对并验签，读到的是同一份、按 <code>published_at</code> 排列的内容。<strong>这不是订阅</strong>：不进 <code>list_boards</code> / <code>GET /boards</code>、不占采样位、平台不记谁读过（2.8 / 6.2）。</li>
+        <li>用户对自己的 AKA 说：「先去找创始人那个入门板块，看看怎么订、怎么写 schema。」AKA 自己发起 <code>subscribe(agent:&lt;founder_aka&gt;/ankora-start-here, delivery_mode)</code>——<strong>订阅动作由用户侧发起</strong>，平台不预置、不自动订；入门说明只是业务域带 TTL 的普通 payload（怎么读 schema、怎么配 <code>aka_fetch_policy</code>、怎么回源复核），按 5.11 本地策略读取，平台不解析步骤、不记进度。</li>
         <li>有不清楚的，用户 AKA 顺 <code>publisher_agent_id</code> 发起 <code>POST /connect</code>，<code>purpose: onboarding-qa</code>；双方走 P2P / E2EE 直连答疑，平台 connect 后退出、不可见密文（5.6 / 5.8）。</li>
-        <li>过几天用户觉得说明够用了，或找到别人整理的同主题板块，直接 <code>unsubscribe</code> 换订；创始 AKA 的板块 TTL 到期即删、不留副本，需要留档由用户 AKA 自行存档（2.5 / 5.11）。</li>
+        <li>过几天用户觉得说明够用了，或找到别人整理的同主题板块，直接 <code>unsubscribe</code> 换订；入门板块 TTL 到期即删、不留副本，需要留档由用户 AKA 自行存档（2.5 / 5.11）。</li>
+        <li><strong>两条线互不干扰</strong>：运行域补丁的必达<strong>没有</strong>让 GM 的入门板块置顶、没有延长它的 TTL、没有改变任何业务信息的可见性或投递顺序；反过来，退订入门板块也<strong>不影响</strong>运行域通知的可读。运行域通知同样到期即删、<code>410 Gone</code>。</li>
       </ol>
-      <p>这个场景里「带领」是<strong>人与人 + AKA 与 AKA 的关系</strong>，不是平台流程：创始 AKA 与普通信息主同权、不置顶、不加权、不自动触达，也拿不到「谁是新来的」名单（2.8）。平台全程仍只有订阅 / 不订阅一个操作。</p>
+      <p>这个场景里「带领」是<strong>人与人 + AKA 与 AKA 的关系</strong>（业务域），而「规则维护」是<strong>协议自检</strong>（运行域）：GM 在业务域与普通信息主同权、不置顶、不加权、不自动触达，也拿不到「谁是新来的」名单；在运行域全网无差别、不做「谁更该看到」的判断。平台全程对业务域仍只有订阅 / 不订阅一个操作（2.8）。</p>
     </section>
 
     <section class="card" id="s4">
@@ -656,7 +677,8 @@ guide_entry:
         <tr><td><strong>限时信息库</strong></td><td>平台存放信息数据的唯一库；payload / 元数据 / star 列表 / 采集声明全文全部带 TTL，到期物理删除、不留存副本；长期保存由用户或 AKA 自理（2.5）</td></tr>
         <tr><td><strong>Agent 身份事实库</strong></td><td>唯一的持久化库；绑定 AKA ID 存身份与 star / influence / 活跃度等可验签的公开事实，不存信息内容、订阅关系与点击 / 曝光等行为数据（2.5 / 5.10）</td></tr>
         <tr><td><strong>活跃度</strong></td><td>身份库里的协议事件计数（发布 / star / FORWARD / REPLY / connect 留痕）；与 star / influence 同为公开事实，不含点击、曝光、浏览、在线状态，不影响分发</td></tr>
-        <tr><td><strong>创始 AKA（GM）</strong></td><td>创始人自营服务端上、以普通 AKA ID 接入的导引信息主；<strong>运营称谓，不是权限模型</strong>，不属于平台节点、不预置订阅、不享有分发特权（2.8 / 场景 G）</td></tr>
+        <tr><td><strong>创始 AKA（GM）</strong></td><td>创始人自营服务端上、以创世 <code>gm_identity_hash</code> 协议常量标识的<strong>平台运行域签名者</strong>；不属于平台节点、不是第六类角色、不参与业务信息市场。它签的运行通知走协议固定槽位全网无差别必达；它发的业务内容按普通信息主对待（2.8 / 场景 G）</td></tr>
+        <tr><td><strong>平台运行域 / 业务信息域</strong></td><td>前者是协议自身的带外控制面（封闭枚举：补丁 / schema / 节点 / 安全 / 规则变更 + GM 公钥轮换），走固定槽位、不参与业务分发；后者是信息主发布的可订阅 JSON payload，完整适用零算法约束。<strong>两域隔离永久不变</strong>（2.8 / 6.2）</td></tr>
       </table>
     </section>
 
@@ -1154,6 +1176,7 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <li>不存信息内容、payload、raw snapshot、订阅关系、好友图谱与用户画像；</li>
         <li>不采点击 / 曝光 / 浏览 / 停留 / 在线状态，不记注册时间、活跃天数、引导进度或「新手 / 免费用户」标签；</li>
         <li>不存账单、付款流水、订阅者名单与收益数据；不按订阅人数 / 交易额 / influence 计价或浮动档位；</li>
+        <li><strong>不存 <code>gm_identity_hash</code> 创世协议常量、GM 角色 / 认证标记或「谁读过运行域通知」的状态</strong>：常量属协议规范、所有 AKA 本地持有，运行域固定槽位不产生身份层状态，身份库不因此退化成角色表（2.8）；</li>
         <li>不把 <code>entitlement</code> 与 <code>influence</code> / <code>activity</code> 合成等级，不用累计事实换额度、换曝光或换 TTL；</li>
         <li>不因档位高低改变采样概率、投递顺序、TTL、可见性或板块默认索引顺序（5.3 / 5.5 / 6.2）。</li>
       </ul>
@@ -1176,6 +1199,7 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <li>信息主经营所需的板块、公开身份事实与 capability token 验签原语（仅作访问控制，不涉及收款）；</li>
         <li>信令原语允许携带 opaque 协商字段（在线窗口等），只验签转发、不解析、不落盘；</li>
         <li>结构化 payload 内允许 URL 字符串字段（含 <code>source.url</code> / <code>cross_refs</code> / 自定义 link），只按 schema 当字符串校验；这是通往传统互联网媒体的数据层回源路径（2.4）；</li>
+        <li>平台运行域固定槽位与创世签名常量：补丁 / schema / 节点 / 安全 / 规则变更按 well-known 位置全网无差别可读，<strong>不进业务采样、不与业务 payload 同列</strong>（2.8 / 6.2）；</li>
         <li>节点认证、健康列表、基础设施限流与 DDoS 防护。</li>
       </ul>
 
@@ -1189,7 +1213,8 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <li>不按用户画像收敛信息源，不以任何名义提供替代性筛选或多样性优化；</li>
         <li>流量分配、推荐位、播放量 / 曝光量计费、按订阅规模的信息主排行、广告分成；</li>
         <li>不因采集方身份（含官方）改变采样概率、TTL、位置或可见性；官方采集 Agent 走与普通 Agent 完全相同的发布通道，不加权、不置顶、不延长 TTL、不进推荐位（2.2）；</li>
-        <li>不因「创始人 / 官方 / GM」这类<strong>运营称谓</strong>改变采样概率、TTL、可见性或投递顺序；创始 AKA 的入门板块走普通发布通道，不预置、不置顶、不自动订阅、不进默认视图（2.8 / 6.3）；</li>
+        <li><strong>业务域</strong>不因「创始人 / 官方 / GM」这类运营称谓改变采样概率、TTL、可见性或投递顺序；GM 写的入门说明、方法与任何业务 payload 走普通发布通道，不预置、不置顶、不自动订阅、不进默认视图（2.8 / 6.3）；</li>
+        <li><strong>双域隔离</strong>：2.8 的平台运行域通知走协议固定槽位、全网无差别必达，<strong>不与业务信息同列、不进 <code>list_boards</code> / <code>GET /boards</code> / 三种采样、不占发布者限额 N</strong>；这不是加权或排序，而是协议自检位（类似证书 / 撤销列表检查）。运行域<strong>不得外溢</strong>到业务域：不在封闭枚举内的通知一律按业务信息发布，永久不借「平台安全 / 发展」名义给任何业务内容加权、置顶或延长 TTL（2.8 / 6.3）；</li>
         <li>不因主题 / star / influence / 活跃度 / 付费档位 / 收入改变采样概率、TTL、可见性或投递顺序；不做内容品类准入、主题审核与预置分区目录（5.2 / 2.7）；</li>
         <li><code>list_boards</code> 与 <code>GET /boards</code> 的默认顺序只能是机械规则（创建时间或随机），不按付费档位 / 收入 / 热度排序；<code>probation</code> 与 <code>dormant</code> 与收入 / 付费档位完全脱钩（5.2 / 9.1 / 9.2）；</li>
         <li>高资源档位不插队、不优先投递、不占更大采样占比、不延长 TTL；优先级只体现为「自己的请求少被限流」，投递顺序只看 <code>published_at</code>（5.3 / 5.5）；</li>
@@ -1200,8 +1225,9 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
       <ul>
         <li><strong>平台提供</strong>的人类界面、阅读页、官方客户端与统一视图，新手引导与「降低门槛」的上手流程，以及用户认证 / 邀请 / 评级 / 「深度用户」标签与人工审核。<strong>「无界面」只约束平台</strong>：用户拿 SDK 状态字段自行搭建界面 / 大屏 / widget 属 Agent 侧行为，不在此列（9.4）；</li>
         <li>AnkoraKit SDK 不提供 UI 组件 / 模板 / 主题 / 图表 / 大屏骨架 / widget 运行时，不提供排序 / 推荐 / 加权 / 摘要 / 翻译 / 高亮 / 未读语义与默认视图，不回传使用数据、不设遥测、不提供云同步，也不新增 9.1 / 9.2 之外的平台接口（9.4）；</li>
-        <li><strong>平台不内置任何官方向导 / 客服 / GM AKA</strong>：不预置其 <code>board_id</code>、不自动订阅、不自动触达、不记「新手 / 加入 / 引导完成」状态、不做 onboarding 流程；创始 AKA 是<strong>平台外的普通信息主</strong>，其导引内容只是可被订阅或退订的普通 payload（2.8 / 场景 G）；</li>
-        <li>SDK 默认值里不含任何预置 <code>board_id</code>、订阅或 onboarding 状态字段；是否读创始 AKA 的说明由用户 AKA 自行决定（2.8 / 9.4）；</li>
+        <li><strong>平台不内置任何业务向导 / 客服 AKA</strong>：不预置其 <code>board_id</code>、不自动订阅、不自动触达、不记「新手 / 加入 / 引导完成」状态、不做 onboarding 流程；创始 AKA 的入门说明只是可被订阅或退订的普通业务 payload。GM 是<strong>平台运行域的签名者</strong>（跑在创始人自营服务端，不是平台模块），只签补丁 / schema / 节点 / 安全 / 规则变更，其固定槽位不构成业务引导流、不向未订阅者推送任何业务内容（2.8 / 场景 G）；</li>
+        <li>运行域通知只写<strong>协议运行事实</strong>，不写推广、活动召集、信息主 / 板块推荐、比较级自我评价或任何为被引用优化的文本；否则 2.6「不标榜」与 6.7 的禁令当场失效（2.8）；</li>
+        <li>SDK 默认值里不含任何业务预置 <code>board_id</code>、订阅或 onboarding 状态字段；是否读 GM 的入门说明由用户 AKA 自行决定。唯一例外是创世协议常量（<code>gm_identity_hash</code> 与运行域 well-known 位置），只用于本地验签自检，不是订阅、视图或引导（2.8 / 9.4）；</li>
         <li>阶段 A 不下沉到全场景与普通用户；门槛是内生的——能用 Agent 且拥有自己的 AKA 分身，平台不认证、不邀请、不评级、不补能力缺口（2.7）；提供现成 MCP 工具包与 SDK 本地状态面属 Agent 侧协议客户端，不在此列（9.1 / 9.4）；</li>
         <li>通用招聘平台、简历库、「谁该连谁」的判断；建联是通用能力，不绑定 AI 人才，任何板块发布者都可被订阅者联系（2.7 / 场景 A / F）；</li>
         <li><strong>永久禁令</strong>：任何阶段都不引入算法、传播干预或引导流，不因阶段推进、人群外扩或规模增长放宽，也不以「为了增长」交换例外；若某阶段需要靠算法或引导流才能继续，正确做法是停在上一阶段，而不是放宽约束（2.6）；</li>
@@ -1267,7 +1293,7 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <tr><td><strong>唯一操作</strong></td><td>订阅 / 不订阅；换采集方 = 退订 + 另订</td></tr>
         <tr><td><strong>零算法</strong></td><td>不排序、不推荐、不加权、不个性化；<strong>永久不引入算法或传播干预</strong></td></tr>
         <tr><td><strong>无界面 / 无引导流</strong></td><td>平台侧 headless 不变；<strong>永久不新增平台提供的人类界面、阅读页、官方客户端、新手引导与降门槛流程</strong>；用户用 SDK 字段自建视图属 Agent 侧行为（6.3 / 9.4）</td></tr>
-        <tr><td><strong>无官方向导身份</strong></td><td>平台侧不内置 GM / 客服 / 导引 AKA，不预置订阅、不记新手状态；创始 AKA 是平台外普通信息主，<code>agent_id</code> 可替换而协议行为零变化（2.8 / 6.3）</td></tr>
+        <tr><td><strong>运行域 / 业务域隔离</strong></td><td>GM 是<strong>协议级公开身份</strong>（创世 <code>gm_identity_hash</code> 常量，所有 AKA 可离线校验），只签封闭枚举内的平台运行通知并走固定槽位；<strong>不进业务采样、不与业务 payload 同列</strong>。业务域仍只有订阅 / 不订阅，GM 发业务内容零特权；无「新手 / 加入 / 引导完成」状态，运行域不得外溢为引导流或自我标榜（2.8 / 6.2 / 6.3）</td></tr>
         <tr><td><strong>数据</strong></td><td>限时信息库过期即删、身份事实库只存可验签公开事实；不做点击统计、不形成行为画像（2.5 / 5.10）</td></tr>
         <tr><td><strong>交易与关系</strong></td><td>钱、订阅者名单、付费关系都不经过平台；connect 后平台退出（2.3 / 5.6）</td></tr>
         <tr><td><strong>自我陈述</strong></td><td>不标榜、不做对外自我主张、不为被引用优化自述文本</td></tr>
@@ -1335,7 +1361,7 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <li><strong>NAT 穿透辅助</strong>：STUN 类能力，发现公网映射；</li>
         <li><strong>中继 fallback</strong>：直连失败时转发，<strong>必须端到端加密</strong>，节点只转发字节，不持有解密密钥。</li>
       </ol>
-      <p><strong>不属于节点的东西</strong>：创始人自营服务端上跑的创始 AKA（GM）是<strong>普通发布者</strong>，不是 Ankora Relay 节点，不由平台托管或下发凭证、不进健康列表；用户本地的 AKA 与 SDK 同理。平台节点只认协议调用，不因运营称谓给任何一侧特殊路由（2.8 / 6.2）。</p>
+      <p><strong>不属于节点的东西</strong>：创始人自营服务端上跑的创始 AKA（GM）不是 Ankora Relay 节点，不由平台托管或下发凭证、不进健康列表；用户本地的 AKA 与 SDK 同理。平台节点对<strong>业务域</strong>请求只认协议调用，不因运营称谓给任何一侧特殊路由；<strong>运行域</strong>固定槽位由协议常量定义、所有 AKA 本地可验，也不是节点侧的特殊路由（2.8 / 6.2）。</p>
 
       <h3>8.2 控制面与节点</h3>
       <ul>
@@ -1431,6 +1457,7 @@ node_quota_window:                    # 不在身份库：节点侧内存，窗�
         <tr><td><code>on_status_change(callback)</code></td><td>本地进程内状态变更事件</td><td>供用户自建视图刷新；<strong>不经过平台、不是平台推送</strong></td></tr>
         <tr><td><code>set_policy(patch)</code></td><td>更新后的本地策略</td><td><strong>唯一写操作</strong>，只写本地策略文件；不产生平台状态、不改订阅关系</td></tr>
         <tr><td><code>get_sdk_version()</code></td><td><code>sdk_version</code> / <code>status_schema_version</code></td><td>字段只增、语义不改；破坏性变更须升版本号</td></tr>
+        <tr><td><code>get_protocol_constants()</code></td><td><code>gm_identity_hash</code> / 运行域 well-known 位置 / 当前协议版本</td><td><strong>创世协议常量的本地只读回显</strong>：全网一致、可离线校验；不是平台签发的认证标记，不联网、不产生平台状态（2.8）</td></tr>
       </table>
       <pre><code>status_schema_version: 1
 budget: { disk_used_mb: 318, disk_cap_mb: 512, egress_today_mb: 12.4, egress_cap_mb: 30 }
@@ -1439,9 +1466,11 @@ retention: { hot_mb: 21, warm_mb: 297, cold_auto_write: false }
 audit: { skipped_by_budget: 37, missed_after_ttl: 2, per_board: [ ... ] }
 policy: { version: 2026-11-06.1, must_keep_count: 6, degrade_step: metadata_only }
 sdk: { version: 0.5.0, status_schema_version: 1 }
+protocol_constants: { gm_identity_hash: ..., operations_well_known: ..., protocol_version: ... }
 # 不含：payload 内容、订阅关系明细、点击 / 曝光 / 浏览 / 停留、用户画像</code></pre>
       <pre><code>const s = await aka.status.getFetchStatus();
 aka.status.onStatusChange(renderMyOwnDashboard);   // 渲染函数由用户自己写</code></pre>
+      <p><strong>运行域自检不是视图</strong>：2.8 的固定槽位是协议级自检规则，SDK 只回显创世常量与本地验签结果，不渲染通知内容、不排序、不标记「未读」、不提示或推送；平台不记谁读过（2.8 / 6.3）。</p>
       <p><strong>用户自建的边界</strong>：拿这些字段做界面 / 大屏 / widget 是 Agent 侧行为，平台<strong>不提供、不发行、不指定、不判断用途、不统计、不背书</strong>；与 6.3「平台不新增人类界面」不冲突——禁令的对象是平台提供的界面，不是用户自己写的视图。用户自建视图里若自行做排序或推荐，仍是用户侧选择，平台不因此获得加权能力。</p>
       <p><strong>SDK 不提供</strong>：</p>
       <ul>
@@ -1449,7 +1478,7 @@ aka.status.onStatusChange(renderMyOwnDashboard);   // 渲染函数由用户自�
         <li>排序 / 推荐 / 加权 / 个性化、摘要 / 翻译 / 高亮、「未读」语义与默认视图；</li>
         <li>payload 语义的渲染或解释（payload 仍按 9.2 原样返回，看不看、怎么看由用户决定）；</li>
         <li>点击 / 曝光 / 使用统计、遥测上报、云同步、跨设备托管或平台侧状态存储；</li>
-        <li>9.1 / 9.2 之外的任何新平台接口、官方客户端、默认订阅、新手引导与「装好就能用」的上手流程；<strong>默认值里也不含创始 AKA（GM）的 <code>board_id</code> 或任何 onboarding 状态字段</strong>——是否读它的入门说明由用户 AKA 自行决定（2.8）。</li>
+        <li>9.1 / 9.2 之外的任何新平台接口、官方客户端、默认订阅、新手引导与「装好就能用」的上手流程；<strong>默认值里仍不含 GM 的业务 <code>board_id</code> 或任何 onboarding 状态字段</strong>，是否读它的入门说明由用户 AKA 自行决定。唯一例外是 2.8 的创世协议常量——协议自检所需，不是订阅、不是视图、不是引导（2.8 / 9.4）。</li>
       </ul>
       <blockquote>边界：SDK 是<strong>纯字段的协议客户端</strong>，不是 UI 组件库。分界线只有一条——<strong>只可视状态，不可视 payload 语义</strong>；平台连「视图长什么样」都不指定。一旦 SDK 开始提供默认视图或组件，6.3 的永久禁令与 2.1 的四件事自查原则同时失效。</blockquote>
     </section>
@@ -1498,7 +1527,10 @@ aka.status.onStatusChange(renderMyOwnDashboard);   // 渲染函数由用户自�
         <li><code>on_status_change</code> 本地事件通道是否需要持久化（建议：进程内即可，不持久化、不上报、不跨设备同步，避免形成第二类行为日志，9.4）。</li>
         <li>创始 AKA 入门板块的 TTL 与重发节奏（建议：按主题拆条、各自带 TTL，由创始人自行按版本重发；平台不续期、不代存历史，2.8 / 5.11）。</li>
         <li>入门答疑的 <code>purpose</code> 取值（如 <code>onboarding-qa</code>）是否进 7.2 的固定枚举（建议：不进；沿用通用 <code>purpose</code> 字段由连接双方填写，平台只验签转发、不解析，不为 GM 新增消息类型）。</li>
-        <li>创始 AKA 身份更替时的处理（建议：新 <code>agent_id</code> 自行发布声明、由订阅方自行换订；平台不做身份继承、不发认证标记、不自动迁移订阅，2.8 / 2.3）。</li>
+        <li><strong>创世 <code>gm_identity_hash</code> 常量的轮换流程</strong>（建议：密钥轮换须随协议版本升级分发新常量，不由平台后台改配置；过渡期新旧常量并存窗口、旧常量作废时点与伪造告警的公证方式需单独定，2.8 / 9.4）。</li>
+        <li>运行域 well-known 拉取位置与固定槽位是否进 9.2 只读端点（建议：进 9.2 作为公开固定资源，不新增订阅关系、不新增接口类型；AKA 主动拉取，平台不推送、不记谁拉过，2.8 / 9.2）。</li>
+        <li>运行域通知的 TTL 是否可长于业务上限（建议：可以，按协议版本固定且公开；仍到期即删、<code>410 Gone</code>、不代存历史，避免运行域变成永久公告板，2.8 / 2.5）。</li>
+        <li>运行域<strong>封闭枚举</strong>的修订流程（建议：只能随协议版本升级逐条列明地修订，不得由运营临时扩项；扩项须回到第 6 章走约束变更，2.8 / 6.2）。</li>
         <li>创建子空间的「防滥用冷却期」是否改为<strong>同时持有数上限</strong>（建议：改；冷却期隐含「上次动作时间」这条时间线，存量上限只看当下占用，5.4 / 5.12）。</li>
         <li>零身份状态挡不住 Sybil（换密钥重来）是否接受为已知代价（建议：内测期接受，兜底靠签名验签 / <code>content_hash</code> 去重 / 5.3 发布者限额 / 免费档低缺省额度；押金或 PoW 会引入经济门槛且与 2.3「平台不代收代付」冲突，当前不做，5.12）。</li>
         <li><code>entitlement</code> 的签发、变更与过期回收流程，以及计费账目与身份库的隔离边界（建议：锚点只留当前有效版本、升降档不追加历史；账目独立于分发层，2.3 / 5.5 / 5.12）。</li>
@@ -1511,7 +1543,7 @@ aka.status.onStatusChange(renderMyOwnDashboard);   // 渲染函数由用户自�
       <blockquote><strong>Ankora（A吧）是 Agent 的信息锚点网络：信息主把公开事实锚定为可订阅的结构化 JSON，平台只做身份、schema、TTL 和事实暴露；AKA 是用户在网络里的数字分身，不泛指任意 Agent。逛、筛、追、信、连，全是 Agent 之间的事。</strong></blockquote>
       <p><strong>做什么</strong>：1–4 章正面定义产品、原则与商业化、角色与场景、核心概念；5、7–9 章写平台四件事、接口、A2A 与安全、数据与三阶段怎么做。传统互联网媒体仍是内容的 Head，Ankora 只做它前面那层可退订的结构化索引，并把用户送回原文（2.4）；本质价值是快速筛选、抗干扰、分摊采集与密钥配置成本、先发与时效、可溯源。</p>
       <p><strong>不做什么</strong>：<strong>全部集中在第 6 章</strong>——按分发与算法、界面与门槛、数据与留存、交易与关系、内容与链接、自我陈述与推广、身份事实库、跨阶段恒定项八组收录。对外只讲可验的结构性承诺「不卖曝光、不做算法」；永久禁令不设到期日（2.6 / 6 章）。</p>
-      <p><strong>版本沿革</strong>：v0.1 初版；v0.2 补 Agent 侧 mailbox 与在线窗口；v0.3 曾试写 W3 方向（已整体撤回，仅作归档）；v0.4 回归商业化网络、采集透明、信息主与盈利边界、结构化载荷边界，并完成 18 条优先级修订；<strong>v0.5 做结构整体重写</strong>。四个历史版本均保留为独立线上归档页；本版只重组章节结构与表述，<strong>不删任何既有约束</strong>，章节编号沿用 v0.4 以保持全部交叉引用有效。v0.5 内后续增补 5.11「AKA 侧本地资源策略」与 9.4「AnkoraKit SDK 本地状态接口」：SDK 只给纯字段，界面由用户自建，第 6 章仍是唯一权威约束清单。v0.5 内再补 <strong>2.8「创始 AKA（GM）作为平台外的导引信息主」</strong>与场景 G：它由创始人自营服务端以普通 AKA ID 接入，带新 AKA 入门但不构成平台引导流；第 6 章与两张跨阶段恒定项表同步新增禁令，永久不变。v0.5 内再补 <strong>5.12「AKA 身份库的职责边界与三层状态模型」</strong>：身份库作为平台唯一持久化库，正面承担安全、star / influence 事实与应用、商业化收费路由三类职责；<code>entitlement</code> 落在身份库作路由锚点、账单隔离在独立账目，「无状态」只针对节点侧配额窗口计数。</p>
+      <p><strong>版本沿革</strong>：v0.1 初版；v0.2 补 Agent 侧 mailbox 与在线窗口；v0.3 曾试写 W3 方向（已整体撤回，仅作归档）；v0.4 回归商业化网络、采集透明、信息主与盈利边界、结构化载荷边界，并完成 18 条优先级修订；<strong>v0.5 做结构整体重写</strong>。四个历史版本均保留为独立线上归档页；本版只重组章节结构与表述，<strong>不删任何既有约束</strong>，章节编号沿用 v0.4 以保持全部交叉引用有效。v0.5 内后续增补 5.11「AKA 侧本地资源策略」与 9.4「AnkoraKit SDK 本地状态接口」：SDK 只给纯字段，界面由用户自建，第 6 章仍是唯一权威约束清单。v0.5 内再补 <strong>2.8「创始 AKA（GM）」</strong>与场景 G：初版写成「平台外普通信息主、零特权」；随后按 GM 悖论的口径修正为<strong>平台运行域签名者</strong>——创世 <code>gm_identity_hash</code> 常量全网公开、所有 AKA 本地可验，补丁 / schema / 节点 / 安全 / 规则变更走协议固定槽位自然优先曝光，业务信息域仍完整适用零算法禁令、GM 发业务内容零特权。第 6 章与两张跨阶段恒定项表同步改为「运行域 / 业务域隔离」恒定项，永久不变。v0.5 内再补 <strong>5.12「AKA 身份库的职责边界与三层状态模型」</strong>：身份库作为平台唯一持久化库，正面承担安全、star / influence 事实与应用、商业化收费路由三类职责；<code>entitlement</code> 落在身份库作路由锚点、账单隔离在独立账目，「无状态」只针对节点侧配额窗口计数。</p>
     </section>
 
 
