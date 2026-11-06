@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公司服务与商业方案 · Ankora 专题文档 v0.5</title>
+<style>
+  :root{
+    --navy:#12283d;
+    --navy-2:#0d1d2d;
+    --blue:#1a5276;
+    --accent:#1f7f9f;
+    --ink:#2c3845;
+    --muted:#758390;
+    --line:#e4eaf0;
+    --paper:#ffffff;
+    --soft:#f7fafc;
+    --grid:rgba(18,40,61,.042);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.78;
+    color:var(--ink);
+    background-color:#f6f9fb;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- 顶栏 ---------- */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+    background:linear-gradient(90deg,#1a5276,#2f9fc7,#8ed9ea);transition:width .1s linear}
+  .topbar{position:sticky;top:0;z-index:60;color:#fff;
+    background:linear-gradient(100deg,var(--navy-2),var(--navy));
+    box-shadow:0 2px 18px rgba(12,28,44,.18)}
+  .topbar-inner{max-width:1300px;margin:0 auto;height:66px;padding:0 30px;
+    display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+    font-size:18px;font-weight:800;letter-spacing:-1px;color:#fff;
+    background:linear-gradient(135deg,#38a6c9,#1a5276);
+    box-shadow:0 3px 10px rgba(47,159,199,.3)}
+  .brand-text strong{display:block;font-size:16px;letter-spacing:.6px;line-height:1.2}
+  .brand-text span{display:block;font-size:10.5px;color:#9db6c9;letter-spacing:.7px;margin-top:2px}
+  .topbar-meta{margin-left:auto;display:flex;align-items:center;gap:14px;
+    font-size:12px;color:#9db6c9;letter-spacing:.5px}
+  .badge{padding:3px 11px;border-radius:99px;font-size:11px;color:#eaf5fb;
+    background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2)}
+  .toc-toggle{display:none;margin-left:auto;cursor:pointer;font-size:12px;
+    color:#eaf5fb;background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:6px 13px}
+  .toc-toggle::after{content:" \25be";margin-left:6px;font-size:10px;opacity:.8}
+  .toc-toggle.is-open{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.42)}
+  .toc-toggle.is-open::after{content:" \25b4"}
+
+  /* ---------- 双列布局 ---------- */
+  .layout{max-width:1300px;margin:0 auto;padding:32px 30px 72px;
+    display:grid;grid-template-columns:236px minmax(0,1fr);gap:28px;align-items:start}
+
+  /* ---------- 侧边目录 ---------- */
+  .sidebar{position:sticky;top:98px;background:var(--paper);
+    border:1px solid var(--line);border-radius:14px;padding:22px 16px;
+    box-shadow:0 6px 24px rgba(20,45,70,.055);
+    max-height:calc(100vh - 124px);overflow-y:auto}
+  .sidebar::-webkit-scrollbar{width:5px}
+  .sidebar::-webkit-scrollbar-thumb{background:#dce6ed;border-radius:9px}
+  .side-title{font-size:10.5px;letter-spacing:2.4px;font-weight:700;
+    color:#9aa8b4;margin:0 0 14px 8px;text-transform:uppercase}
+  .toc{display:flex;flex-direction:column;gap:2px}
+  .toc a{display:flex;align-items:baseline;gap:10px;padding:8px 10px;
+    border-radius:8px;border-left:2px solid transparent;
+    color:#52616f;text-decoration:none;font-size:12.5px;line-height:1.42;
+    transition:background .18s,color .18s,border-color .18s}
+  .toc a .num{min-width:18px;font-size:10.5px;color:#aebbc6;
+    font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .toc a:hover{background:var(--soft);color:var(--blue)}
+  .toc a.active{background:#eaf5fb;color:var(--blue);font-weight:600;border-left-color:var(--accent)}
+  .toc a.active .num{color:var(--accent)}
+  .side-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:11px;color:#9eacb8;text-align:center;line-height:1.6}
+
+  /* ---------- 文档卡片 ---------- */
+  .doc{display:flex;flex-direction:column;gap:22px;min-width:0}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:34px 42px 38px;box-shadow:0 6px 26px rgba(20,45,70,.055);
+    scroll-margin-top:90px}
+  .hero{position:relative;overflow:hidden;padding:46px 44px 40px}
+  .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,#1a5276,#2f9fc7,#92dcea)}
+  .hero-kicker{font-size:10px;letter-spacing:3.2px;font-weight:700;
+    color:var(--accent);margin:0 0 14px}
+  h1{font-size:30px;line-height:1.32;letter-spacing:-.6px;font-weight:750;
+    color:var(--navy);margin:0 0 14px}
+  .meta{color:#7d8b98;font-size:12.5px;margin:0 0 6px}
+  .meta strong{color:var(--blue);font-weight:600}
+  .hero blockquote{font-size:15px;margin-top:22px}
+
+  h2{position:relative;font-size:20px;letter-spacing:-.2px;font-weight:700;
+    color:var(--navy);margin:0 0 22px;padding:0 0 14px 16px;
+    border-bottom:1px solid var(--line)}
+  h2::before{content:"";position:absolute;left:0;top:5px;bottom:17px;width:4px;
+    border-radius:4px;background:linear-gradient(180deg,var(--blue),#49b0cf)}
+  h3{display:flex;align-items:center;gap:9px;font-size:15.5px;font-weight:700;
+    color:var(--blue);margin:28px 0 10px}
+  h3::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .card > h3:first-of-type{margin-top:4px}
+  h4{font-size:13.5px;font-weight:700;color:#3a4c5d;margin:22px 0 8px;
+    border-left:2px solid #cfe2ec;padding-left:10px}
+  p{margin:10px 0;color:#3d4b58;font-size:13.5px}
+  strong{color:var(--blue);font-weight:650}
+
+  /* ---------- 列表 ---------- */
+  ul{list-style:none;padding-left:0;margin:10px 0}
+  ul li{position:relative;padding-left:20px;margin:6px 0;font-size:13.5px}
+  ul li::before{content:"";position:absolute;left:3px;top:.78em;
+    width:6px;height:6px;border-radius:2px;background:#a9d2e4}
+  ol{list-style:none;counter-reset:li;padding-left:0;margin:12px 0}
+  ol li{counter-increment:li;position:relative;padding-left:32px;margin:9px 0;font-size:13.5px}
+  ol li::before{content:counter(li,decimal-leading-zero);position:absolute;left:0;top:3px;
+    width:22px;height:20px;display:grid;place-items:center;
+    font-size:10px;font-weight:700;color:var(--accent);
+    background:#eaf5fb;border-radius:5px;font-variant-numeric:tabular-nums}
+
+  /* ---------- 两列对照 ---------- */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .duo-col{background:var(--soft);border:1px solid var(--line);
+    border-radius:10px;padding:14px 18px 16px}
+  .duo-col h3{margin-top:0}
+  .duo-col > p:first-child{margin-top:0}
+  .duo-col ul:last-child,.duo-col ol:last-child{margin-bottom:0}
+  .duo-col h4{margin-top:2px}
+
+  /* ---------- 表格 ---------- */
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;
+    font-size:12.5px;background:#fff;border:1px solid var(--line);
+    border-radius:10px;overflow:hidden}
+  th{background:linear-gradient(180deg,#205f87,#1a5276);color:#fff;
+    padding:11px 13px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.3px}
+  td{padding:10px 13px;border-bottom:1px solid #edf1f5;vertical-align:top;color:#41505e}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even) td{background:#f8fbfd}
+  tbody tr:hover td{background:#edf6fa}
+  td strong{color:var(--blue)}
+
+  /* ---------- 引用 / 代码 ---------- */
+  blockquote{margin:16px 0;padding:14px 18px 14px 20px;
+    background:linear-gradient(90deg,#eaf5fb,#f6fbfd);
+    border-left:3px solid var(--accent);border-radius:0 10px 10px 0;
+    color:#1b506e;font-size:13.5px;font-weight:500;line-height:1.72}
+  blockquote strong{color:#123f5b}
+  code{font-family:"SFMono-Regular",Consolas,"Courier New",monospace;
+    background:#eef4f8;color:#125b80;padding:2px 6px;border-radius:5px;
+    font-size:11.5px;border:1px solid #e0eaf1}
+  pre{background:#12283d;border:1px solid #0e2133;border-radius:10px;
+    padding:16px 18px;margin:14px 0;overflow-x:auto;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  pre code{background:none;border:none;padding:0;color:#cfe7f4;
+    font-size:11.5px;line-height:1.62;white-space:pre-wrap}
+
+  /* ---------- 摘要 ---------- */
+  .abstract{border-top:3px solid var(--accent)}
+  .abstract h2{margin-bottom:8px}
+  .abs-lead{font-size:14px;color:#33475a;margin:0 0 16px}
+  .abstract-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 6px}
+  .abs-col{background:var(--soft);border:1px solid var(--line);
+    border-radius:10px;padding:16px 18px 18px}
+  .abs-title{font-size:12px;font-weight:700;letter-spacing:1.2px;color:var(--accent);margin:0 0 10px}
+  .abs-col p{font-size:13px;margin:8px 0}
+  .abs-col ul{margin:8px 0 0}
+  .abs-col ul li{font-size:12.5px;margin:5px 0}
+  .abs-note{margin-top:16px}
+  .slogan{text-align:center;color:var(--blue);font-weight:700;font-size:13.5px;
+    margin:22px 0 2px;padding:15px;letter-spacing:.6px;
+    background:#f2f8fc;border:1px dashed #c9e0ed;border-radius:10px}
+  .footer{max-width:1300px;margin:0 auto;padding:0 30px 40px;
+    display:flex;justify-content:space-between;gap:12px;
+    font-size:11.5px;color:#93a2ae;letter-spacing:.4px}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:1000px){
+    .layout{display:block;padding:20px 18px 60px}
+    .sidebar{position:fixed;top:66px;right:18px;left:auto;z-index:65;
+      width:min(340px,calc(100vw - 36px));max-height:min(70vh,520px);
+      overflow-y:auto;display:none;padding:14px 14px 16px;
+      border:1px solid var(--line);border-radius:12px;
+      box-shadow:0 18px 44px rgba(12,28,44,.2)}
+    .sidebar.open{display:block;animation:dropIn .16s ease-out}
+    @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    .side-title{margin-bottom:10px}
+    .toc{display:flex;flex-direction:column}
+    .side-foot{display:none}
+    .toc-toggle{display:block}
+    .topbar-meta{display:none}
+    .topbar-inner{padding:0 18px;height:60px}
+    .card{padding:26px 24px 30px}
+    .hero{padding:34px 26px 32px}
+    .footer{padding:0 18px 32px}
+  }
+  @media (max-width:720px){
+    .sidebar{left:14px;right:14px;width:auto;top:64px}
+    .duo{grid-template-columns:1fr}
+    .card{padding:22px 18px 26px}
+    .hero{padding:28px 20px 26px}
+    h1{font-size:24px}
+    h2{font-size:18px}
+    h3{font-size:14.5px}
+    table{display:block;overflow-x:auto;white-space:nowrap}
+    .abstract-grid{grid-template-columns:1fr}
+    .footer{flex-direction:column;gap:4px}
+  }
+  @media print{
+    body{background:#fff}
+    .topbar,.sidebar,.progress,.toc-toggle,.footer{display:none}
+    .layout{display:block;max-width:none;padding:0}
+    .doc{gap:0}
+    .card{border:none;border-bottom:1px solid #e4eaf0;border-radius:0;
+      box-shadow:none;padding:18px 0;break-inside:avoid}
+    pre{background:#f5f8fa;border-color:#dfe7ed}
+    .abstract-grid{grid-template-columns:1fr}
+    .abstract{border-top:none}
+    pre code{color:#244054}
+  }
+</style>
+<style>
+  .topic-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
+  .topic-nav a{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--blue);text-decoration:none;background:var(--soft)}
+  .topic-nav a:hover{border-color:var(--accent)}
+  .topic-nav a.cur{border-color:var(--accent);background:#eaf4f8}
+  .doclead{background:var(--soft);border-left:3px solid var(--accent);padding:12px 16px;margin:0 0 22px;font-size:14px;line-height:1.8;color:var(--ink)}
+  .backlink{font-size:13px;color:var(--muted)}
+  .appendix{margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+  .appendix h2{font-size:19px}
+  .appendix h3{font-size:15px;margin-top:22px}
+  .appendix table{margin-bottom:14px}
+  .appendix ul{margin-bottom:14px}
+  .topic-nav li{list-style:none}
+  .topic-nav li::before,.topic-nav li::after{content:none}
+  .topic-topbar{background:#0d1d2d;color:#eaf3f8;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;font-size:13px;letter-spacing:.02em}
+  .topic-topbar a{color:#bfe0ef;text-decoration:none}
+  .topic-topbar a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="topic-topbar"><span>Ankora · 专题文档</span><span>v0.5　｜　<a href="https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc.html">返回主文档</a></span></div>
+<div class="layout" style="display:block;max-width:1000px;margin:0 auto;padding:0 18px">
+<main class="doc">
+    <section class="card hero">
+      <p class="hero-kicker">ANKORA · TOPIC DOCUMENT · v0.5</p>
+      <h1>公司服务与商业方案</h1>
+      <p class="meta">从主文档 2.9 及 2.3 / 4 章 / 5.5 / 6.5 / 6.6 的关联条款拆出；公司侧业务，不属于协议。</p>
+      <p class="backlink"><a href="https://thomaswu-opc.github.io/Technical-Solutions/ankora-product-design-doc.html">← 返回 Ankora 产品设计文档 v0.5（主文档）</a></p>
+    </section>
+    <section class="card">
+      <h2>公司服务与商业方案</h2>
+      <p class="doclead"><strong>公司</strong>是平台之外的独立经营主体，直接向 to C / to B 客户卖<strong>准入与持续运营托管服务</strong>并自收款；协议层零感知、不新增角色与接口。有 AKA 的用户<strong>自助免费</strong>（缺省档位），付费<strong>只买代客劳动，不买平台权限</strong>。「先自转、后服务」是<strong>经营节奏设想，不是承诺、不是阶段能力开关</strong>。</p>
+      <ul class="topic-nav"><li><a href="ankora-gm.html">协议运行域与 GM</a></li>
+<li><a class="cur" href="ankora-company-service.html">公司服务与商业方案</a></li>
+<li><a href="ankora-open-source-mesh.html">开源与 Mesh（后期设想）</a></li>
+<li><a href="ankora-akit-client.html">AnkoraKit / AKA 客户端规范</a></li></ul>
+      <h3>2.9 公司的准入与持续运营托管服务：先让社群转起来</h3>
+      <p><strong>本节做什么</strong>：把 2.3 的「企业服务」写成一项具体、可收费的业务——<strong>公司帮客户跨过 Ankora 的高准入门槛：创建并配置自己的 AKA，之后持续代客运营</strong>。经营顺序是<strong>先让社群自己转起来，再把这套能力对外卖成服务</strong>。一句话分界：<strong>有 AKA、能自己搞定的，自己免费用；不懂这套、没有 AKA 的，公司提供建设与托管服务</strong>。主体仍是<strong>公司作为独立经营主体直接向客户提供的 to C / to B 服务</strong>——不是平台服务端的能力，也不是网络里某个「服务商 Agent」角色；公司自己定价、自己收款。交付的锚点随 Head 更新自动形成带 <code>source.url</code> 的结构化可订阅信息，<strong>不做算法推流、不搬运内容</strong>。</p>
+      <p><strong>先自转，后服务（经营节奏设想，不是承诺、不是能力开关）</strong>：</p>
+      <table>
+        <tr><th>顺序</th><th>做什么</th><th>为什么</th></tr>
+        <tr><td><strong>第一步 · 社群自转</strong></td><td>线下 AI 社群里已有 AKA 的深度用户自己创建板块、自己订阅、自己写采集规则、自己验签与按 TTL 重发（2.6 / 2.7 / 场景 E）；公司此阶段只作为普通参与者，<strong>不对外卖建设服务</strong></td><td>先验证真实供需与高纯净信息共享能自转；门槛本来就是内生的，社群由能自助的人构成</td></tr>
+        <tr><td><strong>第二步 · 对外提供准入与托管</strong></td><td>社群转起来后，公司把「帮人跨过门槛 + 持续运营」产品化，向<strong>没有 AKA / 不懂这套</strong>的 to C 个人与 to B Head 提供建设与托管服务并收费</td><td>服务是<strong>对已有网络需求的响应</strong>，不是拉新入口；避免它被读成「平台降门槛流程」或增长工具（2.6 / 6.3）</td></tr>
+        <tr><td><strong>两步前后恒定</strong></td><td>平台四件事、订阅 / 不订阅二元操作、无界面 / 无引导流、两类库，<strong>完全不变</strong></td><td>这是<strong>经营与推广顺序</strong>，不是 A / B / C 阶段切换、不是能力开关；服务从来不是「到某阶段才解锁」的平台功能，也不构成阶段切换判据（2.6 / 6.9 / 8.3）</td></tr>
+      </table>
+      <p><strong>准入门槛具体高在哪</strong>：门槛来自用户自身一侧的<strong>能力事实</strong>，不是平台发放的资格——要自己持有并保管密钥与 AKA 分身、定义板块 JSON Schema、写采集与筛选策略、做验签与 <code>content_hash</code> 去重、维护采集声明版本、按 TTL 到期重发、管理订阅 / 退订与本地抓取策略、必要时配置 <code>POST /connect</code>。这些正是公司代客做的事。<strong>平台不认证「谁够格」、不邀请、不评级，也不因此新增任何功能</strong>（2.7 / 6.3）。</p>
+      <table>
+        <tr><th>词</th><th>是什么</th><th>能不能收钱</th></tr>
+        <tr><td><strong>平台（Ankora 协议服务端）</strong></td><td>只做四件事、两类库、headless；不采集、不转换内容、不托管正文</td><td><strong>不收服务费、不经手钱</strong>；只挂 <code>entitlement</code> 资源档位（5.5）</td></tr>
+        <tr><td><strong>公司（运营主体）</strong></td><td>平台之外的商业实体，社群自转后对外卖<strong>准入与持续运营托管服务</strong>；与客户签服务合同、自收款</td><td><strong>能收</strong>：收自己的服务费，账目独立于分发层、不进身份库（2.9 / 5.12）</td></tr>
+        <tr><td><strong>客户 AKA</strong></td><td>to C 的个人 / AKA 拥有者，或 to B 的 Head / 信息流量主；<strong>AKA ID、密钥与板块归客户</strong></td><td>自己决定是否购买；<strong>不买也能完整使用网络</strong>，付费不产生任何分发优势或权限（6.2）</td></tr>
+      </table>
+      <p><strong>「平台不插手钱」的准确范围</strong>：它只约束<strong>协议服务端</strong>——平台不代收、不经手、不抽成、不分成、不设结算通道，也不接触他人的订阅者名单与收入数据（2.3 / 6.5）。<strong>公司卖自己的服务并自收款不在此列</strong>：那是经营主体与客户之间的普通商业交易，不是平台以分发层身份介入他人交易。两者一旦混同，就会退化成「平台收流量费」，四条宪法当场失效。</p>
+      <p><strong>两条路径，同一套协议</strong>：</p>
+      <table>
+        <tr><th>路径</th><th>谁来做</th><th>付费</th><th>平台看到什么</th></tr>
+        <tr><td><strong>自助免费</strong></td><td>已有 AKA、能自己搞定上述门槛的用户，自己创建与运营</td><td><strong>免费</strong>：这是所有 AKA 的缺省资源档位，不存免费用户名单，<strong>不做「有没有 AKA / 懂不懂」的资格审查</strong>（5.5 / 5.12）</td><td>普通验签请求；<strong>无法区分</strong>是谁在自己做</td></tr>
+        <tr><td><strong>建设 + 持续运营托管</strong></td><td>没有 AKA 或不懂这套的客户，委托公司创建 AKA 并长期代客运维</td><td>付<strong>公司的服务费</strong>（建置 + 持续运营），公司自收款</td><td><strong>仍是同一个客户 AKA 的普通验签请求</strong>；平台不识别服务关系、不给任何档位或分发变化</td></tr>
+      </table>
+      <p><strong>付费买的是代客劳动，不是平台权限</strong>：购买服务<strong>不改变 <code>entitlement</code> 档位、不解锁功能、不改变采样概率、TTL、可见性或投递顺序</strong>；免费自助与托管客户在协议里完全同权。判据：把 <code>publisher_agent_id</code> 换成任意其他信息主，协议行为与可见性零变化。</p>
+      <p><strong>托管 = 建设 + 持续运营，不是一次性交付</strong>：</p>
+      <ul>
+        <li><strong>建设（准入）</strong>：创建并配置客户自己的 AKA ID 与密钥、板块 schema、订阅与本地抓取策略、采集声明与字段映射；由客户 / Head 主动委托，授权链条写进声明（5.9）；</li>
+        <li><strong>持续运营</strong>：按官方 RSS / release / 授权 API 的更新做确定性字段映射与签名发布、按 TTL 到期重发、维护采集声明版本与信源条款状态、看护签名与配额用量、维护 SLA。这些都是<strong>代客劳动</strong>：公司不替客户做语义判断、不编辑内容、不决定订阅谁、不替客户评估信息可信度；</li>
+        <li><strong>密钥与控制权归客户</strong>：公司按委托运维，<strong>不代持密钥所有权、不做身份继承</strong>；服务可终止、可迁移，客户可自行接管 AKA 与板块，平台不自动迁移订阅。具体托管方式与迁移流程见 10 章待定；</li>
+        <li><strong>不在协议内</strong>：公司与客户的服务关系不进两类数据库、不进 6.1 能力清单、不新增接口 / 字段 / 角色枚举；公司不是第六类角色（3.1）。</li>
+      </ul>
+      <p><strong>两类客户，同一套口径</strong>：</p>
+      <table>
+        <tr><th>形态</th><th>客户是谁</th><th>公司交付什么</th></tr>
+        <tr><td><strong>To C</strong></td><td>没有 AKA、或不懂密钥 / schema / 采集策略的个人与小团队；<strong>已有 AKA 且能自助的个人不买也能免费用</strong></td><td>帮客户<strong>创建并配置自己的 AKA</strong>、订阅板与本地抓取策略；把其公开更新或自选信源自动转成带 <code>source.url</code> 的锚点，并长期代客运维。按月 / 按量收服务费</td></tr>
+        <tr><td><strong>To B</strong></td><td>传统互联网媒体、内容 Head、机构站点等<strong>信息流量主</strong>，自己没有力量搭这套 Agent 侧流程</td><td>帮 Head <strong>创建 AKA 并设立信息锚点板块</strong>；随 Head 的官方 RSS / release / 授权 API 更新，自动形成带 <code>source.url</code> 的结构化可订阅信息，并持续代客运营。收建置 + 持续运维服务费</td></tr>
+      </table>
+      <p><strong>交付物只有锚点，没有内容</strong>：自动化做的是<strong>确定性字段映射 + 客户 AKA 签名发布</strong>，不是内容生产。</p>
+      <pre><code># 公司托管服务的交付物：只有锚点，没有内容
+publisher_agent_id: &lt;客户 / Head 自己的 AKA 公钥哈希&gt;
+anchor:
+  headline: &lt;Head 公开发布的标题原文&gt;
+  observed:
+    facts: [ ... ]                 # 只从 Head 公开元数据确定性映射
+  source:
+    type: official_rss | official_release | licensed_api
+    url: &lt;Head 原文地址&gt;         # 唯一内容出口
+    published_at: &lt;ISO8601&gt;
+  content_hash: ...
+  collection_policy_version: ...
+  signature: &lt;客户 AKA 签名&gt;
+  expires_at: &lt;ISO8601&gt;          # 与其他信息一样 TTL 到期即删、410 Gone
+# 不产生：正文、图片、音视频、快照、镜像、译文、LLM 摘要、改写标题
+# 平台不解析 URL、不跳转、不统计点击、不收导流分成
+# 平台也无法区分：这条锚点由客户自己发，还是由公司代客运维发</code></pre>
+      <p><strong>对 Head 是互补，不是抢流量</strong>：Head 多一条 Agent 可消费的可订阅通道，覆盖深度 AI 用户；每次更新只生成一个带 url 的锚点，用户 AKA 顺 <code>source.url</code> 回到 Head 读原文、看上下文与多媒体（2.4 / 5.11）。平台不设导流位、不埋点、不统计点击、不收导流分成，Head 保留内容主体、受众关系与自己的密钥。</p>
+      <p><strong>收费口径</strong>：公司收的是<strong>自己的服务费</strong>——AKA 建置、schema 与字段映射配置，以及<strong>持续运营</strong>（自动化运维、TTL 重发、采集声明维护、签名与配额看护、SLA）。<strong>有 AKA 自助免费的客户不产生任何服务费</strong>；服务费与曝光、点击、订阅人数、交易额、信息被看到的次数全部脱钩，不是替信息主代收订阅款，不是抽成 / 分成 / 结算通道，也不是平台资源档位。账单、付款流水与客户名单留在公司独立账目，与 <code>entitlement</code> 资源档位、信息主付费订阅、平台分发层三者互不相通，<strong>不进身份事实库</strong>（2.3 / 5.5 / 5.12）。服务可终止、可迁移，平台不做身份继承、不自动迁移订阅。</p>
+      <p><strong>否定清单（实现时逐条自查）</strong>：</p>
+      <ul>
+        <li><strong>不把服务做成准入资格</strong>：不认证「谁够格」、不发「深度用户 / 托管客户 / 免费用户」标签、不因没买服务限制任何协议操作；<strong>免费是缺省档位，不是被施舍的资格</strong>（5.12 / 6.3）；</li>
+        <li><strong>不把托管做成平台功能或引导流</strong>：公司服务在协议外，不进 6.1 能力清单、不新增平台接口 / 字段 / 角色枚举；2.7 / 6.3「平台不补能力缺口」「无界面 / 无引导流」只约束平台，公司代客干活不在此列；</li>
+        <li><strong>不因顺序制造能力开关</strong>：「先自转、后服务」是经营与推广顺序，不是 A / B / C 阶段切换、不是到某阶段才解锁；服务不进阶段能力清单，也不构成阶段切换判据（2.6 / 8.3）；</li>
+        <li><strong>不做算法推流</strong>：不排序、不推荐、不加权、不置顶、不进推荐位；不因客户购买服务改变采样概率、TTL、可见性或投递顺序，服务费不买任何分发优势（6.2）；</li>
+        <li><strong>不搬运内容</strong>：不复制 / 托管正文与多媒体、不做镜像与快照、不提供阅读界面，不以自动化为名做 LLM 摘要 / 翻译 / 改写标题；URL 只是字符串字段（2.4 / 6.6）；</li>
+        <li><strong>平台侧零感知</strong>：平台只认 <code>agent_id</code> 与签名，<strong>无法区分这条锚点是公司服务生成的还是客户自己发的</strong>。判据：把 <code>publisher_agent_id</code> 换成任意其他信息主，协议行为与可见性零变化；</li>
+        <li><strong>授权链条公开</strong>：由客户 / Head 主动委托，<code>source_terms</code> / <code>tracking_scope</code> / <code>cost_note</code> 写进采集声明供订阅方复验（5.9）；平台不审核条款、不背书、不判定版权归属。</li>
+      </ul>
+      <p><strong>四个必须先说清的风险</strong>：</p>
+      <table>
+        <tr><th>风险</th><th>说明</th><th>处理口径</th></tr>
+        <tr><td><strong>平台与公司混淆</strong></td><td>把自动化写进平台服务端，或被读成「平台在采集内容 / 平台在补能力缺口」，2.3 与平台四件事同时失效</td><td>三词表 + 账目隔离；公司与客户的服务关系不在协议内；交付以客户 AKA 走普通发布通道，平台零感知</td></tr>
+        <tr><td><strong>服务被读成降门槛 / 拉新入口</strong></td><td>社群还没转起来就先卖建设服务，或把托管包装成「新手上手流程」，6.3 与「不下沉」当场失效</td><td>先自转、后服务；服务排在真实供需之后，且只做代客劳动、不给平台功能；顺序不是能力开关（2.6 / 2.7）</td></tr>
+        <tr><td><strong>服务费挂到流量或权限上</strong></td><td>按曝光 / 点击 / 订阅人数 / 交易额计价，或让付费解锁档位与分发优势</td><td>计费口径硬脱钩；价目只挂建置与持续运营；免费自助与托管客户协议同权；独立账目，不进身份库（6.5）</td></tr>
+        <tr><td><strong>授权与二次分发</strong></td><td>Head 未授权就把其更新转成锚点，或采集声明不透明</td><td>Head 主动委托；<code>source_terms</code> 与采集声明公开可复验；平台不审核、不背书（5.9 / 6.6）</td></tr>
+      </table>
+      <blockquote>边界：这条商业化的成立前提是<strong>公司收自己的服务费、平台不碰钱也不碰分发</strong>。判定越界只需问一句——「钱是付给公司的<strong>代客劳动</strong>，还是付给平台的<strong>权限 / 曝光</strong>？」后者即推翻第 2 章四条宪法。<strong>收编红线</strong>：把自动化写进平台代码、让平台代管客户密钥、按流量计费、把托管做成平台准入资格或降门槛流程，或在协议里给公司服务任何特权，都不走阶段例外（2.6 / 6.9）。<strong>社区形成后开源，公司盈利进一步收窄到平台外围的信息化服务</strong>：平台核心不作价、不卖节点资格或通道优先权（2.10）。</blockquote>
+<div class="appendix"><h2>附：主文档关联条款原文</h2><p>以下条款原本散落在主文档第 3 / 4 / 5 / 6 / 8 / 9 章，现按主题集中收录。<strong>它们与主文档第 6 章同等效力，不因归档到本页而放宽；主文档对应位置保留一句指向。</strong>文中的 2.8 / 6.2 等编号仍指主文档章节编号，便于对照阅读。</p><h3>来自 3.1 五类角色</h3>
+<div>
+<p><strong>公司不是第六类角色</strong>：2.9 的准入与持续运营托管服务是<strong>公司与客户之间的商业关系</strong>，不在协议里；交付结果以<strong>客户自己的 AKA ID</strong> 走普通发布通道，平台不感知服务合同、不新增角色枚举。Head 与个人客户都落在既有「信息主 / 订阅方」角色里（2.9）。<strong>开源后自部署的节点运营者与节点 GM 同理</strong>：节点是部署形态、节点 GM 是本节点本地规则签名者，都不进五类角色表，平台不新增角色枚举（2.10）。</p>
+</div>
+<h3>来自 2.3 信息主与盈利边界（术语表行）</h3>
+<table>
+<tr><th>条目</th><th>内容</th></tr>
+<tr><td><strong>公司的商业位置（2.9）</strong></td><td>公司是平台之外的独立经营主体。<strong>先让有 AKA 的社群自转（免费自助），再把「跨过准入门槛」产品化</strong>，向 to C（个人 / AKA 拥有者）与 to B（Head / 信息流量主）客户卖<strong>建设 + 持续运营托管服务</strong>并自收款：<strong>帮客户创建 AKA</strong>、设立信息锚点、随 Head 更新自动形成带 <code>source.url</code> 的结构化可订阅信息。收的是<strong>自己的服务费</strong>，不是代收代付、不是抽成、不挂曝光或流量；<strong>付费不买任何平台权限</strong>，免费自助与托管客户协议同权；账目与分发层隔离、不进身份库</td></tr>
+</table>
+<h3>来自 4. 核心概念（术语表）</h3>
+<table>
+<tr><th>条目</th><th>内容</th></tr>
+<tr><td><strong>公司（运营主体）</strong></td><td>平台之外的独立经营主体，<strong>先让社群自转、再</strong>向 to C / to B 客户卖准入与持续运营托管服务并自收款；<strong>不是平台服务端能力，也不是网络里的服务商 Agent 角色</strong>。平台只认客户 AKA 的普通发布请求（2.9）</td></tr>
+<tr><td><strong>自助免费（缺省档位）</strong></td><td>已有 AKA、能自己搞定密钥 / schema / 采集 / TTL 重发的用户，走无有效 <code>entitlement</code> 锚点时的缺省免费资源档；平台不判断「谁有 AKA / 懂不懂」、不存免费用户名单，也不因购买公司服务改变档位（2.9 / 5.5 / 5.12）</td></tr>
+<tr><td><strong>准入与持续运营托管服务</strong></td><td>公司在协议外向<strong>没有 AKA / 不懂这套</strong>的 to C / to B 客户提供的收费服务：<strong>建设</strong>（创建 AKA、schema、板块与采集声明）+ <strong>持续运营</strong>（随 Head 更新确定性映射并签名发布、TTL 重发、声明与配额维护、SLA）。有 AKA 的客户自己免费用；付费只买代客劳动、不买平台权限；只产锚点、不搬运内容、不做算法推流（2.9）</td></tr>
+<tr><td><strong>平台外围信息化服务</strong></td><td>开源后公司唯一的盈利来源：自部署与运维托管、节点 GM / schema / 规则配置、Mesh 对接、企业系统集成、培训与咨询；卖人的劳动，不卖代码、许可、节点资格或通道优先权（2.9 / 2.10）</td></tr>
+</table>
+<h3>来自 5.5 付费与配额（末段）</h3>
+<div>
+<p><strong>公司服务与资源档位分开计价、分开入账</strong>：2.9 的准入与持续运营托管服务费由公司自行定价、自行收款、自行维护客户关系，属于<strong>公司账目</strong>；与 <code>entitlement</code> 资源档位、信息主付费订阅、平台分发层三者互不相通，不进身份事实库、不产生分发优势，也不改变 6.1 的平台能力清单。</p>
+</div>
+<h3>来自 6.2 / 6.3 / 6.5 / 6.6 约束</h3>
+<ul>
+<li><strong>不因客户购买了公司的准入与持续运营托管服务</strong>改变采样概率、TTL、可见性或投递顺序；服务费只买建置与持续运营，不买任何分发优势（2.9）；</li>
+<li><strong>平台提供</strong>的人类界面、阅读页、官方客户端与统一视图，新手引导与「降低门槛」的上手流程，以及用户认证 / 邀请 / 评级 / 「深度用户」标签与人工审核。<strong>「无界面」只约束平台</strong>：用户拿 SDK 状态字段自行搭建界面 / 大屏 / widget 属 Agent 侧行为，不在此列；<strong>公司在协议外提供的准入与持续运营托管服务也不是平台界面 / 引导流 / 降门槛流程</strong>，不进协议能力清单（2.9 / 9.4）；</li>
+<li>阶段 A 不下沉到全场景与普通用户；门槛是内生的——能用 Agent 且拥有自己的 AKA 分身，平台不认证、不邀请、不评级、<strong>不补能力缺口</strong>（2.7）；<strong>公司代客建设与托管在协议外，不构成平台补缺口</strong>（2.9）；提供现成 MCP 工具包与 SDK 本地状态面属 Agent 侧协议客户端，不在此列（9.1 / 9.4）；</li>
+<li>不把公司的<strong>准入与持续运营托管服务费</strong>做成代收代付 / 抽成 / 分成，不挂到曝光、点击、订阅人数或交易额上，不让平台分发层接触公司账目，<strong>也不把托管服务费做成平台资源档位或准入资格</strong>（有 AKA 自助免费、付费不买权限，2.9）；<strong>公司卖自己的服务并自收款不在此列</strong>——6.5 约束的是平台以分发层身份介入他人交易（2.9）；</li>
+<li>以「自动化」为名生成正文摘要、译文、改写标题、内容快照或镜像来替代 <code>source.url</code> 回源；公司托管服务只承载从 Head 公开元数据确定性映射的结构化事实（2.9 / 5.9）；</li>
+</ul></div>
+    </section>
+</main>
+</div>
+<footer class="footer">
+  <span>Ankora · 信息锚定，Agent 来收。你的 AKA，替你搭话。</span>
+  <span>Ankora 专题文档 · v0.5</span>
+</footer>
+</body>
+</html>
