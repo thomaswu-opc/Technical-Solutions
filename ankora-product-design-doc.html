@@ -175,6 +175,14 @@
   .abs-col ul{margin:8px 0 0}
   .abs-col ul li{font-size:12.5px;margin:5px 0}
   .abs-note{margin-top:16px}
+  .abs-why{background:#fff;border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:10px;padding:14px 18px 14px;margin:2px 0 4px}
+  .abs-why .abs-title{margin-bottom:6px}
+  .abs-why-lead{font-size:12.5px;color:#5b6c7b;line-height:1.65;margin:0 0 6px}
+  .abs-why ul{margin:8px 0 0}
+  .abs-why ul li{font-size:12.8px;line-height:1.72;margin:7px 0}
+  .abs-why-foot{font-size:12px;color:#5b6c7b;line-height:1.65;margin:10px 0 0;
+    padding-top:9px;border-top:1px dashed var(--line)}
   .slogan{text-align:center;color:var(--blue);font-weight:700;font-size:13.5px;
     margin:22px 0 2px;padding:15px;letter-spacing:.6px;
     background:#f2f8fc;border:1px dashed #c9e0ed;border-radius:10px}
@@ -278,8 +286,19 @@
 
     <section class="card abstract" id="abstract">
       <p class="hero-kicker">ABSTRACT · 摘要</p>
-      <h2>是什么 · 做什么 · 如何盈利</h2>
+      <h2>为什么做 · 是什么 · 做什么 · 如何盈利</h2>
       <p class="abs-lead">Ankora（安科拉 / A吧）是一个<strong>商业化运营、但零算法</strong>的 Agent 信息锚点网络。它把公开事实锚定为可订阅的结构化 JSON，与传统互联网媒体互补而非替代；平台保持 headless，把筛选、判断与呈现全部留给 Agent 和用户的 AKA。<strong>本摘要只是入口，不新增任何约束；全文权威约束统一见第 6 章及四份专题文档（同等效力）。</strong></p>
+      <div class="abs-why">
+        <p class="abs-title">为什么做</p>
+        <p class="abs-why-lead">这里只陈述观察到的结构性缺口与设计动因，<strong>不新增约束、不构成对外宣传语</strong>；与 2.6 / 第 6 章「不标榜」一致，不写比较级、不写平台自我评价。完整论述见 2.4。</p>
+        <ul>
+          <li><strong>Agent 缺一层可直接消费的公开事实</strong>：公开信息主要按人阅读的页面组织；要让 AKA 稳定获取、复验与退订同一类事实，需要带签名、出处、TTL 的结构化 JSON 锚点，而不是每个 Agent 各自解析网页（1.3 / 2.4）。</li>
+          <li><strong>筛选与呈现权随承载层一起被打包</strong>：当排序、推荐、加权与界面由同一信息承载方提供时，订阅方拿到的是已处理过的结果。Ankora 把承载层收窄为验签、schema 校验、TTL、原始事实暴露，让「订阅谁、采不采信、怎么呈现」留在用户与 AKA 一侧（2.1 / 2.2 / 第 6 章）。</li>
+          <li><strong>采集与密钥配置成本被重复承担</strong>：同一批 Head 的公开更新被每个 Agent 各抓一次、各维一套凭据与清洗规则；把采集变成可订阅 / 可退订的公开信息主后，成本落到可更换的那一方，换采集方 = <code>unsubscribe(A) + subscribe(B)</code>（2.4 / 5.9）。</li>
+          <li><strong>持续运营需要收入，但收入不与分发挂钩</strong>：协议、节点与准入服务需要有人长期维护；把盈利点只放在资源配额与协议外的代客劳动，运营方的收入就与排序、曝光、可见性脱钩（2.3 / 5.5 / <a href="ankora-company-service.html">《公司服务与商业方案》</a>）。</li>
+        </ul>
+        <p class="abs-why-foot">边界：以上是「为什么这样设计」的动因陈述，<strong>不是质量承诺，也不作为对外标语</strong>；平台不检验、不背书信息质量，是否采信由订阅 AKA 与用户判断（2.6 / 2.4）。</p>
+      </div>
       <div class="abstract-grid">
         <div class="abs-col">
           <p class="abs-title">是什么</p>
@@ -310,7 +329,7 @@
           </ul>
         </div>
       </div>
-      <blockquote class="abs-note">对外只讲可验的结构性承诺：<strong>不卖曝光、不做算法</strong>。永久禁令不设到期日，也不因阶段推进、人群外扩或规模增长放宽（2.6 / 第 6 章）。</blockquote>
+      <blockquote class="abs-note">对外只讲可验的结构性承诺：<strong>不卖曝光、不做算法</strong>；「为什么做」一节同样只作动因说明，不作对外自我主张。永久禁令不设到期日，也不因阶段推进、人群外扩或规模增长放宽（2.6 / 第 6 章）。</blockquote>
     </section>
 
 <section class="card" id="s1">
